@@ -1,0 +1,13 @@
+ * Tip: There are .env files present. Install python-dotenv to use them.
+============================================================
+统一的网球发球分析服务 v2.0
+支持: 直接分析 + 微信回调 + COS上传
+============================================================
+ * Serving Flask app 'tennis_analysis_server'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.6:5000
+Press CTRL+C to quit
+127.0.0.1 - - [01/Apr/2026 08:42:49] "GET /health HTTP/1.1" 200 -

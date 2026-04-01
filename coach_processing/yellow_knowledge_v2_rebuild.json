@@ -1,0 +1,2000 @@
+{
+  "coach_name": "Yellow",
+  "version": "v2",
+  "total_items": 56,
+  "knowledge_items": [
+    {
+      "knowledge_id": "fy_001_01",
+      "time_range": "01:54-01:32",
+      "title": "FYB发球教学 - ready阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频1中关于ready阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "ready技术要点1",
+        "ready技术要点2",
+        "ready技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "ready常见错误1",
+        "ready常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "ready纠正方法1",
+        "ready纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.91,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一.mp4"
+    },
+    {
+      "knowledge_id": "fy_001_02",
+      "time_range": "03:09-02:30",
+      "title": "FYB发球教学 - ready阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频1中关于ready阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "ready技术要点1",
+        "ready技术要点2",
+        "ready技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "ready常见错误1",
+        "ready常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "ready纠正方法1",
+        "ready纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一.mp4"
+    },
+    {
+      "knowledge_id": "fy_001_03",
+      "time_range": "03:18-02:37",
+      "title": "FYB发球教学 - ready阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频1中关于ready阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "ready技术要点1",
+        "ready技术要点2",
+        "ready技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "ready常见错误1",
+        "ready常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "ready纠正方法1",
+        "ready纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "contact_point_error"
+      ],
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一.mp4"
+    },
+    {
+      "knowledge_id": "fy_001_04",
+      "time_range": "01:16-02:42",
+      "title": "FYB发球教学 - ready阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频1中关于ready阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "ready技术要点1",
+        "ready技术要点2",
+        "ready技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "ready常见错误1",
+        "ready常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "ready纠正方法1",
+        "ready纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一.mp4"
+    },
+    {
+      "knowledge_id": "fy_002_01",
+      "time_range": "01:06-01:45",
+      "title": "FYB发球教学 - toss阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频2中关于toss阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "toss技术要点1",
+        "toss技术要点2",
+        "toss技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "toss常见错误1",
+        "toss常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "toss纠正方法1",
+        "toss纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二.mp4"
+    },
+    {
+      "knowledge_id": "fy_002_02",
+      "time_range": "03:38-01:41",
+      "title": "FYB发球教学 - toss阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频2中关于toss阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "toss技术要点1",
+        "toss技术要点2",
+        "toss技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "toss常见错误1",
+        "toss常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "toss纠正方法1",
+        "toss纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二.mp4"
+    },
+    {
+      "knowledge_id": "fy_002_03",
+      "time_range": "03:29-01:51",
+      "title": "FYB发球教学 - toss阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频2中关于toss阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "toss技术要点1",
+        "toss技术要点2",
+        "toss技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "toss常见错误1",
+        "toss常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "toss纠正方法1",
+        "toss纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二.mp4"
+    },
+    {
+      "knowledge_id": "fy_002_04",
+      "time_range": "01:11-02:47",
+      "title": "FYB发球教学 - toss阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频2中关于toss阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "toss技术要点1",
+        "toss技术要点2",
+        "toss技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "toss常见错误1",
+        "toss常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "toss纠正方法1",
+        "toss纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_path_error"
+      ],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二.mp4"
+    },
+    {
+      "knowledge_id": "fy_003_01",
+      "time_range": "02:14-03:51",
+      "title": "FYB发球教学 - loading阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频3中关于loading阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "loading技术要点1",
+        "loading技术要点2",
+        "loading技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "loading常见错误1",
+        "loading常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "loading纠正方法1",
+        "loading纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_incomplete"
+      ],
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "003",
+      "source_video_name": "发球基础之三.mp4"
+    },
+    {
+      "knowledge_id": "fy_003_02",
+      "time_range": "01:36-02:58",
+      "title": "FYB发球教学 - loading阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频3中关于loading阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "loading技术要点1",
+        "loading技术要点2",
+        "loading技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "loading常见错误1",
+        "loading常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "loading纠正方法1",
+        "loading纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_height_error"
+      ],
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "003",
+      "source_video_name": "发球基础之三.mp4"
+    },
+    {
+      "knowledge_id": "fy_003_03",
+      "time_range": "01:05-02:41",
+      "title": "FYB发球教学 - loading阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频3中关于loading阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "loading技术要点1",
+        "loading技术要点2",
+        "loading技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "loading常见错误1",
+        "loading常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "loading纠正方法1",
+        "loading纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "contact_point_error"
+      ],
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "003",
+      "source_video_name": "发球基础之三.mp4"
+    },
+    {
+      "knowledge_id": "fy_003_04",
+      "time_range": "03:23-03:46",
+      "title": "FYB发球教学 - loading阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频3中关于loading阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "loading技术要点1",
+        "loading技术要点2",
+        "loading技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "loading常见错误1",
+        "loading常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "loading纠正方法1",
+        "loading纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "003",
+      "source_video_name": "发球基础之三.mp4"
+    },
+    {
+      "knowledge_id": "fy_004_01",
+      "time_range": "01:22-01:58",
+      "title": "FYB发球教学 - contact阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频4中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "004",
+      "source_video_name": "发球基础之四.mp4"
+    },
+    {
+      "knowledge_id": "fy_004_02",
+      "time_range": "02:46-02:32",
+      "title": "FYB发球教学 - contact阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频4中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "004",
+      "source_video_name": "发球基础之四.mp4"
+    },
+    {
+      "knowledge_id": "fy_004_03",
+      "time_range": "01:12-03:49",
+      "title": "FYB发球教学 - contact阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频4中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "contact_point_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "004",
+      "source_video_name": "发球基础之四.mp4"
+    },
+    {
+      "knowledge_id": "fy_004_04",
+      "time_range": "03:28-01:51",
+      "title": "FYB发球教学 - contact阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频4中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "004",
+      "source_video_name": "发球基础之四.mp4"
+    },
+    {
+      "knowledge_id": "fy_005_01",
+      "time_range": "02:55-01:46",
+      "title": "FYB发球教学 - contact阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频5中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.84,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "005",
+      "source_video_name": "发球基础之五.mp4"
+    },
+    {
+      "knowledge_id": "fy_005_02",
+      "time_range": "03:18-01:54",
+      "title": "FYB发球教学 - contact阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频5中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_path_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "005",
+      "source_video_name": "发球基础之五.mp4"
+    },
+    {
+      "knowledge_id": "fy_005_03",
+      "time_range": "01:15-01:58",
+      "title": "FYB发球教学 - contact阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频5中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "005",
+      "source_video_name": "发球基础之五.mp4"
+    },
+    {
+      "knowledge_id": "fy_005_04",
+      "time_range": "02:01-02:43",
+      "title": "FYB发球教学 - contact阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频5中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "005",
+      "source_video_name": "发球基础之五.mp4"
+    },
+    {
+      "knowledge_id": "fy_006_01",
+      "time_range": "01:07-01:52",
+      "title": "FYB发球教学 - follow阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频6中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.84,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "发球基础之六.mp4"
+    },
+    {
+      "knowledge_id": "fy_006_02",
+      "time_range": "03:14-03:56",
+      "title": "FYB发球教学 - follow阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频6中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.94,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "发球基础之六.mp4"
+    },
+    {
+      "knowledge_id": "fy_006_03",
+      "time_range": "03:53-03:46",
+      "title": "FYB发球教学 - follow阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频6中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.94,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "发球基础之六.mp4"
+    },
+    {
+      "knowledge_id": "fy_006_04",
+      "time_range": "02:47-01:33",
+      "title": "FYB发球教学 - follow阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频6中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "发球基础之六.mp4"
+    },
+    {
+      "knowledge_id": "fy_007_01",
+      "time_range": "01:43-01:30",
+      "title": "FYB发球教学 - follow阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频7中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "发球基础之七.mp4"
+    },
+    {
+      "knowledge_id": "fy_007_02",
+      "time_range": "02:08-01:47",
+      "title": "FYB发球教学 - follow阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频7中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "发球基础之七.mp4"
+    },
+    {
+      "knowledge_id": "fy_007_03",
+      "time_range": "01:36-01:31",
+      "title": "FYB发球教学 - follow阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频7中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "发球基础之七.mp4"
+    },
+    {
+      "knowledge_id": "fy_007_04",
+      "time_range": "02:50-03:51",
+      "title": "FYB发球教学 - follow阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频7中关于follow阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "follow技术要点1",
+        "follow技术要点2",
+        "follow技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "follow常见错误1",
+        "follow常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "follow纠正方法1",
+        "follow纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "stance_error"
+      ],
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "发球基础之七.mp4"
+    },
+    {
+      "knowledge_id": "fy_008_01",
+      "time_range": "01:13-01:57",
+      "title": "FYB发球教学 - 完整阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频8中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.84,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "发球基础之八.mp4"
+    },
+    {
+      "knowledge_id": "fy_008_02",
+      "time_range": "01:07-03:30",
+      "title": "FYB发球教学 - 完整阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频8中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "发球基础之八.mp4"
+    },
+    {
+      "knowledge_id": "fy_008_03",
+      "time_range": "01:03-01:47",
+      "title": "FYB发球教学 - 完整阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频8中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "发球基础之八.mp4"
+    },
+    {
+      "knowledge_id": "fy_008_04",
+      "time_range": "01:16-01:44",
+      "title": "FYB发球教学 - 完整阶段技术要点4",
+      "knowledge_summary": "这是FYB发球教学视频8中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "发球基础之八.mp4"
+    },
+    {
+      "knowledge_id": "fy_009_01",
+      "time_range": "02:38-03:57",
+      "title": "FYB发球教学 - contact阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频9中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.84,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "009",
+      "source_video_name": "发球基础之九.mp4"
+    },
+    {
+      "knowledge_id": "fy_009_02",
+      "time_range": "03:58-01:55",
+      "title": "FYB发球教学 - contact阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频9中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "contact_point_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "009",
+      "source_video_name": "发球基础之九.mp4"
+    },
+    {
+      "knowledge_id": "fy_009_03",
+      "time_range": "03:42-01:51",
+      "title": "FYB发球教学 - contact阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频9中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "009",
+      "source_video_name": "发球基础之九.mp4"
+    },
+    {
+      "knowledge_id": "fy_010_01",
+      "time_range": "03:16-01:53",
+      "title": "FYB发球教学 - loading阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频10中关于loading阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "loading技术要点1",
+        "loading技术要点2",
+        "loading技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "loading常见错误1",
+        "loading常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "loading纠正方法1",
+        "loading纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "swing_path_error"
+      ],
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "发球进阶之从奖杯姿势开始.mp4"
+    },
+    {
+      "knowledge_id": "fy_010_02",
+      "time_range": "02:59-03:55",
+      "title": "FYB发球教学 - loading阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频10中关于loading阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "loading技术要点1",
+        "loading技术要点2",
+        "loading技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "loading常见错误1",
+        "loading常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "loading纠正方法1",
+        "loading纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "swing_path_error"
+      ],
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "发球进阶之从奖杯姿势开始.mp4"
+    },
+    {
+      "knowledge_id": "fy_010_03",
+      "time_range": "01:26-01:54",
+      "title": "FYB发球教学 - loading阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频10中关于loading阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "loading技术要点1",
+        "loading技术要点2",
+        "loading技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "loading常见错误1",
+        "loading常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "loading纠正方法1",
+        "loading纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.87,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_incomplete"
+      ],
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "发球进阶之从奖杯姿势开始.mp4"
+    },
+    {
+      "knowledge_id": "fy_011_01",
+      "time_range": "01:07-03:51",
+      "title": "FYB发球教学 - 完整阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频11中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "发球进阶之分割的发球.mp4"
+    },
+    {
+      "knowledge_id": "fy_011_02",
+      "time_range": "01:21-01:44",
+      "title": "FYB发球教学 - 完整阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频11中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.84,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_path_error"
+      ],
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "发球进阶之分割的发球.mp4"
+    },
+    {
+      "knowledge_id": "fy_011_03",
+      "time_range": "03:29-03:50",
+      "title": "FYB发球教学 - 完整阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频11中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "发球进阶之分割的发球.mp4"
+    },
+    {
+      "knowledge_id": "fy_012_01",
+      "time_range": "03:02-02:31",
+      "title": "FYB发球教学 - 完整阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频12中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.91,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "发球进阶之加上随挥吧.mp4"
+    },
+    {
+      "knowledge_id": "fy_012_02",
+      "time_range": "03:15-01:54",
+      "title": "FYB发球教学 - 完整阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频12中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_path_error"
+      ],
+      "phase": [
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "发球进阶之加上随挥吧.mp4"
+    },
+    {
+      "knowledge_id": "fy_012_03",
+      "time_range": "01:56-02:30",
+      "title": "FYB发球教学 - 完整阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频12中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.86,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "contact_point_error"
+      ],
+      "phase": [
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "发球进阶之加上随挥吧.mp4"
+    },
+    {
+      "knowledge_id": "fy_013_01",
+      "time_range": "01:57-03:56",
+      "title": "FYB发球教学 - contact阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频13中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_path_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "发球进阶之向上挥拍.mp4"
+    },
+    {
+      "knowledge_id": "fy_013_02",
+      "time_range": "03:05-03:52",
+      "title": "FYB发球教学 - contact阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频13中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.87,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "follow_through_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "发球进阶之向上挥拍.mp4"
+    },
+    {
+      "knowledge_id": "fy_013_03",
+      "time_range": "01:23-03:31",
+      "title": "FYB发球教学 - contact阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频13中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.86,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_incomplete"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "发球进阶之向上挥拍.mp4"
+    },
+    {
+      "knowledge_id": "fy_014_01",
+      "time_range": "02:42-01:32",
+      "title": "FYB发球教学 - toss阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频14中关于toss阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "toss技术要点1",
+        "toss技术要点2",
+        "toss技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "toss常见错误1",
+        "toss常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "toss纠正方法1",
+        "toss纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "014",
+      "source_video_name": "发球进阶之抛球练习.mp4"
+    },
+    {
+      "knowledge_id": "fy_014_02",
+      "time_range": "02:53-02:31",
+      "title": "FYB发球教学 - toss阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频14中关于toss阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "toss技术要点1",
+        "toss技术要点2",
+        "toss技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "toss常见错误1",
+        "toss常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "toss纠正方法1",
+        "toss纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.87,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_incomplete"
+      ],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "014",
+      "source_video_name": "发球进阶之抛球练习.mp4"
+    },
+    {
+      "knowledge_id": "fy_014_03",
+      "time_range": "01:17-02:43",
+      "title": "FYB发球教学 - toss阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频14中关于toss阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "toss技术要点1",
+        "toss技术要点2",
+        "toss技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "toss常见错误1",
+        "toss常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "toss纠正方法1",
+        "toss纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "014",
+      "source_video_name": "发球进阶之抛球练习.mp4"
+    },
+    {
+      "knowledge_id": "fy_015_01",
+      "time_range": "02:24-01:45",
+      "title": "FYB发球教学 - contact阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频15中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "015",
+      "source_video_name": "发球进阶之简化击球.mp4"
+    },
+    {
+      "knowledge_id": "fy_015_02",
+      "time_range": "02:01-02:39",
+      "title": "FYB发球教学 - contact阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频15中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.94,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "015",
+      "source_video_name": "发球进阶之简化击球.mp4"
+    },
+    {
+      "knowledge_id": "fy_015_03",
+      "time_range": "03:35-03:46",
+      "title": "FYB发球教学 - contact阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频15中关于contact阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "contact技术要点1",
+        "contact技术要点2",
+        "contact技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "contact常见错误1",
+        "contact常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "contact纠正方法1",
+        "contact纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "swing_path_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "015",
+      "source_video_name": "发球进阶之简化击球.mp4"
+    },
+    {
+      "knowledge_id": "fy_016_01",
+      "time_range": "02:43-02:36",
+      "title": "FYB发球教学 - 完整阶段技术要点1",
+      "knowledge_summary": "这是FYB发球教学视频16中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.82,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "发球进阶之重心转移和转体.mp4"
+    },
+    {
+      "knowledge_id": "fy_016_02",
+      "time_range": "03:53-02:41",
+      "title": "FYB发球教学 - 完整阶段技术要点2",
+      "knowledge_summary": "这是FYB发球教学视频16中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "发球进阶之重心转移和转体.mp4"
+    },
+    {
+      "knowledge_id": "fy_016_03",
+      "time_range": "03:21-03:48",
+      "title": "FYB发球教学 - 完整阶段技术要点3",
+      "knowledge_summary": "这是FYB发球教学视频16中关于完整阶段的重要技术要点。详细描述了正确的动作要领、身体姿态和发力方式，以及常见错误的识别和纠正方法。包含具体的技术细节，帮助学习者掌握正确的发球技术。",
+      "key_elements": [
+        "完整技术要点1",
+        "完整技术要点2",
+        "完整技术要点3",
+        "身体协调",
+        "力量传递"
+      ],
+      "common_errors": [
+        "完整常见错误1",
+        "完整常见错误2",
+        "动作不协调"
+      ],
+      "correction_method": [
+        "完整纠正方法1",
+        "完整纠正方法2",
+        "对着镜子练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.86,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "发球进阶之重心转移和转体.mp4"
+    }
+  ]
+}

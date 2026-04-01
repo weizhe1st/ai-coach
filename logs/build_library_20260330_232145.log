@@ -1,0 +1,13 @@
+======================================================================
+🎾 等级样本库完整整合工具
+======================================================================
+🔍 收集所有等级样本...
+Traceback (most recent call last):
+  File "/data/apps/xiaolongxia/build_complete_sample_library.py", line 292, in <module>
+    main()
+  File "/data/apps/xiaolongxia/build_complete_sample_library.py", line 263, in main
+    all_samples = collect_all_samples()
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/apps/xiaolongxia/build_complete_sample_library.py", line 62, in collect_all_samples
+    cursor.execute('''
+sqlite3.OperationalError: no such column: csr.final_bucket

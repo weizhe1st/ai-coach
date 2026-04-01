@@ -1,0 +1,129 @@
+/bin/sh: 1: /data/apps/xiaolongxia/daily_review_and_backup.sh: Permission denied
+/bin/sh: 1: /data/apps/xiaolongxia/daily_review_and_backup.sh: Permission denied
+/bin/sh: 1: /data/apps/xiaolongxia/daily_review_and_backup.sh: Permission denied
+==========================================
+🕒 每日自动复盘和备份
+执行时间: Thu Apr  2 03:00:01 AM CST 2026
+==========================================
+
+📦 1. 备份数据库...
+cp: cannot create regular file '/data/db/backups/xiaolongxia_learning.db.backup.20260402_030001': File exists
+   ✅ 备份完成: /data/db/backups/xiaolongxia_learning.db.backup.20260402_030001
+tee: /data/apps/xiaolongxia/logs/daily_review_20260402_030001.log: Permission denied
+==========================================
+🕒 每日自动复盘和备份
+执行时间: Thu Apr  2 03:00:01 AM CST 2026
+==========================================
+
+📦 1. 备份数据库...
+   🗑️  清理30天前的备份
+
+📦 2. 备份等级样本库...
+   ✅ 备份完成: /data/db/backups/xiaolongxia_learning.db.backup.20260402_030001
+   🗑️  清理30天前的备份
+
+📦 2. 备份等级样本库...
+tar (child): /data/db/backups/level_sample_library_20260402_030001.tar.gz: Cannot open: Permission denied
+tar (child): Error is not recoverable: exiting now
+tar: /data/db/backups/level_sample_library_20260402_030001.tar.gz: Cannot write: Broken pipe
+tar: Child returned status 2
+tar: Error is not recoverable: exiting now
+   ✅ 等级样本库备份完成
+
+📊 3. 复盘前24小时工作...
+/data/apps/xiaolongxia/daily_review_and_backup.sh: line 49: /tmp/new_videos_count.txt: Permission denied
+   ✅ 等级样本库备份完成
+
+📊 3. 复盘前24小时工作...
+   📹 新增视频:  个
+/data/apps/xiaolongxia/daily_review_and_backup.sh: line 54: /tmp/new_tasks_count.txt: Permission denied
+   📹 新增视频: 0 个
+   📋 新增分析任务: 0 个
+/data/apps/xiaolongxia/daily_review_and_backup.sh: line 59: /tmp/completed_tasks_count.txt: Permission denied
+   ✅ 完成分析: 0 个
+/data/apps/xiaolongxia/daily_review_and_backup.sh: line 64: /tmp/new_samples_count.txt: Permission denied
+   📋 新增分析任务: 0 个
+   🎯 新增等级样本: 0 个
+
+🔍 4. 系统健康检查...
+   ✅ 完成分析: 0 个
+   🎯 新增等级样本: 0 个
+
+🔍 4. 系统健康检查...
+   ✅ 自动监控服务: 运行中
+   ✅ 自动监控服务: 运行中
+   ✅ 磁盘空间: 35%
+/data/apps/xiaolongxia/daily_review_and_backup.sh: line 91: /tmp/db_integrity.txt: Permission denied
+   ✅ 磁盘空间: 35%
+   ❌ 数据库完整性: 异常
+
+📄 5. 生成每日报告...
+/data/apps/xiaolongxia/daily_review_and_backup.sh: line 103: /data/apps/xiaolongxia/reports/daily_report_20260402.json: Permission denied
+   ✅ 报告保存: /data/apps/xiaolongxia/reports/daily_report_20260402.json
+
+🧹 6. 清理旧日志...
+   ✅ 清理7天前的日志
+
+📤 7. 推送备份到GitHub...
+   ✅ 数据库完整性: 正常
+
+📄 5. 生成每日报告...
+The following paths are ignored by one of your .gitignore files:
+logs/daily_review_20260401_043256.log
+logs/daily_review_20260402_030001.log
+hint: Use -f if you really want to add them.
+hint: Turn this message off by running
+hint: "git config advice.addIgnoredFile false"
+error: insufficient permission for adding an object to repository database .git/objects
+error: reports/daily_report_20260402.json: failed to insert into database
+error: unable to index file 'reports/daily_report_20260402.json'
+fatal: adding files failed
+   ✅ 报告保存: /data/apps/xiaolongxia/reports/daily_report_20260402.json
+
+🧹 6. 清理旧日志...
+   ✅ 清理7天前的日志
+
+📤 7. 推送备份到GitHub...
+The following paths are ignored by one of your .gitignore files:
+logs/daily_review_20260401_043256.log
+logs/daily_review_20260402_030001.log
+hint: Use -f if you really want to add them.
+hint: Turn this message off by running
+hint: "git config advice.addIgnoredFile false"
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+	modified:   coaches (untracked content)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	reports/daily_report_20260402.json
+
+no changes added to commit (use "git add" and/or "git commit -a")
+   ℹ️  无新变更需要提交
+   ✅ GitHub提交完成（未推送）
+
+==========================================
+✅ 每日复盘和备份完成！
+==========================================
+📁 备份位置: /data/db/backups
+📁 报告位置: /data/apps/xiaolongxia/reports/daily_report_20260402.json
+📁 日志位置: /data/apps/xiaolongxia/logs/daily_review_20260402_030001.log
+==========================================
+[master e85bc9a] Daily backup and review: 20260402
+ 1 file changed, 19 insertions(+)
+ create mode 100644 reports/daily_report_20260402.json
+   ✅ GitHub提交完成（未推送）
+
+==========================================
+✅ 每日复盘和备份完成！
+==========================================
+📁 备份位置: /data/db/backups
+📁 报告位置: /data/apps/xiaolongxia/reports/daily_report_20260402.json
+📁 日志位置: /data/apps/xiaolongxia/logs/daily_review_20260402_030001.log
+==========================================

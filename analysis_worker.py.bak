@@ -1,0 +1,573 @@
+#!/usr/bin/env python3
+"""
+视频分析任务队列 Worker
+轻量级实现：轮询DB任务表，从COS拉取视频，执行分析，回写结果
+"""
+
+import os
+import sys
+import json
+import time
+import sqlite3
+import urllib.request
+from datetime import datetime
+from uuid import uuid4
+
+# 配置
+DB_PATH = '/data/db/xiaolongxia_learning.db'
+COS_BASE_URL = 'https://tennis-ai-1411340868.cos.ap-shanghai.myqcloud.com'
+ANALYZER_API = 'http://localhost:5000/analyze'
+TEMP_DIR = '/tmp/analysis_worker'
+
+# 确保临时目录存在
+os.makedirs(TEMP_DIR, exist_ok=True)
+
+# 版本信息
+VERSION = {
+    'analyzer': '2.2',
+    'rule': 'v2',
+    'level_model': 'v2',
+    'report_template': 'v1'
+}
+
+# 是否使用新版分析器 (mp11)
+USE_MP11 = os.getenv('USE_MP11', 'true').lower() == 'true'
+MP11_PATH = '/data/apps/xiaolongxia/tennis_analyzer_mp11.py'
+
+# 导入等级模型服务
+sys.path.insert(0, '/data/apps/xiaolongxia')
+from level_model_service import level_service
+
+
+def get_db_connection():
+    """获取数据库连接"""
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def get_pending_task():
+    """获取一个待处理的任务"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        SELECT t.*, v.cos_url, v.cos_key, v.file_name, v.source_channel
+        FROM video_analysis_tasks t
+        JOIN videos v ON t.video_id = v.id
+        WHERE t.analysis_status = 'pending'
+        ORDER BY t.created_at ASC
+        LIMIT 1
+    ''')
+    
+    row = cursor.fetchone()
+    conn.close()
+    
+    if row:
+        return dict(row)
+    return None
+
+
+def update_task_status(task_id, status, **kwargs):
+    """更新任务状态"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    fields = ['analysis_status = ?']
+    values = [status]
+    
+    if status == 'running':
+        fields.append('started_at = CURRENT_TIMESTAMP')
+    elif status in ('success', 'failed', 'low_quality'):
+        fields.append('finished_at = CURRENT_TIMESTAMP')
+    
+    for key, value in kwargs.items():
+        fields.append(f'{key} = ?')
+        values.append(value)
+    
+    values.append(task_id)
+    
+    cursor.execute(f'''
+        UPDATE video_analysis_tasks
+        SET {', '.join(fields)}
+        WHERE id = ?
+    ''', values)
+    
+    conn.commit()
+    conn.close()
+
+
+def download_video(cos_url, output_path, timeout=120):
+    """从COS下载视频 - 支持私有bucket"""
+    try:
+        # 尝试直接下载（公开bucket）
+        req = urllib.request.Request(cos_url)
+        req.add_header('User-Agent', 'Mozilla/5.0')
+        
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            with open(output_path, 'wb') as f:
+                f.write(response.read())
+        
+        return True
+    except urllib.error.HTTPError as e:
+        if e.code == 403:
+            # 私有bucket，使用COS SDK下载
+            print(f"[Download] 使用COS SDK下载私有bucket视频")
+            return download_video_with_sdk(cos_url, output_path)
+        print(f"[Download] 下载失败: {e}")
+        return False
+    except Exception as e:
+        print(f"[Download] 下载失败: {e}")
+        return False
+
+
+def download_video_with_sdk(cos_url, output_path):
+    """使用COS SDK下载私有bucket视频"""
+    try:
+        sys.path.insert(0, '/usr/local/lib/python3.12/dist-packages')
+        sys.path.insert(0, '/usr/lib/python3/dist-packages')
+        from qcloud_cos import CosConfig, CosS3Client
+        
+        # COS配置
+        secret_id = 'AKIDaHuZDoEKB5qOipqgJkx2uZ1HLPFvXxBC'
+        secret_key = 'sZ3KOG5nIcUaifjjbIwhIgqqfKpAKJ6r'
+        region = 'ap-shanghai'
+        bucket = 'tennis-ai-1411340868'
+        
+        # 从URL中提取cos_key
+        # URL格式: https://bucket.cos.region.myqcloud.com/key
+        cos_key = cos_url.replace(f'https://{bucket}.cos.{region}.myqcloud.com/', '')
+        
+        config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key)
+        client = CosS3Client(config)
+        
+        # 下载文件
+        client.download_file(
+            Bucket=bucket,
+            Key=cos_key,
+            DestFilePath=output_path
+        )
+        
+        print(f"[Download] ✅ COS SDK下载成功: {output_path}")
+        return True
+        
+    except Exception as e:
+        print(f"[Download] ❌ COS SDK下载失败: {e}")
+        return False
+
+
+def check_input_quality(video_path):
+    """检查输入视频质量"""
+    import cv2
+    
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        return False, "无法打开视频文件"
+    
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    duration = total_frames / fps if fps > 0 else 0
+    
+    cap.release()
+    
+    issues = []
+    
+    if total_frames < 30:
+        issues.append("视频帧数过少，可能无法完整捕捉发球动作")
+    
+    if duration < 1.0:
+        issues.append("视频时长过短")
+    
+    if duration > 30:
+        issues.append("视频时长过长，建议截取发球片段")
+    
+    # 质量评分 (0-1)
+    quality_score = 1.0
+    if len(issues) > 0:
+        quality_score = max(0.3, 1.0 - len(issues) * 0.2)
+    
+    return quality_score >= 0.5, issues, quality_score
+
+
+def call_analyzer_api(video_path):
+    """调用分析服务API"""
+    import requests
+    
+    try:
+        with open(video_path, 'rb') as f:
+            response = requests.post(
+                ANALYZER_API,
+                files={'video': f},
+                timeout=300
+            )
+        
+        if response.status_code == 200:
+            return True, response.json()
+        else:
+            return False, f"API错误: {response.status_code} - {response.text}"
+    
+    except Exception as e:
+        return False, f"调用API失败: {str(e)}"
+
+
+def call_mp11_analyzer(video_path, clip_id):
+    """调用新版 mp11 分析器"""
+    import subprocess
+    
+    try:
+        # mp11 只接受位置参数: python tennis_analyzer_mp11.py <视频路径>
+        cmd = ['python3', MP11_PATH, video_path]
+        
+        print(f"[MP11] 执行: {' '.join(cmd)}")
+        
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=300
+        )
+        
+        # 解析 JSON 输出
+        output = result.stdout
+        
+        # 查找 JSON 部分 (在 FINAl_SCORE: 之前)
+        json_start = output.find('{')
+        final_score_idx = output.find('FINAL_SCORE:')
+        
+        if json_start >= 0 and final_score_idx > json_start:
+            json_str = output[json_start:final_score_idx].strip()
+            report = json.loads(json_str)
+            
+            # 提取诊断信息
+            diagnosis = report.get('diagnosis', {})
+            
+            # 转换为兼容格式
+            return True, {
+                'version': 'mp11',
+                'analysis_status': report.get('analysis_status', 'success'),
+                'input_quality': report.get('input_quality', {}),
+                'phase_marks': report.get('phase_marks', {}),
+                'features': report.get('features', {}),
+                'diagnosis': diagnosis,
+                'evaluation': diagnosis.get('level_estimate', {}),
+                'full_report': report
+            }
+        else:
+            return False, f"无法解析 mp11 输出: {output[:500]}"
+            
+    except subprocess.TimeoutExpired:
+        return False, "mp11 分析超时"
+    except Exception as e:
+        return False, f"mp11 分析失败: {str(e)}"
+
+
+def extract_features(phase_analysis):
+    """提取骨骼点特征"""
+    features = {}
+    
+    for phase_name, phase_data in phase_analysis.items():
+        if not phase_data:
+            continue
+        
+        phase_features = {}
+        
+        # 提取各阶段的关键指标
+        if phase_name == 'ready':
+            phase_features['stance_width'] = phase_data.get('stance_width')
+            phase_features['body_angle'] = phase_data.get('body_angle')
+        
+        elif phase_name == 'toss':
+            phase_features['height_change'] = phase_data.get('height_change')
+            phase_features['velocity'] = phase_data.get('velocity')
+            phase_features['duration_seconds'] = phase_data.get('duration_seconds')
+        
+        elif phase_name == 'loading':
+            phase_features['max_elbow_angle'] = phase_data.get('max_elbow_angle')
+            phase_features['min_elbow_angle'] = phase_data.get('min_elbow_angle')
+        
+        elif phase_name == 'contact':
+            phase_features['contact_height'] = phase_data.get('contact_height')
+        
+        elif phase_name == 'follow':
+            phase_features['duration_frames'] = phase_data.get('duration_frames')
+        
+        # 通用特征
+        phase_features['confidence'] = phase_data.get('confidence')
+        phase_features['duration_frames'] = phase_data.get('duration_frames')
+        
+        features[phase_name] = phase_features
+    
+    return features
+
+
+def generate_diagnosis(phase_analysis, ntrp_evaluation):
+    """生成诊断结果"""
+    diagnosis = {
+        'overall_level': ntrp_evaluation.get('level'),
+        'confidence': ntrp_evaluation.get('confidence'),
+        'phase_issues': {},
+        'recommendations': []
+    }
+    
+    # 收集各阶段问题
+    for phase_name, phase_data in phase_analysis.items():
+        if not phase_data:
+            continue
+        
+        issues = phase_data.get('issues', {})
+        significant_issues = {k: v for k, v in issues.items() if v > 0.3}
+        
+        if significant_issues:
+            diagnosis['phase_issues'][phase_name] = significant_issues
+    
+    # 生成建议
+    if 'ready' in diagnosis['phase_issues']:
+        ready_issues = diagnosis['phase_issues']['ready']
+        if 'stance_width_error' in ready_issues:
+            diagnosis['recommendations'].append('调整站位宽度，与肩同宽')
+        if 'body_angle_error' in ready_issues:
+            diagnosis['recommendations'].append('侧身对网，保持45度角')
+    
+    if 'toss' in diagnosis['phase_issues']:
+        diagnosis['recommendations'].append('练习抛球稳定性')
+    
+    if 'loading' in diagnosis['phase_issues']:
+        diagnosis['recommendations'].append('加强 trophy pose 蓄力')
+    
+    return diagnosis
+
+
+def process_task(task):
+    """处理单个任务"""
+    task_id = task['id']
+    video_id = task['video_id']
+    cos_url = task['cos_url']
+    cos_key = task['cos_key']
+    
+    print(f"\n{'='*60}")
+    print(f"[Task {task_id}] 开始处理")
+    print(f"[Task {task_id}] 视频: {cos_key}")
+    print(f"{'='*60}")
+    
+    # 1. 更新状态为 running
+    update_task_status(task_id, 'running')
+    print(f"[Task {task_id}] 状态更新为: running")
+    
+    # 2. 下载视频到临时目录
+    temp_path = os.path.join(TEMP_DIR, f"{task_id}_{os.path.basename(cos_key)}")
+    print(f"[Task {task_id}] 下载视频到: {temp_path}")
+    
+    if not download_video(cos_url, temp_path):
+        update_task_status(task_id, 'failed', failure_reason='视频下载失败')
+        print(f"[Task {task_id}] ❌ 下载失败")
+        return
+    
+    print(f"[Task {task_id}] ✅ 下载完成")
+    
+    # 3. 输入质量检查
+    print(f"[Task {task_id}] 检查输入质量...")
+    quality_ok, quality_issues, quality_score = check_input_quality(temp_path)
+    
+    if not quality_ok:
+        update_task_status(
+            task_id, 
+            'low_quality',
+            input_quality_score=quality_score,
+            input_quality_issues=json.dumps(quality_issues),
+            failure_reason='; '.join(quality_issues)
+        )
+        os.remove(temp_path)
+        print(f"[Task {task_id}] ⚠️ 质量不合格: {quality_issues}")
+        return
+    
+    print(f"[Task {task_id}] ✅ 质量检查通过 (得分: {quality_score:.2f})")
+    
+    # 4. 调用分析API (优先使用 mp11)
+    if USE_MP11 and os.path.exists(MP11_PATH):
+        print(f"[Task {task_id}] 调用 mp11 分析器...")
+        success, result = call_mp11_analyzer(temp_path, video_id)
+    else:
+        print(f"[Task {task_id}] 调用分析服务...")
+        success, result = call_analyzer_api(temp_path)
+    
+    if not success:
+        update_task_status(task_id, 'failed', failure_reason=str(result))
+        os.remove(temp_path)
+        print(f"[Task {task_id}] ❌ 分析失败: {result}")
+        return
+    
+    print(f"[Task {task_id}] ✅ 分析完成")
+    
+    # 5. 解析分析结果（P1增强版）
+    try:
+        # 检查是否是 mp11 输出
+        is_mp11 = result.get('version') == 'mp11'
+        
+        if is_mp11:
+            # mp11 格式
+            analysis_status = result.get('analysis_status', 'success')
+            input_quality = result.get('input_quality', {})
+            phase_marks = result.get('phase_marks', {})
+            features = result.get('features', {})
+            diagnosis = result.get('diagnosis', {})
+            evaluation = result.get('evaluation', {})
+            
+            ntrp_level = evaluation.get('level')
+            ntrp_confidence = evaluation.get('confidence', 0)
+            
+            # 从 mp11 的 diagnosis 中提取建议
+            recommendations = diagnosis.get('recommendations', [])
+            
+            # 知识召回数量（从 mp11 的 knowledge_recall 字段提取）
+            knowledge_recall = result.get('knowledge_recall', {})
+            knowledge_recall_count = knowledge_recall.get('total_recalled', 0)
+            
+            # 打印召回的教练知识点
+            if knowledge_recall_count > 0:
+                print(f"[Task {task_id}] 📚 召回了 {knowledge_recall_count} 条教练知识点:")
+                for item in knowledge_recall.get('items', [])[:3]:
+                    print(f"    - [{item.get('coach', '未知')}] {item.get('title', '')[:40]}...")
+            
+            # 样本入库状态
+            sample_saved = False
+            sample_message = 'mp11 analysis completed'
+            
+            print(f"[Task {task_id}] mp11 分析结果:")
+            print(f"  状态: {analysis_status}")
+            print(f"  等级: {ntrp_level}")
+            print(f"  建议: {len(recommendations)}条")
+        else:
+            # 原有格式
+            ntrp_evaluation = result.get('ntrp_evaluation', {})
+            ntrp_level = ntrp_evaluation.get('level')
+            ntrp_confidence = ntrp_evaluation.get('confidence')
+            
+            phase_analysis = result.get('phase_analysis', {})
+            knowledge_recall = result.get('knowledge_recall_summary', {})
+            
+            # P1: 提取阶段评分
+            phase_marks = {}
+            for phase_name, phase_data in phase_analysis.items():
+                if phase_data:
+                    phase_marks[phase_name] = {
+                        'confidence': phase_data.get('confidence'),
+                        'issues': phase_data.get('issues', {}),
+                        'duration_frames': phase_data.get('duration_frames')
+                    }
+            
+            # P1: 提取特征
+            features = extract_features(phase_analysis)
+            
+            # P1: 生成诊断
+            diagnosis = generate_diagnosis(phase_analysis, ntrp_evaluation)
+            
+            knowledge_recall_count = knowledge_recall.get('total_recalled', 0)
+            
+            # 样本库入库状态
+            sample_library = result.get('sample_library', {})
+            sample_saved = sample_library.get('saved', False)
+            sample_message = sample_library.get('message', '')
+        
+        # P2: 使用新版等级模型评估
+        print(f"[Task {task_id}] P2: 使用等级模型v2评估...")
+        level_features = {
+            'max_elbow_angle': features.get('loading', {}).get('max_elbow_angle', 0) if isinstance(features, dict) and 'loading' in features else features.get('max_elbow_angle', 0),
+            'min_knee_angle': features.get('ready', {}).get('min_knee_angle', 120) if isinstance(features, dict) and 'ready' in features else features.get('min_knee_angle', 120),
+            'stance_width': features.get('ready', {}).get('stance_width', 2.0) if isinstance(features, dict) and 'ready' in features else features.get('stance_width', 2.0),
+            'body_angle': features.get('ready', {}).get('body_angle', 45) if isinstance(features, dict) and 'ready' in features else features.get('body_angle', 45)
+        }
+        level_result = level_service.evaluate_level(level_features)
+        print(f"[Task {task_id}] 等级模型v2: {level_result['level']} ({level_result['level_name']})")
+        
+        # P2: 保存特征向量（用于相似样本检索）
+        print(f"[Task {task_id}] P2: 保存特征向量...")
+        vector_id = level_service.save_feature_vector(
+            task_id, video_id, ntrp_level, level_features
+        )
+        
+        # P2: 自动评级训练样本（基于质量分数）
+        print(f"[Task {task_id}] P2: 自动评级训练样本...")
+        if quality_score >= 0.8:
+            sample_quality = 'excellent'
+        elif quality_score >= 0.6:
+            sample_quality = 'good'
+        elif quality_score >= 0.4:
+            sample_quality = 'fair'
+        else:
+            sample_quality = 'poor'
+        
+        training_sample_id = level_service.rate_training_sample(
+            task_id, video_id, sample_quality, 'auto_rater',
+            f'Auto-rated based on input quality score: {quality_score:.2f}',
+            ['auto_analysis', f'ntrp_{ntrp_level}']
+        )
+        print(f"[Task {task_id}] 训练样本评级: {sample_quality}")
+        
+        # 6. 更新任务状态为 success（包含P1字段）
+        update_task_status(
+            task_id,
+            'success',
+            analysis_result=json.dumps(result),
+            input_quality_score=quality_score,
+            input_quality_issues=json.dumps(quality_issues),
+            phase_marks=json.dumps(phase_marks),
+            features=json.dumps(features),
+            diagnosis=json.dumps(diagnosis),
+            ntrp_level=ntrp_level,
+            ntrp_confidence=ntrp_confidence,
+            knowledge_recall_count=knowledge_recall_count,
+            sample_saved=sample_saved,
+            sample_library_message=sample_message
+        )
+        
+        print(f"[Task {task_id}] ✅ 任务完成")
+        print(f"[Task {task_id}] NTRP等级: {ntrp_level} (置信度: {ntrp_confidence})")
+        print(f"[Task {task_id}] 等级模型v2: {level_result['level']} ({level_result['level_name']})")
+        print(f"[Task {task_id}] 知识召回: {knowledge_recall_count}条")
+        if is_mp11:
+            print(f"[Task {task_id}] 诊断建议: {len(recommendations)}条")
+        print(f"[Task {task_id}] 训练样本评级: {sample_quality}")
+        print(f"[Task {task_id}] 特征向量: {vector_id[:8]}...")
+        print(f"[Task {task_id}] 样本入库: {'✅' if sample_saved else '❌'}")
+        
+    except Exception as e:
+        update_task_status(task_id, 'failed', failure_reason=f'解析结果失败: {str(e)}')
+        print(f"[Task {task_id}] ❌ 解析结果失败: {e}")
+    
+    finally:
+        # 7. 清理临时文件
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+            print(f"[Task {task_id}] 🗑️ 临时文件已删除")
+
+
+def main_loop():
+    """主循环"""
+    print("="*60)
+    print("视频分析任务队列 Worker")
+    print(f"版本: {VERSION}")
+    print(f"DB: {DB_PATH}")
+    print(f"API: {ANALYZER_API}")
+    print("="*60)
+    print("Worker 已启动，等待任务...")
+    
+    while True:
+        try:
+            task = get_pending_task()
+            
+            if task:
+                process_task(task)
+            else:
+                # 没有任务，等待5秒
+                time.sleep(5)
+                
+        except KeyboardInterrupt:
+            print("\n[Worker] 收到停止信号，正在退出...")
+            break
+        except Exception as e:
+            print(f"\n[Worker] 异常: {e}")
+            time.sleep(10)
+
+
+if __name__ == '__main__':
+    main_loop()
