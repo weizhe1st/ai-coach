@@ -1,0 +1,107 @@
+{
+  "video_id": "036",
+  "file_name": "IMG_5262.MP4",
+  "title": "shougang发球教学视频036",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 3,
+  "records": [
+    {
+      "knowledge_id": "sg_036_01",
+      "time_range": "01:00-01:45",
+      "title": "然后呢 你看我的这个位置\n最高点\n我要先找到这个最高点\n...",
+      "knowledge_summary": "然后呢 你看我的这个位置\n最高点\n我要先找到这个最高点\n然后我后面的所有动作是围绕的这个点开始\n去做的\n然后后面的所有动作他主要是给这个动作做什么\n那就会\n位置越高的时候就会显得怎么\n网带就越爱\n...",
+      "key_elements": [
+        "发球",
+        "抛球",
+        "平击"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_height_error",
+        "toss_path_error"
+      ],
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "036",
+      "source_video_name": "IMG_5262.MP4"
+    },
+    {
+      "knowledge_id": "sg_036_02",
+      "time_range": "02:00-02:45",
+      "title": "发球技术要点，需要注意动作规范和身体协调",
+      "knowledge_summary": "发球技术要点，需要注意动作规范和身体协调。这是发球技术中的重要要点，需要注意动作细节、身体协调和力量传递。",
+      "key_elements": [
+        "发球"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "contact_point_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "036",
+      "source_video_name": "IMG_5262.MP4"
+    },
+    {
+      "knowledge_id": "sg_036_03",
+      "time_range": "03:00-03:45",
+      "title": "发球技术要点，需要注意动作规范和身体协调",
+      "knowledge_summary": "发球技术要点，需要注意动作规范和身体协调。这是发球技术中的重要要点，需要注意动作细节、身体协调和力量传递。",
+      "key_elements": [
+        "发球"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "036",
+      "source_video_name": "IMG_5262.MP4"
+    }
+  ]
+}

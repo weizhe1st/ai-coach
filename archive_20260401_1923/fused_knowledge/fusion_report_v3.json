@@ -1,0 +1,57 @@
+{
+  "version": "v3.0",
+  "generated_at": "2026-04-01T13:09:14.609913",
+  "summary": {
+    "total_knowledge_items": 169,
+    "total_coaches": 3,
+    "coaches": [
+      "Yellow",
+      "杨超",
+      "灵犀"
+    ]
+  },
+  "distribution": {
+    "by_coach": {
+      "Yellow": 57,
+      "杨超": 71,
+      "灵犀": 41
+    },
+    "by_knowledge_class": {
+      "A": 85,
+      "B": 63,
+      "C": 21
+    },
+    "by_quality_grade": {
+      "A": 63,
+      "B": 79,
+      "C": 20,
+      "D": 7
+    },
+    "by_phase": {
+      "A": 28,
+      "B": 19,
+      "C": 10,
+      "ready,toss,loading,contact": 1,
+      "ready": 8,
+      "ready,contact": 1,
+      "toss": 10,
+      "toss,loading": 4,
+      "toss,contact": 1,
+      "loading": 17,
+      "loading,contact": 14,
+      "contact": 23,
+      "follow": 1,
+      "contact,follow": 2,
+      "ready,toss": 1,
+      "ready,loading": 1
+    }
+  },
+  "gold_standard": {
+    "total": 63,
+    "by_coach": {
+      "Yellow": 28,
+      "杨超": 27,
+      "灵犀": 8
+    }
+  }
+}

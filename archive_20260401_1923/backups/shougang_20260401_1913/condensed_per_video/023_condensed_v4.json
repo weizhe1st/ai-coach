@@ -1,0 +1,28 @@
+{
+  "video_id": "023",
+  "file_name": "IMG_5249.MP4",
+  "title": "shougang发球教学视频023",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_023_01",
+      "time_range": "",
+      "title": "生酱\n生酱\n生薯便卤\n生薯便卤\n吧\n生薯便卤\n给这的人看个口碑的宽\n在...",
+      "knowledge_summary": "生酱\n生酱\n生薯便卤\n生薯便卤\n吧\n生薯便卤\n给这的人看个口碑的宽\n在来\n小洪叔",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.03,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

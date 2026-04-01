@@ -1,0 +1,102 @@
+{
+  "video_id": "050",
+  "file_name": "IMG_5276.MP4",
+  "title": "shougang发球教学视频050",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 3,
+  "records": [
+    {
+      "knowledge_id": "sg_050_01",
+      "time_range": "01:00-01:45",
+      "title": "我們整個在發球的時候開始連這個\n對吧\n那最後還是不是這個...",
+      "knowledge_summary": "我們整個在發球的時候開始連這個\n對吧\n那最後還是不是這個最後不是\n最後呢我們是找到這個地方以後呢\n這個地方能找找了它就這個甩開了以後它是這麼收的\n那最後說派怎麼說呢\n平機的說派最後打完了以後\n它是...",
+      "key_elements": [
+        "技术要点",
+        "动作细节",
+        "身体协调"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.82,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "050",
+      "source_video_name": "IMG_5276.MP4"
+    },
+    {
+      "knowledge_id": "sg_050_02",
+      "time_range": "02:00-02:45",
+      "title": "发球技术要点，需要注意动作规范和身体协调",
+      "knowledge_summary": "发球技术要点，需要注意动作规范和身体协调。这是发球技术中的重要要点，需要注意动作细节、身体协调和力量传递。",
+      "key_elements": [
+        "发球"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.83,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "050",
+      "source_video_name": "IMG_5276.MP4"
+    },
+    {
+      "knowledge_id": "sg_050_03",
+      "time_range": "03:00-03:45",
+      "title": "发球技术要点，需要注意动作规范和身体协调",
+      "knowledge_summary": "发球技术要点，需要注意动作规范和身体协调。这是发球技术中的重要要点，需要注意动作细节、身体协调和力量传递。",
+      "key_elements": [
+        "发球"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.78,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "050",
+      "source_video_name": "IMG_5276.MP4"
+    }
+  ]
+}

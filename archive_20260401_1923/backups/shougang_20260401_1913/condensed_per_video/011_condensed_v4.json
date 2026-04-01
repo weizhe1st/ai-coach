@@ -1,0 +1,28 @@
+{
+  "video_id": "011",
+  "file_name": "IMG_5237.MP4",
+  "title": "shougang发球教学视频011",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_011_01",
+      "time_range": "",
+      "title": "我想要這個椅快速度上學這個手\n就要椅快速度一倍\n走\n是不是在下來了\n你...",
+      "knowledge_summary": "我想要這個椅快速度上學這個手\n就要椅快速度一倍\n走\n是不是在下來了\n你在看這個\n那這邊還能有多快呢\n因為左手跟右手\n它都是為了配合你的身體平衡\n來進行動作的\n那我的這個動作\n慢這個動作就不可能快\n所以它是需要等\n等完以後\n一一一一\n這一下收一點快\n對\n先找到這個快的時候\n其實最好的方式呢\n就變成你看\n對吧\n再看另外一種\n這個你們看來看明白了沒有\n看明白了\n一\n現在收到呢\n收到這\n這個高度\n一\n這邊手不動\n把身體拉上去\n一個是身體不動\n把走拉下來\n另外一個手不動\n把身體拉上去\n一旦你能做到這個\n你的發生輸入起來了\n因為它這個腰背的\n重新的這一下都沒有一個丟的\n要翻過來這麼看\n整個發力就順暢了\n所以左手的這個位置不能\n這樣\n下紅書",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.91,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

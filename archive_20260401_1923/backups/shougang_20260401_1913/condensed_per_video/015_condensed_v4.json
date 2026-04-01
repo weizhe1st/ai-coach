@@ -1,0 +1,28 @@
+{
+  "video_id": "015",
+  "file_name": "IMG_5241.MP4",
+  "title": "shougang发球教学视频015",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_015_01",
+      "time_range": "",
+      "title": "所以发球的时候他其实最使用的最多的地方是监关节\n然后这个监关节呢他会有...",
+      "knowledge_summary": "所以发球的时候他其实最使用的最多的地方是监关节\n然后这个监关节呢他会有一个\n关能度的一个问题吧\n大概就用这么一个词来形容\n他就说\n当我的监只能打开到这个高度\n你看他这说跟我头部所形成的这个家角\n是很开的对不对\n和我的监能达到这个高度\n你发出来的力量是不一样的\n就当你的监的这个位置\n收的越好的时候\n你的这个发力的速度就会越好\n但这个监收的这个力量越小的时候\n你的发力就会越差\n所以我们先找好这个\n这个是你们回去",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.9500000000000001,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "video_id": "049",
+  "file_name": "IMG_5275.MP4",
+  "title": "shougang发球教学视频049",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_049_01",
+      "time_range": "",
+      "title": "看这个地方的位置,我做慢一点\n它还是牵过来了\n对\n然后呢\n再拉开的\n能...",
+      "knowledge_summary": "看这个地方的位置,我做慢一点\n它还是牵过来了\n对\n然后呢\n再拉开的\n能感觉到吧\n那拉开的跟梅拉开的区别在哪呢\n那个拉开跟梅拉开的区别那个谁\n你也听一下吧,他闯了\n就是他拉开跟梅拉开的区别在这个地方\n这个地方里头多接\n梅头多接\n出牌\n出牌,那拉开的呢\n他梅头的距离多月\n然后通过他上去\n看到这个区别吗,这个距离是你要拉开的\n下红烧",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.29,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

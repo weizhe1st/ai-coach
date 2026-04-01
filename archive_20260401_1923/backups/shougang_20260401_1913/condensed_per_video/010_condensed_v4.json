@@ -1,0 +1,28 @@
+{
+  "video_id": "010",
+  "file_name": "IMG_5236.MP4",
+  "title": "shougang发球教学视频010",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_010_01",
+      "time_range": "",
+      "title": "所以他的搜捕士\n和核心的背弓\n所以他不但是这个地方\n他脚底下的这一颗也...",
+      "knowledge_summary": "所以他的搜捕士\n和核心的背弓\n所以他不但是这个地方\n他脚底下的这一颗也是\n但只是加了个什么呢\n加了一个转身\n转身炒这个方向",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

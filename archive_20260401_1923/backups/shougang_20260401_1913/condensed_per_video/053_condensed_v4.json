@@ -1,0 +1,28 @@
+{
+  "video_id": "053",
+  "file_name": "IMG_5279.MP4",
+  "title": "shougang发球教学视频053",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_053_01",
+      "time_range": "",
+      "title": "放鬆的\n通過這個起來往上須裂\n把這個向下須裂的之後最後我們再向上去盤起...",
+      "knowledge_summary": "放鬆的\n通過這個起來往上須裂\n把這個向下須裂的之後最後我們再向上去盤起來\n走我們整個都包圖的時候\n別動它很好\n起\n是不是下須了\n下須的時候這個\n這個時候立在哪\n你是不是在這裡別的\n別的什麼\n把它放鬆出去\n對不對\n不是\n對不對\n看好了嗎\n飛了的時候一看了\n這時候立在哪\n立在上\n在哪\n在上面對不對\n看好了\n隨著\n預備\n看看我\n一泡球\n往下一壓\n就開始上上出\n是不是整個背上就出來了\n你可在拉起來\n飛到對面去了\n小紅燒",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.33,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

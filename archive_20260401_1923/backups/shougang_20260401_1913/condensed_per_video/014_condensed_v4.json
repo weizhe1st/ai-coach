@@ -1,0 +1,28 @@
+{
+  "video_id": "014",
+  "file_name": "IMG_5240.MP4",
+  "title": "shougang发球教学视频014",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_014_01",
+      "time_range": "",
+      "title": "我自己的泡球是这样的\n我给大家做一个分享\n我可能不会去做这样的推或者用...",
+      "knowledge_summary": "我自己的泡球是这样的\n我给大家做一个分享\n我可能不会去做这样的推或者用手挖\n或者怎么样\n我的泡球是这样的一个动作\n就是比如说我们把把手\n从这儿\n泡到转\n从这儿\n从这儿\n泡到转\n就是一个割博指甩的一个动作\n直接甩\n直接甩\n那我怎么\n因为指甩的这个动作以后\n我就保证了我这个\n包括速度和角度的一个稳定性\n但是可能这个就不一定\n然后我只是选择在什么地方上\n把这个球跟手做一个\n分离的状态\n什么时候松开他\n然后让球利用我手臂上\n把这个关性\n把这个球给他泡到\n我要的位置上去\n就通过这么摆",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.9400000000000001,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

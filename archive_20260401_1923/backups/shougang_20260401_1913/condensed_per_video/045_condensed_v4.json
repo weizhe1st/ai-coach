@@ -1,0 +1,28 @@
+{
+  "video_id": "045",
+  "file_name": "IMG_5271.MP4",
+  "title": "shougang发球教学视频045",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_045_01",
+      "time_range": "",
+      "title": "之间\n就尽可能不要再出拍的时候是这种感觉\n一走红的这么大\n特别是你现在...",
+      "knowledge_summary": "之间\n就尽可能不要再出拍的时候是这种感觉\n一走红的这么大\n特别是你现在对我这种感觉特别明显\n就要把这个走先拉上去\n拉上去以后你的拍就会变成\n这种感觉\n而不是\n而不是过来这么招与后去退出去了\n你现在的那个发力的那个点很散\n就是有点忠感觉得散般的一看一下\n这个感觉那手就在\n不是一条线的被甩过来\n一\n该打球了\n台间就是\n先把今天开开\n然后该打球了\n这这么一瞎就出去了\n没有抓的两个节码",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.25,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

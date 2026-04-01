@@ -1,0 +1,104 @@
+{
+  "video_id": "037",
+  "file_name": "IMG_5263.MP4",
+  "title": "shougang发球教学视频037",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 3,
+  "records": [
+    {
+      "knowledge_id": "sg_037_01",
+      "time_range": "01:00-01:45",
+      "title": "这能碰到哪能到找的吧\n我想在第一年怎么办\n拍在的\n你求多...",
+      "knowledge_summary": "这能碰到哪能到找的吧\n我想在第一年怎么办\n拍在的\n你求多远\n所以为什么要做背宫\n做背宫的原因就是让这个拍子\n你求的距离更远\n所以这就是做背宫的意义\n不是如果一个人做完背宫以后就再找\n那他跟在这有什...",
+      "key_elements": [
+        "技术要点",
+        "动作细节",
+        "身体协调"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.79,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "037",
+      "source_video_name": "IMG_5263.MP4"
+    },
+    {
+      "knowledge_id": "sg_037_02",
+      "time_range": "02:00-02:45",
+      "title": "发球技术要点，需要注意动作规范和身体协调",
+      "knowledge_summary": "发球技术要点，需要注意动作规范和身体协调。这是发球技术中的重要要点，需要注意动作细节、身体协调和力量传递。",
+      "key_elements": [
+        "发球"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.79,
+      "knowledge_class": "A",
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "contact_point_error"
+      ],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "037",
+      "source_video_name": "IMG_5263.MP4"
+    },
+    {
+      "knowledge_id": "sg_037_03",
+      "time_range": "03:00-03:45",
+      "title": "发球技术要点，需要注意动作规范和身体协调",
+      "knowledge_summary": "发球技术要点，需要注意动作规范和身体协调。这是发球技术中的重要要点，需要注意动作细节、身体协调和力量传递。",
+      "key_elements": [
+        "发球"
+      ],
+      "common_errors": [
+        "动作不规范",
+        "节奏不稳",
+        "力量传递不畅"
+      ],
+      "correction_method": [
+        "对着镜子练习",
+        "分解动作练习",
+        "慢动作重复"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "037",
+      "source_video_name": "IMG_5263.MP4"
+    }
+  ]
+}

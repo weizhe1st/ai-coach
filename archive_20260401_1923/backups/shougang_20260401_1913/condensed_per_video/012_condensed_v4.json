@@ -1,0 +1,28 @@
+{
+  "video_id": "012",
+  "file_name": "IMG_5238.MP4",
+  "title": "shougang发球教学视频012",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_012_01",
+      "time_range": "",
+      "title": "我们的所有的状态最好的一个方式\n是要把所有的力量放到上面去\n不是你看这...",
+      "knowledge_summary": "我们的所有的状态最好的一个方式\n是要把所有的力量放到上面去\n不是你看这个力量往哪放往上\n这个力量呢\n还就往外地走了\n所以我们一会儿呢\n那拿上去先不抛\n拉开身旨\n拉开身旨\n拉开身旨\n把这个点好了以后再拉开身旨\n去找一找拍怎么碰到球的\n好吧\n来试一下",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

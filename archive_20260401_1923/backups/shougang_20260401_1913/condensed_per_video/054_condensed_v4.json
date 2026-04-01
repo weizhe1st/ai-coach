@@ -1,0 +1,28 @@
+{
+  "video_id": "054",
+  "file_name": "IMG_5280.MP4",
+  "title": "shougang发球教学视频054",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_054_01",
+      "time_range": "",
+      "title": "這麽高達到球 那大概的技球點再撞\n但是我們要需要這麽高的話\n我不可能說...",
+      "knowledge_summary": "這麽高達到球 那大概的技球點再撞\n但是我們要需要這麽高的話\n我不可能說我把球拋那麽高 然後這麽大\n那我需要再有一點準備時間\n把這個球拋的 把這個升值了以後\n再多上一個拍的距離\n所以我把球拋到這麽高\n然後你看 等他下來的時候再打\n比我在這裡\n我這個動作就脫桿很重要\n下紅書",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.34,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

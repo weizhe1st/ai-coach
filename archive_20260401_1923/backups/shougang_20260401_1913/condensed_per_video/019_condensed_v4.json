@@ -1,0 +1,28 @@
+{
+  "video_id": "019",
+  "file_name": "IMG_5245.MP4",
+  "title": "shougang发球教学视频019",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_019_01",
+      "time_range": "",
+      "title": "收到盡量上\n我应该把这个牌子的呼吸的时候\n它不是打包启动\n是打到手里\n...",
+      "knowledge_summary": "收到盡量上\n我应该把这个牌子的呼吸的时候\n它不是打包启动\n是打到手里\n然后牌子的速度\n小洪书",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.99,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "video_id": "009",
+  "file_name": "IMG_5235.MP4",
+  "title": "shougang发球教学视频009",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_009_01",
+      "time_range": "",
+      "title": "现在你只关注一个点,就是这个地方,这个地方是在做什么\n看到我这个排面,...",
+      "knowledge_summary": "现在你只关注一个点,就是这个地方,这个地方是在做什么\n看到我这个排面,看到\n直线,再看看这个\n转太多了\n这个地方就发不上利了,所以你的身体所有的巴黎,那我们在提升之前讲的点,就是还是刚才说那个\n这是一个公司,出刷了吗,这是投资怎么?\n我不能干了,但你现在这个行为干了\n明白\n干了了吧\n但是在这个行为呢\n没有干了,所以直线的时候加速是最快的\n你要在这个地方要找到这个\n不能说我从这边,快玩,然后最后在这种巴黎\n那个利就给我们上来了",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.89,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

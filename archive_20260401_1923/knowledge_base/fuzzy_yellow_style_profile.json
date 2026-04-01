@@ -1,0 +1,34 @@
+{
+  "coach_name": "Yellow",
+  "course_name": "FYB新网球教程 - 发球基础与进阶",
+  "total_videos": 16,
+  "teaching_focus": [
+    "发球基础动作",
+    "抛球技术",
+    "奖杯姿势",
+    "击球点控制"
+  ],
+  "correction_style": [
+    "动作分解",
+    "常见错误对比",
+    "循序渐进的练习"
+  ],
+  "language_style": [
+    "简洁明了",
+    "重点突出",
+    "实用导向"
+  ],
+  "typical_expressions": [
+    "注意这个动作",
+    "很多人在这里犯错",
+    "练习时要记住"
+  ],
+  "suitable_user_levels": [
+    "3.0",
+    "4.0"
+  ],
+  "dominant_style_tags": [
+    "基础教学",
+    "动作分解"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "video_id": "016",
+  "file_name": "IMG_5242.MP4",
+  "title": "shougang发球教学视频016",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_016_01",
+      "time_range": "",
+      "title": "一 從上面照\n它盡量在這個地方的貼網走\n但是到這邊它跑到最遠的地方\n然...",
+      "knowledge_summary": "一 從上面照\n它盡量在這個地方的貼網走\n但是到這邊它跑到最遠的地方\n然後出來\n但是不要這樣\n看到這個冷漠\n我們走到這裡後很永遠的\n會把這個牌子會變成\n不必從順的這個地方下來\n上去\n所以又下來上去\n所以這個地方\n這個用力的方式就等於是這個地方的這一下\n準備作對\n好\n你們可以找",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 0.9600000000000001,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}
