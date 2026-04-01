@@ -1,0 +1,19 @@
+{
+  "report_date": "2026-04-02",
+  "generated_at": "2026-04-02T03:00:01+08:00",
+  "summary": {
+    "new_videos": 0,
+    "new_analysis_tasks": 0,
+    "completed_analyses": 0,
+    "new_level_samples": 0
+  },
+  "system_health": {
+    "auto_monitor_running": true,
+    "disk_usage_percent": 35,
+    "database_integrity": "ok"
+  },
+  "backups": {
+    "database_backup": "/data/db/backups/xiaolongxia_learning.db.backup.20260402_030001",
+    "timestamp": "20260402_030001"
+  }
+}
