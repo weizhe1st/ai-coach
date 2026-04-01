@@ -1,0 +1,246 @@
+{
+  "coach_name": "杨超",
+  "version": "v2",
+  "description": "knowledge_class=C 的元信息知识项",
+  "total_items": 8,
+  "knowledge_items": [
+    {
+      "knowledge_id": "yc_005_03",
+      "time_range": "04:35-06:20",
+      "title": "3.0与2.0、4.0的水平差异定位",
+      "knowledge_summary": "相比2.0的随意发球，3.0有了基本动作框架；相比4.0，3.0缺少旋转控制和变化能力，是发球学习的第一个里程碑",
+      "key_elements": [
+        "2.0随意",
+        "3.0框架",
+        "4.0旋转"
+      ],
+      "common_errors": [
+        "混淆水平标准",
+        "过早追求高级技术",
+        "不清楚定位"
+      ],
+      "correction_method": [
+        "明确当前水平",
+        "按阶段提升",
+        "先达到3.0标准"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "005",
+      "source_video_name": "005.第一课：3.0发球模型是什么样的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_009_04",
+      "time_range": "06:20-08:45",
+      "title": "从模仿到内化：职业选手抛球的学习路径",
+      "knowledge_summary": "先模仿职业选手抛球的外在形式，再理解其力学原理，最后内化为自己的稳定技术",
+      "key_elements": [
+        "模仿外形",
+        "理解原理",
+        "内化技术"
+      ],
+      "common_errors": [
+        "只模仿不思考",
+        "急于求成",
+        "忽视基础练习"
+      ],
+      "correction_method": [
+        "慢动作模仿",
+        "分析力学原理",
+        "大量重复练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "009",
+      "source_video_name": "009.第五课：像职业选手一样抛球.mp4"
+    },
+    {
+      "knowledge_id": "yc_011_04",
+      "time_range": "08:45-11:30",
+      "title": "010课与011课的递进关系：从知道到做到",
+      "knowledge_summary": "010课理解挥拍轨迹的理论形态，011课练习建立流畅的实际动作，从认知到技能的转化",
+      "key_elements": [
+        "010理论认知",
+        "011实践练习",
+        "认知到技能"
+      ],
+      "common_errors": [
+        "只看不练",
+        "理论与实践脱节",
+        "急于求成"
+      ],
+      "correction_method": [
+        "理解后大量练习",
+        "理论与实践结合",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "011",
+      "source_video_name": "011.第七课：建立流畅的挥拍轨迹.mp4"
+    },
+    {
+      "knowledge_id": "yc_013_02",
+      "time_range": "02:55-04:20",
+      "title": "012课与013课的递进：从理解到掌握",
+      "knowledge_summary": "012课理解三个技术环节的概念，013课练习掌握具体方法，从理论到实践的深化",
+      "key_elements": [
+        "012理解概念",
+        "013掌握方法",
+        "理论到实践"
+      ],
+      "common_errors": [
+        "只理解不练习",
+        "理论与实践脱节"
+      ],
+      "correction_method": [
+        "理解后大量练习",
+        "用实践验证理论"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "013",
+      "source_video_name": "013.第九课：如何建立正确的旋内、击球点和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_015_02",
+      "time_range": "02:55-04:10",
+      "title": "014课与015课的递进：从学习到掌握",
+      "knowledge_summary": "014课学习4.0发球的技术概念，015课通过大量练习掌握稳定输出，从学习到应用",
+      "key_elements": [
+        "014学习概念",
+        "015掌握应用",
+        "学习曲线"
+      ],
+      "common_errors": [
+        "只学不练",
+        "练习量不足",
+        "急于求成"
+      ],
+      "correction_method": [
+        "理解后大量练习",
+        "达到掌握标准",
+        "耐心积累"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "015",
+      "source_video_name": "015.第十一课：掌握4.0发球模型动作和二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_017_02",
+      "time_range": "02:55-04:10",
+      "title": "016课与017课的递进：从理解原理到实际应用",
+      "knowledge_summary": "016课理解旋转产生的原理，017课通过参照物方法实际掌握旋转发球技术",
+      "key_elements": [
+        "016理解原理",
+        "017实际应用",
+        "参照物桥梁"
+      ],
+      "common_errors": [
+        "理解但不会应用",
+        "缺乏实践方法",
+        "理论与实践脱节"
+      ],
+      "correction_method": [
+        "用参照物连接理论",
+        "大量实践练习",
+        "建立感觉记忆"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "017",
+      "source_video_name": "017.第十三课：找对参照物一次搞定旋转发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_019_03",
+      "time_range": "04:35-06:10",
+      "title": "018课与019课的递进：从学习到练就",
+      "knowledge_summary": "018课学习5.0发球的技术方法，019课通过长期系统训练真正掌握5.0发球",
+      "key_elements": [
+        "018学习方法",
+        "019长期训练",
+        "真正掌握"
+      ],
+      "common_errors": [
+        "只学不练",
+        "训练不持续",
+        "缺乏耐心"
+      ],
+      "correction_method": [
+        "理解后坚持训练",
+        "保持训练频率",
+        "长期积累"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "019",
+      "source_video_name": "019.第十五课：练就5.0发球模型动作的.mp4"
+    },
+    {
+      "knowledge_id": "yc_019_04",
+      "time_range": "06:15-08:20",
+      "title": "从0到5.0的完整学习路径回顾",
+      "knowledge_summary": "回顾从理论基础→3.0基础→4.0进阶→5.0高级的完整路径，每个阶段的目标和关键学习点",
+      "key_elements": [
+        "完整路径",
+        "阶段目标",
+        "关键学习点"
+      ],
+      "common_errors": [
+        "跳跃阶段",
+        "基础不牢",
+        "急于求成"
+      ],
+      "correction_method": [
+        "按阶段学习",
+        "打牢基础",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "019",
+      "source_video_name": "019.第十五课：练就5.0发球模型动作的.mp4"
+    }
+  ]
+}

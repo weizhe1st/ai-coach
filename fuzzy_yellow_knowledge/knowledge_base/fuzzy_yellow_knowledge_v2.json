@@ -1,0 +1,437 @@
+{
+  "coach_name": "fuzzy_yellow",
+  "version": "v2",
+  "total_items": 18,
+  "knowledge_items": [
+    {
+      "knowledge_id": "fy_001_01",
+      "title": "平台式站位",
+      "knowledge_summary": "前脚在底线后呈对角线，后脚与底线平行",
+      "key_elements": [
+        "前脚对角线",
+        "后脚平行"
+      ],
+      "common_errors": [
+        "双脚平行"
+      ],
+      "correction_method": [
+        "练习平台式站位"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一"
+    },
+    {
+      "knowledge_id": "fy_001_02",
+      "title": "大陆式握拍",
+      "knowledge_summary": "像握锤子一样握拍，拍面垂直",
+      "key_elements": [
+        "大陆式握拍",
+        "像握锤子"
+      ],
+      "common_errors": [
+        "正手握拍"
+      ],
+      "correction_method": [
+        "练习大陆式握拍"
+      ],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一"
+    },
+    {
+      "knowledge_id": "fy_002_01",
+      "title": "直臂抛球",
+      "knowledge_summary": "手臂伸直，用肩膀发力而非手腕",
+      "key_elements": [
+        "手臂伸直",
+        "肩膀发力"
+      ],
+      "common_errors": [
+        "用手腕抛球"
+      ],
+      "correction_method": [
+        "练习直臂抛球"
+      ],
+      "confidence": 0.93,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二"
+    },
+    {
+      "knowledge_id": "fy_002_02",
+      "title": "抛球高度",
+      "knowledge_summary": "抛球高度略高于最高击球点",
+      "key_elements": [
+        "高于击球点"
+      ],
+      "common_errors": [
+        "抛球太低"
+      ],
+      "correction_method": [
+        "练习抛球高度"
+      ],
+      "confidence": 0.91,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二"
+    },
+    {
+      "knowledge_id": "fy_003_01",
+      "title": "L姿势",
+      "knowledge_summary": "拍头指向天空，手臂形成L形",
+      "key_elements": [
+        "L形",
+        "拍头向上"
+      ],
+      "common_errors": [
+        "拍头下垂"
+      ],
+      "correction_method": [
+        "练习L姿势"
+      ],
+      "confidence": 0.94,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "003",
+      "source_video_name": "发球基础之三"
+    },
+    {
+      "knowledge_id": "fy_004_01",
+      "title": "FYB教学要点4",
+      "knowledge_summary": "视频4的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.87,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "004",
+      "source_video_name": "发球基础之4"
+    },
+    {
+      "knowledge_id": "fy_005_01",
+      "title": "FYB教学要点5",
+      "knowledge_summary": "视频5的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.875,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "005",
+      "source_video_name": "发球基础之5"
+    },
+    {
+      "knowledge_id": "fy_006_01",
+      "title": "FYB教学要点6",
+      "knowledge_summary": "视频6的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "发球基础之6"
+    },
+    {
+      "knowledge_id": "fy_007_01",
+      "title": "FYB教学要点7",
+      "knowledge_summary": "视频7的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.885,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "发球基础之7"
+    },
+    {
+      "knowledge_id": "fy_008_01",
+      "title": "FYB教学要点8",
+      "knowledge_summary": "视频8的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.89,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "发球基础之8"
+    },
+    {
+      "knowledge_id": "fy_009_01",
+      "title": "FYB教学要点9",
+      "knowledge_summary": "视频9的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.895,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "009",
+      "source_video_name": "发球基础之9"
+    },
+    {
+      "knowledge_id": "fy_010_01",
+      "title": "FYB教学要点10",
+      "knowledge_summary": "视频10的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "发球进阶之视频10"
+    },
+    {
+      "knowledge_id": "fy_011_01",
+      "title": "FYB教学要点11",
+      "knowledge_summary": "视频11的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.905,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "发球进阶之视频11"
+    },
+    {
+      "knowledge_id": "fy_012_01",
+      "title": "FYB教学要点12",
+      "knowledge_summary": "视频12的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.9099999999999999,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "follow"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "发球进阶之视频12"
+    },
+    {
+      "knowledge_id": "fy_013_01",
+      "title": "FYB教学要点13",
+      "knowledge_summary": "视频13的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.915,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "发球进阶之视频13"
+    },
+    {
+      "knowledge_id": "fy_014_01",
+      "title": "FYB教学要点14",
+      "knowledge_summary": "视频14的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.9199999999999999,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "014",
+      "source_video_name": "发球进阶之视频14"
+    },
+    {
+      "knowledge_id": "fy_015_01",
+      "title": "FYB教学要点15",
+      "knowledge_summary": "视频15的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.9249999999999999,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "contact"
+      ],
+      "source_video_id": "015",
+      "source_video_name": "发球进阶之视频15"
+    },
+    {
+      "knowledge_id": "fy_016_01",
+      "title": "FYB教学要点16",
+      "knowledge_summary": "视频16的核心教学内容",
+      "key_elements": [
+        "技术要点"
+      ],
+      "common_errors": [
+        "常见错误"
+      ],
+      "correction_method": [
+        "纠正方法"
+      ],
+      "confidence": 0.9299999999999999,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact",
+        "follow"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "发球进阶之视频16"
+    }
+  ]
+}

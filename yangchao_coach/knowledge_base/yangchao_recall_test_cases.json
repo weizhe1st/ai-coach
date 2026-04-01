@@ -1,0 +1,228 @@
+{
+  "test_type": "静态模拟召回测试",
+  "total_scenarios": 8,
+  "passed": 8,
+  "failed": 0,
+  "pass_rate": "8/8",
+  "results": [
+    {
+      "test_id": "T1",
+      "scenario": "用户抛球偏后",
+      "expected_phase": "toss",
+      "expected_issue_tags": [
+        "toss_backward"
+      ],
+      "expected_knowledge_ids": [
+        "yc_008_01"
+      ],
+      "actual_matched_ids": [
+        "yc_008_01"
+      ],
+      "hits": [
+        "yc_008_01"
+      ],
+      "misses": [],
+      "extras": [],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    },
+    {
+      "test_id": "T2",
+      "scenario": "用户抛球过低",
+      "expected_phase": "toss",
+      "expected_issue_tags": [
+        "toss_too_low"
+      ],
+      "expected_knowledge_ids": [
+        "yc_008_02"
+      ],
+      "actual_matched_ids": [
+        "yc_008_02"
+      ],
+      "hits": [
+        "yc_008_02"
+      ],
+      "misses": [],
+      "extras": [],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    },
+    {
+      "test_id": "T3",
+      "scenario": "用户奖杯姿势不到位 / weak loading",
+      "expected_phase": "loading",
+      "expected_issue_tags": [
+        "trophy_not_reached",
+        "weak_loading"
+      ],
+      "expected_knowledge_ids": [
+        "yc_010_01",
+        "yc_010_02",
+        "yc_010_04",
+        "yc_011_01",
+        "yc_011_02"
+      ],
+      "actual_matched_ids": [
+        "yc_010_01",
+        "yc_010_02",
+        "yc_010_04",
+        "yc_011_01",
+        "yc_011_02",
+        "yc_011_03"
+      ],
+      "hits": [
+        "yc_010_02",
+        "yc_011_01",
+        "yc_011_02",
+        "yc_010_04",
+        "yc_010_01"
+      ],
+      "misses": [],
+      "extras": [
+        "yc_011_03"
+      ],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    },
+    {
+      "test_id": "T4",
+      "scenario": "用户击球点过低",
+      "expected_phase": "contact",
+      "expected_issue_tags": [
+        "low_contact_point"
+      ],
+      "expected_knowledge_ids": [
+        "yc_012_01"
+      ],
+      "actual_matched_ids": [
+        "yc_012_01"
+      ],
+      "hits": [
+        "yc_012_01"
+      ],
+      "misses": [],
+      "extras": [],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    },
+    {
+      "test_id": "T5",
+      "scenario": "用户没有明显旋内",
+      "expected_phase": "contact",
+      "expected_issue_tags": [
+        "pronation_missing"
+      ],
+      "expected_knowledge_ids": [
+        "yc_012_02",
+        "yc_013_01",
+        "yc_014_03",
+        "yc_016_01",
+        "yc_016_02"
+      ],
+      "actual_matched_ids": [
+        "yc_012_02",
+        "yc_013_01",
+        "yc_014_03",
+        "yc_016_01",
+        "yc_016_02",
+        "yc_016_04",
+        "yc_017_03"
+      ],
+      "hits": [
+        "yc_012_02",
+        "yc_013_01",
+        "yc_016_02",
+        "yc_014_03",
+        "yc_016_01"
+      ],
+      "misses": [],
+      "extras": [
+        "yc_017_03",
+        "yc_016_04"
+      ],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    },
+    {
+      "test_id": "T6",
+      "scenario": "用户随挥不完整",
+      "expected_phase": "follow",
+      "expected_issue_tags": [
+        "incomplete_follow_through"
+      ],
+      "expected_knowledge_ids": [
+        "yc_012_03",
+        "yc_012_04"
+      ],
+      "actual_matched_ids": [
+        "yc_012_03",
+        "yc_012_04"
+      ],
+      "hits": [
+        "yc_012_03",
+        "yc_012_04"
+      ],
+      "misses": [],
+      "extras": [],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    },
+    {
+      "test_id": "T7",
+      "scenario": "用户重心没有进场",
+      "expected_phase": "follow",
+      "expected_issue_tags": [
+        "weight_transfer_insufficient",
+        "balance_loss"
+      ],
+      "expected_knowledge_ids": [
+        "yc_012_03"
+      ],
+      "actual_matched_ids": [
+        "yc_012_03"
+      ],
+      "hits": [
+        "yc_012_03"
+      ],
+      "misses": [],
+      "extras": [],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    },
+    {
+      "test_id": "T8",
+      "scenario": "用户腿部发力时机不对",
+      "expected_phase": "loading",
+      "expected_issue_tags": [
+        "leg_drive_timing_error"
+      ],
+      "expected_knowledge_ids": [
+        "yc_018_01",
+        "yc_018_03",
+        "yc_018_04"
+      ],
+      "actual_matched_ids": [
+        "yc_018_01",
+        "yc_018_03",
+        "yc_018_04"
+      ],
+      "hits": [
+        "yc_018_03",
+        "yc_018_04",
+        "yc_018_01"
+      ],
+      "misses": [],
+      "extras": [],
+      "hit_correct": true,
+      "miss_analysis": "",
+      "adjustment_needed": false
+    }
+  ]
+}

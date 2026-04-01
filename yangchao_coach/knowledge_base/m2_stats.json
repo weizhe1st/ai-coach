@@ -1,0 +1,29 @@
+{
+  "total": 71,
+  "by_class": {
+    "A": 41,
+    "B": 22,
+    "C": 8
+  },
+  "by_type": {
+    "persona": 5,
+    "principle": 17,
+    "drill": 14,
+    "meta": 8,
+    "diagnostic": 27
+  },
+  "by_grade": {
+    "A": 27,
+    "B": 30,
+    "C": 9,
+    "D": 5
+  },
+  "by_phase": {
+    "ready": 9,
+    "toss": 8,
+    "loading": 13,
+    "contact": 21,
+    "follow": 2
+  },
+  "issue_tags_count": 49
+}

@@ -1,0 +1,31 @@
+{
+  "coach_name": "fuzzy_yellow",
+  "version": "v2",
+  "total_items": 1,
+  "knowledge_items": [
+    {
+      "knowledge_id": "fy_001_01",
+      "title": "平台式站位",
+      "knowledge_summary": "前脚在底线后呈对角线，后脚与底线平行",
+      "key_elements": [
+        "前脚对角线",
+        "后脚平行"
+      ],
+      "common_errors": [
+        "双脚平行"
+      ],
+      "correction_method": [
+        "练习平台式站位"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一"
+    }
+  ]
+}

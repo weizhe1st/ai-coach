@@ -1,0 +1,958 @@
+{
+  "coach_name": "杨超",
+  "version": "v2",
+  "description": "quality_grade=A 的知识项",
+  "total_items": 27,
+  "knowledge_items": [
+    {
+      "knowledge_id": "yc_005_01",
+      "time_range": "01:00-02:45",
+      "title": "3.0发球的四大核心特征：稳定抛球、正确握拍、完整轨迹、合理击球点",
+      "knowledge_summary": "3.0发球要求：抛球稳定在前上方，使用大陆式握拍，挥拍轨迹完整流畅，击球点在身体前上方合理位置",
+      "key_elements": [
+        "抛球稳定",
+        "大陆式握拍",
+        "完整轨迹",
+        "合理击球点"
+      ],
+      "common_errors": [
+        "追求力量忽视稳定",
+        "握拍不正确",
+        "轨迹不完整"
+      ],
+      "correction_method": [
+        "先求稳定",
+        "使用正确握拍",
+        "练习完整轨迹"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready",
+        "toss_path_error"
+      ],
+      "source_video_id": "005",
+      "source_video_name": "005.第一课：3.0发球模型是什么样的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_006_01",
+      "time_range": "01:00-02:50",
+      "title": "发球站位的三个关键：宽度、角度、重心",
+      "knowledge_summary": "站位宽度与肩同宽，身体侧对球网约45度，重心稍前倾在脚掌，形成稳定的击球基础",
+      "key_elements": [
+        "肩宽站位",
+        "侧身45度",
+        "重心前倾"
+      ],
+      "common_errors": [
+        "站位过宽或过窄",
+        "身体正对球网",
+        "重心后仰"
+      ],
+      "correction_method": [
+        "调整站位宽度",
+        "侧身对网",
+        "重心稍前倾"
+      ],
+      "quantitative_values": [
+        "45度"
+      ],
+      "confidence": 0.93,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "stance_width_error",
+        "body_angle_error",
+        "center_of_mass_back"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "006.第二课：你真的没有做好发球前的准备.mp4"
+    },
+    {
+      "knowledge_id": "yc_006_02",
+      "time_range": "02:55-05:00",
+      "title": "准备姿势的细节：非持拍手、持拍手、身体姿态",
+      "knowledge_summary": "非持拍手扶球在腰部高度，持拍手放松准备，身体稍前倾，目光看向前方预期击球点",
+      "key_elements": [
+        "非持拍手扶球",
+        "持拍手放松",
+        "身体前倾"
+      ],
+      "common_errors": [
+        "非持拍手位置不当",
+        "持拍手紧张",
+        "身体后仰"
+      ],
+      "correction_method": [
+        "非持拍手扶球腰部",
+        "放松持拍手",
+        "身体稍前倾"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready",
+        "body_angle_error"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "006.第二课：你真的没有做好发球前的准备.mp4"
+    },
+    {
+      "knowledge_id": "yc_007_01",
+      "time_range": "01:15-02:40",
+      "title": "大陆式握拍的食指根部定位法",
+      "knowledge_summary": "食指根部关节对准拍柄右侧面（右手持拍），虎口形成V字形对准拍框边缘，这是产生切削和上旋的基础",
+      "key_elements": [
+        "食指根部对准拍柄右侧",
+        "虎口V字形",
+        "拍框边缘参考"
+      ],
+      "common_errors": [
+        "食指位置过高或过低",
+        "虎口未对准拍框",
+        "握拍过紧导致手腕僵硬"
+      ],
+      "correction_method": [
+        "调整食指到正确位置",
+        "检查虎口V字对准",
+        "放松手指保持灵活"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "007.第三课：做好准备，用大陆式握拍发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_007_02",
+      "time_range": "02:45-04:20",
+      "title": "握拍力度与手腕灵活性的平衡",
+      "knowledge_summary": "握拍力度以'能稳定控制球拍但不会让手腕僵硬'为准，类似握锤子的力度，太紧影响手腕转动，太松控制不足",
+      "key_elements": [
+        "握拍力度适中",
+        "手腕保持灵活",
+        "锤子握法参考"
+      ],
+      "common_errors": [
+        "握拍过紧如握网球拍底线击球",
+        "握拍过松导致球拍晃动",
+        "手腕僵硬无法产生旋转"
+      ],
+      "correction_method": [
+        "练习握拍-放松-握拍的节奏",
+        "发球前检查手腕活动度",
+        "想象握锤子的感觉"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "007.第三课：做好准备，用大陆式握拍发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_01",
+      "time_range": "01:20-03:15",
+      "title": "抛球偏后的根本原因：手臂后摆习惯",
+      "knowledge_summary": "抛球时手臂不自觉向后摆动，导致球落在身体后方或头顶位置，正确的抛球手臂应直上直下",
+      "key_elements": [
+        "手臂直上直下",
+        "避免后摆",
+        "落点在前脚内侧"
+      ],
+      "common_errors": [
+        "抛球时手臂向后拉",
+        "身体后仰配合后摆",
+        "球落在身体后方"
+      ],
+      "correction_method": [
+        "练习手臂贴耳直上",
+        "身体保持前倾",
+        "要求球落在前脚内侧前方30cm"
+      ],
+      "quantitative_values": [
+        "30cm"
+      ],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_backward",
+        "toss_path_error"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_02",
+      "time_range": "03:20-05:40",
+      "title": "抛球高度的理想标准：伸直手臂+拍长",
+      "knowledge_summary": "抛球高度应达到伸直手臂后球拍能够到的最高点再加一个拍面长度，约2-2.5米，为充分挥拍留出时间",
+      "key_elements": [
+        "伸直手臂高度",
+        "加一个拍面长度",
+        "2-2.5米范围"
+      ],
+      "common_errors": [
+        "抛球过低（1.5米以下）",
+        "抛球过高（超过3米）",
+        "高度不稳定"
+      ],
+      "correction_method": [
+        "测量理想高度标记",
+        "练习控制抛球力度",
+        "保持高度一致性"
+      ],
+      "quantitative_values": [
+        "2.5米",
+        "1.5米",
+        "3米"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_too_low",
+        "toss_too_high"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_03",
+      "time_range": "05:45-07:30",
+      "title": "手指释放技术：轻推而非抛掷",
+      "knowledge_summary": "抛球时用手指轻推球底部，而非手掌抛掷，这样球不旋转且轨迹稳定，拇指和食指最后离开球",
+      "key_elements": [
+        "手指轻推",
+        "拇指食指最后离开",
+        "球不旋转"
+      ],
+      "common_errors": [
+        "用手掌抛球导致旋转",
+        "手指用力不均",
+        "释放时机不当"
+      ],
+      "correction_method": [
+        "练习手指轻推感觉",
+        "观察球是否旋转",
+        "调整释放时机"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_release_error"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_04",
+      "time_range": "07:35-09:20",
+      "title": "抛球与身体协调：同步转体",
+      "knowledge_summary": "抛球动作应与身体转体同步进行，抛球开始时身体开始转动，球到最高点时身体完成转体准备击球",
+      "key_elements": [
+        "抛球与转体同步",
+        "球到最高点身体就位",
+        "节奏协调"
+      ],
+      "common_errors": [
+        "抛球与身体动作脱节",
+        "身体过早或过晚打开",
+        "节奏不协调"
+      ],
+      "correction_method": [
+        "练习抛球-转体同步",
+        "慢动作练习节奏",
+        "录像检查协调性"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "toss",
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_sync_error"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_009_01",
+      "time_range": "01:00-02:45",
+      "title": "职业选手抛球的手臂伸直技术",
+      "knowledge_summary": "观察职业选手抛球时手臂完全伸直，肘关节不弯曲，形成直线杠杆，这样抛球高度和方向更稳定",
+      "key_elements": [
+        "手臂完全伸直",
+        "肘关节锁定",
+        "直线杠杆"
+      ],
+      "common_errors": [
+        "手臂弯曲抛球",
+        "肘关节活动导致不稳定",
+        "力量控制不均"
+      ],
+      "correction_method": [
+        "练习手臂伸直动作",
+        "贴耳抛球练习",
+        "镜子检查手臂姿态"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_path_error"
+      ],
+      "source_video_id": "009",
+      "source_video_name": "009.第五课：像职业选手一样抛球.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_01",
+      "time_range": "01:10-03:00",
+      "title": "侧面视角的C形挥拍轨迹",
+      "knowledge_summary": "从侧面看，理想的挥拍轨迹呈C字形，从准备位置向后下方，然后向上向前，形成完整的弧线",
+      "key_elements": [
+        "C字形轨迹",
+        "向后下方",
+        "向上向前弧线"
+      ],
+      "common_errors": [
+        "直线挥拍",
+        "轨迹不完整",
+        "缺少弧线"
+      ],
+      "correction_method": [
+        "想象C形路径",
+        "练习完整弧线",
+        "镜子侧面观察"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "weak_loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_02",
+      "time_range": "03:05-05:20",
+      "title": "后面视角的圆形挥拍轨迹",
+      "knowledge_summary": "从后面看，挥拍轨迹呈圆形或椭圆形，拍头从身体右侧（右手持拍）向后绕到上方，再向前",
+      "key_elements": [
+        "圆形轨迹",
+        "右侧向后",
+        "向前环绕"
+      ],
+      "common_errors": [
+        "轨迹扁平",
+        "左右摆动",
+        "没有环绕动作"
+      ],
+      "correction_method": [
+        "练习圆形挥拍",
+        "增加环绕幅度",
+        "从后面录像检查"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "weak_loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_03",
+      "time_range": "05:25-07:40",
+      "title": "挥拍轨迹与动力链的关系",
+      "knowledge_summary": "正确的挥拍轨迹能够串联腿部蹬地、躯干转动、肩部转动、手臂挥动，形成完整动力链",
+      "key_elements": [
+        "腿部蹬地",
+        "躯干转动",
+        "肩部手臂联动"
+      ],
+      "common_errors": [
+        "仅用手臂力量",
+        "身体各部位脱节",
+        "动力链断裂"
+      ],
+      "correction_method": [
+        "从脚开始感受力量",
+        "练习身体联动",
+        "慢动作体会传递"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "kinetic_chain_break"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_04",
+      "time_range": "07:45-09:30",
+      "title": "奖杯姿势在挥拍轨迹中的关键作用",
+      "knowledge_summary": "奖杯姿势是挥拍轨迹的转折点，从向后运动转为向前运动，是蓄力到释放的关键节点",
+      "key_elements": [
+        "奖杯姿势转折点",
+        "蓄力到释放",
+        "轨迹方向改变"
+      ],
+      "common_errors": [
+        "奖杯姿势不到位",
+        "转折点不清晰",
+        "直接向前挥拍"
+      ],
+      "correction_method": [
+        "定格练习奖杯姿势",
+        "明确转折点",
+        "感受蓄力释放"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_not_reached"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_011_01",
+      "time_range": "01:30-03:45",
+      "title": "流畅挥拍的节奏控制：慢-快-慢",
+      "knowledge_summary": "后摆阶段慢，奖杯姿势停顿蓄力，向前挥拍加速，随挥阶段自然减速，形成快慢变化节奏",
+      "key_elements": [
+        "后摆慢",
+        "奖杯停顿",
+        "前挥快",
+        "随挥慢"
+      ],
+      "common_errors": [
+        "全程速度一致",
+        "没有停顿蓄力",
+        "随挥过快"
+      ],
+      "correction_method": [
+        "练习节奏变化",
+        "奖杯姿势定格",
+        "控制随挥速度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "weak_loading"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "011.第七课：建立流畅的挥拍轨迹.mp4"
+    },
+    {
+      "knowledge_id": "yc_011_02",
+      "time_range": "03:50-06:10",
+      "title": "消除挥拍轨迹中的卡顿点",
+      "knowledge_summary": "卡顿点通常出现在奖杯姿势和击球前，通过连续练习和慢动作录像找出并消除卡顿",
+      "key_elements": [
+        "识别卡顿点",
+        "奖杯姿势流畅",
+        "击球前加速"
+      ],
+      "common_errors": [
+        "奖杯姿势停顿过长",
+        "击球前减速",
+        "动作不连贯"
+      ],
+      "correction_method": [
+        "缩短奖杯停顿",
+        "击球前加速",
+        "练习连贯动作"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_not_reached",
+        "weak_loading"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "011.第七课：建立流畅的挥拍轨迹.mp4"
+    },
+    {
+      "knowledge_id": "yc_012_01",
+      "time_range": "01:00-02:45",
+      "title": "理想击球点的三维位置",
+      "knowledge_summary": "击球点应在身体前上方，高度在伸直手臂最高点，距离身体约一臂长，形成最佳的向前击球角度",
+      "key_elements": [
+        "身体前上方",
+        "伸直手臂高度",
+        "一臂长距离"
+      ],
+      "common_errors": [
+        "击球点偏后",
+        "击球点过低",
+        "距离身体太近或太远"
+      ],
+      "correction_method": [
+        "调整抛球位置到前方",
+        "抛球高度足够",
+        "保持合适距离"
+      ],
+      "quantitative_values": [
+        "一臂长"
+      ],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "low_contact_point",
+        "late_contact"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "012.第八课：击球点、旋内和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_012_02",
+      "time_range": "02:50-04:30",
+      "title": "旋内（Pronation）的技术原理",
+      "knowledge_summary": "击球瞬间前臂向内旋转，使拍面从垂直地面转为向前，这是产生发球力量的关键技术",
+      "key_elements": [
+        "前臂向内旋转",
+        "拍面转向",
+        "力量释放"
+      ],
+      "common_errors": [
+        "没有旋内动作",
+        "旋内时机过早或过晚",
+        "旋内幅度不足"
+      ],
+      "correction_method": [
+        "练习旋内动作",
+        "掌握旋内时机",
+        "增加旋内幅度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing",
+        "pronation_timing_error"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "012.第八课：击球点、旋内和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_012_03",
+      "time_range": "04:35-06:20",
+      "title": "结束位置与身体平衡",
+      "knowledge_summary": "发球结束后身体重心应向前转移，非持拍手自然下摆，保持平衡进入准备状态",
+      "key_elements": [
+        "重心前移",
+        "非持手下摆",
+        "保持平衡"
+      ],
+      "common_errors": [
+        "重心留在后面",
+        "身体后仰",
+        "失去平衡"
+      ],
+      "correction_method": [
+        "主动向前迈步",
+        "身体前倾",
+        "练习平衡控制"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "follow"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "incomplete_follow_through",
+        "balance_loss",
+        "weight_transfer_insufficient"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "012.第八课：击球点、旋内和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_013_01",
+      "time_range": "01:10-02:50",
+      "title": "旋内练习的分解步骤",
+      "knowledge_summary": "先练习无球旋内动作，再练习抛球后旋内，最后整合到完整发球中，分三步建立旋内技术",
+      "key_elements": [
+        "无球旋内",
+        "抛球旋内",
+        "完整整合"
+      ],
+      "common_errors": [
+        "直接在有球时练习",
+        "跳过分解步骤",
+        "急于求成"
+      ],
+      "correction_method": [
+        "按步骤练习",
+        "每个步骤练到位",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "013.第九课：如何建立正确的旋内、击球点和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_013_03",
+      "time_range": "04:25-06:00",
+      "title": "常见旋内错误及纠正",
+      "knowledge_summary": "旋内时机过早导致击球无力，过晚导致控制不足，应在击球瞬间完成旋内",
+      "key_elements": [
+        "时机过早",
+        "时机过晚",
+        "击球瞬间"
+      ],
+      "common_errors": [
+        "旋内太早",
+        "旋内太晚",
+        "没有旋内"
+      ],
+      "correction_method": [
+        "延迟旋内时机",
+        "提前旋内时机",
+        "练习击球瞬间旋内"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_timing_error"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "013.第九课：如何建立正确的旋内、击球点和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_014_03",
+      "time_range": "04:35-06:20",
+      "title": "侧旋二发的基本技术",
+      "knowledge_summary": "通过调整拍面角度和击球部位，从球的侧面刷过产生侧旋，使球落地后向边线方向弹跳",
+      "key_elements": [
+        "拍面角度",
+        "击球部位",
+        "侧旋效果"
+      ],
+      "common_errors": [
+        "拍面角度不对",
+        "没有刷球动作",
+        "侧旋不足"
+      ],
+      "correction_method": [
+        "调整拍面",
+        "练习刷球",
+        "增加侧旋幅度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "014",
+      "source_video_name": "014.第十课：4.0发球模型动作与二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_016_01",
+      "time_range": "01:00-02:40",
+      "title": "旋转的物理原理：拍面与球的摩擦",
+      "knowledge_summary": "旋转产生于拍面与球接触时的摩擦，拍面角度和挥拍方向决定旋转类型和强度",
+      "key_elements": [
+        "拍面摩擦",
+        "拍面角度",
+        "挥拍方向"
+      ],
+      "common_errors": [
+        "不理解旋转原理",
+        "拍面角度错误",
+        "挥拍方向不对"
+      ],
+      "correction_method": [
+        "学习旋转原理",
+        "调整拍面角度",
+        "控制挥拍方向"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "016.第十二课：发球的旋转是如何产生的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_016_02",
+      "time_range": "02:45-04:30",
+      "title": "侧旋、上旋、下旋的产生方法",
+      "knowledge_summary": "侧旋：从球的侧面刷过；上旋：从球的底部向上刷；下旋：从球的顶部向下刷",
+      "key_elements": [
+        "侧旋刷侧面",
+        "上旋刷底部",
+        "下旋刷顶部"
+      ],
+      "common_errors": [
+        "旋转类型混淆",
+        "刷球部位错误",
+        "旋转效果不明显"
+      ],
+      "correction_method": [
+        "明确旋转类型",
+        "练习正确刷球",
+        "增加刷球幅度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing",
+        "pronation_timing_error"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "016.第十二课：发球的旋转是如何产生的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_018_01",
+      "time_range": "01:00-02:45",
+      "title": "5.0发球的核心：腿部蹬地的力量传递",
+      "knowledge_summary": "5.0发球在4.0基础上加入腿部蹬地，通过腿部力量增加发球速度和旋转，是高级发球的关键",
+      "key_elements": [
+        "腿部蹬地",
+        "力量传递",
+        "速度旋转增加"
+      ],
+      "common_errors": [
+        "忽视腿部力量",
+        "蹬地时机错误",
+        "力量传递断裂"
+      ],
+      "correction_method": [
+        "重视腿部训练",
+        "掌握蹬地时机",
+        "练习力量传递"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "leg_drive_timing_error",
+        "kinetic_chain_break"
+      ],
+      "source_video_id": "018",
+      "source_video_name": "018.第十四课：5.0发球模型动作与腿部的动作.mp4"
+    },
+    {
+      "knowledge_id": "yc_018_02",
+      "time_range": "02:50-04:30",
+      "title": "5.0与4.0的核心差异：动力链完整度",
+      "knowledge_summary": "5.0发球形成从脚到手的完整动力链，腿部、躯干、肩部、手臂协调发力，效率最大化",
+      "key_elements": [
+        "完整动力链",
+        "协调发力",
+        "效率最大化"
+      ],
+      "common_errors": [
+        "动力链不完整",
+        "各部位脱节",
+        "发力效率低"
+      ],
+      "correction_method": [
+        "建立完整动力链",
+        "练习协调发力",
+        "提高发力效率"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "kinetic_chain_break"
+      ],
+      "source_video_id": "018",
+      "source_video_name": "018.第十四课：5.0发球模型动作与腿部的动作.mp4"
+    },
+    {
+      "knowledge_id": "yc_018_03",
+      "time_range": "04:35-06:20",
+      "title": "腿部蹬地的时机与幅度",
+      "knowledge_summary": "蹬地应在抛球达到最高点前开始，在击球时达到最大伸展，幅度以能向上跳起为准",
+      "key_elements": [
+        "蹬地时机",
+        "最大伸展",
+        "向上跳起"
+      ],
+      "common_errors": [
+        "蹬地过早或过晚",
+        "伸展不充分",
+        "没有向上力量"
+      ],
+      "correction_method": [
+        "调整蹬地时机",
+        "充分伸展身体",
+        "产生向上力量"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "leg_drive_timing_error"
+      ],
+      "source_video_id": "018",
+      "source_video_name": "018.第十四课：5.0发球模型动作与腿部的动作.mp4"
+    }
+  ]
+}

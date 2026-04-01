@@ -1,0 +1,2356 @@
+{
+  "coach_name": "杨超",
+  "version": "v2",
+  "total_items": 71,
+  "knowledge_items": [
+    {
+      "knowledge_id": "yc_001_01",
+      "time_range": "00:45-02:20",
+      "title": "教练的三重角色：技术指导者、学习引导者、心理支持者",
+      "knowledge_summary": "杨超教练强调，优秀的网球教练不仅是技术动作的传授者，更要成为学员学习过程的引导者和心理状态的支持者，三者缺一不可",
+      "key_elements": [
+        "技术指导",
+        "学习引导",
+        "心理支持"
+      ],
+      "common_errors": [
+        "只关注技术动作细节",
+        "忽视学员学习节奏",
+        "不关心学员心理状态"
+      ],
+      "correction_method": [
+        "平衡三者关系",
+        "根据学员特点调整",
+        "建立良好师生关系"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "persona",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "001",
+      "source_video_name": "001.教练员导论.mp4"
+    },
+    {
+      "knowledge_id": "yc_001_02",
+      "time_range": "02:25-04:40",
+      "title": "3.0/4.0/5.0分级教学体系的核心逻辑",
+      "knowledge_summary": "建立清晰的分级标准：3.0注重稳定性和基本动作规范，4.0强调旋转控制和变化，5.0追求力量与精准的完美结合，每个阶段有明确的技术指标",
+      "key_elements": [
+        "3.0稳定规范",
+        "4.0旋转变化",
+        "5.0力量精准"
+      ],
+      "common_errors": [
+        "评估标准模糊",
+        "阶段目标不清晰",
+        "跳跃式教学"
+      ],
+      "correction_method": [
+        "使用量化指标",
+        "设定明确阶段目标",
+        "循序渐进教学"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.95,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "001",
+      "source_video_name": "001.教练员导论.mp4"
+    },
+    {
+      "knowledge_id": "yc_001_03",
+      "time_range": "04:45-06:50",
+      "title": "个性化教学：因材施教的核心原则",
+      "knowledge_summary": "根据学员的身体条件（身高、力量、柔韧性）、学习能力（理解速度、模仿能力）和目标（业余爱好、竞技比赛）制定个性化训练计划",
+      "key_elements": [
+        "身体条件评估",
+        "学习能力分析",
+        "目标设定"
+      ],
+      "common_errors": [
+        "一刀切教学",
+        "忽视个体差异",
+        "固定教学模式"
+      ],
+      "correction_method": [
+        "因材施教",
+        "灵活调整计划",
+        "关注个体进步"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "persona",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "001",
+      "source_video_name": "001.教练员导论.mp4"
+    },
+    {
+      "knowledge_id": "yc_002_01",
+      "time_range": "00:50-02:10",
+      "title": "发球是唯一完全由自己控制的技术",
+      "knowledge_summary": "与接发球、底线击球等技术不同，发球不受对手影响，是进攻的起点，也是战术体系的第一个环节，必须高度重视",
+      "key_elements": [
+        "不受对手影响",
+        "进攻起点",
+        "战术第一环节"
+      ],
+      "common_errors": [
+        "忽视发球训练",
+        "发球只求过网",
+        "不把它当优势"
+      ],
+      "correction_method": [
+        "重视发球训练",
+        "建立发球进攻意识",
+        "把发球当武器"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "002",
+      "source_video_name": "002.球员导论.mp4"
+    },
+    {
+      "knowledge_id": "yc_002_02",
+      "time_range": "02:15-04:00",
+      "title": "3.0/4.0/5.0球员的发球能力差异图谱",
+      "knowledge_summary": "3.0球员：发球成功率70%+，动作基本规范；4.0球员：能控制旋转，二发稳定；5.0球员：速度快、旋转强、落点精准，发球成为得分武器",
+      "key_elements": [
+        "3.0成功率70%",
+        "4.0旋转控制",
+        "5.0速度落点"
+      ],
+      "common_errors": [
+        "盲目追求力量",
+        "忽视基础稳定性",
+        "不清楚自己水平"
+      ],
+      "correction_method": [
+        "先稳后狠再转",
+        "明确当前水平",
+        "按阶段提升"
+      ],
+      "quantitative_values": [
+        "70%",
+        "70%+"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "002",
+      "source_video_name": "002.球员导论.mp4"
+    },
+    {
+      "knowledge_id": "yc_002_03",
+      "time_range": "04:05-05:45",
+      "title": "发球学习的心态：长期主义与过程导向",
+      "knowledge_summary": "发球是需要长期练习的技术，保持耐心，重视每一次练习的过程而非短期结果，相信积累的力量",
+      "key_elements": [
+        "长期练习",
+        "保持耐心",
+        "过程导向"
+      ],
+      "common_errors": [
+        "急于求成",
+        "一遇挫折放弃",
+        "只看短期结果"
+      ],
+      "correction_method": [
+        "设定长期目标",
+        "记录进步过程",
+        "享受学习过程"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "persona",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "002",
+      "source_video_name": "002.球员导论.mp4"
+    },
+    {
+      "knowledge_id": "yc_003_01",
+      "time_range": "01:00-03:30",
+      "title": "分解教学法：将复杂动作拆解为六个阶段",
+      "knowledge_summary": "把发球分解为准备、抛球、奖杯姿势、挥拍、击球、随挥六个阶段，逐个练习掌握后再整合，降低学习难度",
+      "key_elements": [
+        "六个阶段",
+        "逐个练习",
+        "逐步整合"
+      ],
+      "common_errors": [
+        "一开始就练完整动作",
+        "忽视基础环节",
+        "跳跃式学习"
+      ],
+      "correction_method": [
+        "按阶段练习",
+        "每个环节练到位",
+        "循序渐进整合"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.95,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "003",
+      "source_video_name": "003.教学原理与方法.mp4"
+    },
+    {
+      "knowledge_id": "yc_003_02",
+      "time_range": "03:35-06:00",
+      "title": "镜像神经元原理：观察学习的科学依据",
+      "knowledge_summary": "通过观察规范示范（教练示范或视频）激活大脑镜像神经元，加速动作学习，示范质量直接影响学习效果",
+      "key_elements": [
+        "观察示范",
+        "镜像神经元",
+        "加速学习"
+      ],
+      "common_errors": [
+        "缺乏示范",
+        "示范动作不规范",
+        "不重视观察"
+      ],
+      "correction_method": [
+        "多角度规范示范",
+        "使用专业视频",
+        "仔细观察模仿"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "003",
+      "source_video_name": "003.教学原理与方法.mp4"
+    },
+    {
+      "knowledge_id": "yc_003_03",
+      "time_range": "06:05-09:10",
+      "title": "反馈机制：自我感知、教练指导、视频回放三位一体",
+      "knowledge_summary": "建立即时反馈系统：练习时自我感知身体状态，教练及时纠正，录像回放客观分析，三者结合加速进步",
+      "key_elements": [
+        "自我感知",
+        "教练反馈",
+        "视频分析"
+      ],
+      "common_errors": [
+        "练习无反馈",
+        "重复错误动作",
+        "不及时纠正"
+      ],
+      "correction_method": [
+        "录制练习视频",
+        "及时寻求反馈",
+        "立即纠正错误"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "003",
+      "source_video_name": "003.教学原理与方法.mp4"
+    },
+    {
+      "knowledge_id": "yc_003_04",
+      "time_range": "09:15-11:40",
+      "title": "重复与变式：固定模式与情境应用的平衡",
+      "knowledge_summary": "固定动作模式需要大量重复形成肌肉记忆，但要在不同情境（不同位置、压力情况）下应用，避免机械僵化",
+      "key_elements": [
+        "大量重复",
+        "情境变式",
+        "模式固化"
+      ],
+      "common_errors": [
+        "机械重复",
+        "缺乏情境变化",
+        "僵化不变通"
+      ],
+      "correction_method": [
+        "重复形成记忆",
+        "多情境练习",
+        "灵活应用"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "003",
+      "source_video_name": "003.教学原理与方法.mp4"
+    },
+    {
+      "knowledge_id": "yc_003_05",
+      "time_range": "11:45-13:50",
+      "title": "技能迁移：发球与其他技术的关联训练",
+      "knowledge_summary": "发球与高压球、正手击球有共同的动力链原理，通过关联训练促进技能正向迁移，提高整体技术水平",
+      "key_elements": [
+        "动力链共通",
+        "关联训练",
+        "正向迁移"
+      ],
+      "common_errors": [
+        "孤立练习发球",
+        "忽视技术关联",
+        "知识碎片化"
+      ],
+      "correction_method": [
+        "建立技术联系",
+        "综合运用训练",
+        "融会贯通"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "003",
+      "source_video_name": "003.教学原理与方法.mp4"
+    },
+    {
+      "knowledge_id": "yc_004_01",
+      "time_range": "00:50-02:40",
+      "title": "发球三大常见伤病：肩袖、网球肘、腰背伤的预防",
+      "knowledge_summary": "肩袖损伤源于过度使用和动作不当，网球肘来自手腕过度用力，腰背伤与核心稳定性不足有关，预防胜于治疗",
+      "key_elements": [
+        "肩袖保护",
+        "肘关节保护",
+        "核心稳定"
+      ],
+      "common_errors": [
+        "忽视热身",
+        "过度训练",
+        "动作代偿"
+      ],
+      "correction_method": [
+        "充分热身",
+        "循序渐进",
+        "保持正确动作"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.93,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "004",
+      "source_video_name": "004.防伤与准备活动.mp4"
+    },
+    {
+      "knowledge_id": "yc_004_02",
+      "time_range": "02:45-05:00",
+      "title": "发球专项热身流程：肩部-躯干-下肢激活序列",
+      "knowledge_summary": "10-15分钟专项热身：肩部环绕（前后各10次）、小臂旋转、躯干扭转、腿部拉伸，按顺序激活各部位",
+      "key_elements": [
+        "肩部环绕",
+        "躯干激活",
+        "下肢准备"
+      ],
+      "common_errors": [
+        "热身不充分",
+        "热身动作错误",
+        "顺序混乱"
+      ],
+      "correction_method": [
+        "10-15分钟热身",
+        "按正确顺序",
+        "标准动作"
+      ],
+      "quantitative_values": [
+        "10-15分钟",
+        "10次",
+        "15分钟"
+      ],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "004",
+      "source_video_name": "004.防伤与准备活动.mp4"
+    },
+    {
+      "knowledge_id": "yc_004_03",
+      "time_range": "05:05-07:10",
+      "title": "训练后恢复：拉伸-冰敷-按摩的恢复链",
+      "knowledge_summary": "训练后10分钟放松拉伸，肩部如有不适及时冰敷15-20分钟，定期进行按摩恢复，预防慢性损伤",
+      "key_elements": [
+        "拉伸放松",
+        "冰敷消炎",
+        "按摩恢复"
+      ],
+      "common_errors": [
+        "训练后立即休息",
+        "忽视恢复",
+        "带伤训练"
+      ],
+      "correction_method": [
+        "10分钟放松",
+        "必要时冰敷",
+        "定期按摩"
+      ],
+      "quantitative_values": [
+        "15-20分钟",
+        "10分钟",
+        "20分钟"
+      ],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "004",
+      "source_video_name": "004.防伤与准备活动.mp4"
+    },
+    {
+      "knowledge_id": "yc_005_01",
+      "time_range": "01:00-02:45",
+      "title": "3.0发球的四大核心特征：稳定抛球、正确握拍、完整轨迹、合理击球点",
+      "knowledge_summary": "3.0发球要求：抛球稳定在前上方，使用大陆式握拍，挥拍轨迹完整流畅，击球点在身体前上方合理位置",
+      "key_elements": [
+        "抛球稳定",
+        "大陆式握拍",
+        "完整轨迹",
+        "合理击球点"
+      ],
+      "common_errors": [
+        "追求力量忽视稳定",
+        "握拍不正确",
+        "轨迹不完整"
+      ],
+      "correction_method": [
+        "先求稳定",
+        "使用正确握拍",
+        "练习完整轨迹"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "ready",
+        "toss",
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready",
+        "toss_path_error"
+      ],
+      "source_video_id": "005",
+      "source_video_name": "005.第一课：3.0发球模型是什么样的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_005_02",
+      "time_range": "02:50-04:30",
+      "title": "3.0发球的技术标准：成功率70%+，动作规范，落点可控",
+      "knowledge_summary": "量化标准：发球成功率70%以上，动作基本规范不变形，能够控制发球落点到指定区域",
+      "key_elements": [
+        "成功率70%+",
+        "动作规范",
+        "落点控制"
+      ],
+      "common_errors": [
+        "成功率过低",
+        "动作变形严重",
+        "落点随机"
+      ],
+      "correction_method": [
+        "降低速度提高成功率",
+        "重视动作规范",
+        "练习落点控制"
+      ],
+      "quantitative_values": [
+        "70%+",
+        "70%"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "005",
+      "source_video_name": "005.第一课：3.0发球模型是什么样的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_005_03",
+      "time_range": "04:35-06:20",
+      "title": "3.0与2.0、4.0的水平差异定位",
+      "knowledge_summary": "相比2.0的随意发球，3.0有了基本动作框架；相比4.0，3.0缺少旋转控制和变化能力，是发球学习的第一个里程碑",
+      "key_elements": [
+        "2.0随意",
+        "3.0框架",
+        "4.0旋转"
+      ],
+      "common_errors": [
+        "混淆水平标准",
+        "过早追求高级技术",
+        "不清楚定位"
+      ],
+      "correction_method": [
+        "明确当前水平",
+        "按阶段提升",
+        "先达到3.0标准"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "005",
+      "source_video_name": "005.第一课：3.0发球模型是什么样的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_005_04",
+      "time_range": "06:25-08:50",
+      "title": "达到3.0的四步训练路径：握拍→站位→抛球→挥拍",
+      "knowledge_summary": "按顺序突破：先掌握大陆式握拍，再调整正确站位，然后练习稳定抛球，最后建立完整挥拍，四步缺一不可",
+      "key_elements": [
+        "握拍",
+        "站位",
+        "抛球",
+        "挥拍"
+      ],
+      "common_errors": [
+        "跳过基础环节",
+        "急于求成",
+        "顺序混乱"
+      ],
+      "correction_method": [
+        "按部就班",
+        "每个环节到位",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "005",
+      "source_video_name": "005.第一课：3.0发球模型是什么样的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_006_01",
+      "time_range": "01:00-02:50",
+      "title": "发球站位的三个关键：宽度、角度、重心",
+      "knowledge_summary": "站位宽度与肩同宽，身体侧对球网约45度，重心稍前倾在脚掌，形成稳定的击球基础",
+      "key_elements": [
+        "肩宽站位",
+        "侧身45度",
+        "重心前倾"
+      ],
+      "common_errors": [
+        "站位过宽或过窄",
+        "身体正对球网",
+        "重心后仰"
+      ],
+      "correction_method": [
+        "调整站位宽度",
+        "侧身对网",
+        "重心稍前倾"
+      ],
+      "quantitative_values": [
+        "45度"
+      ],
+      "confidence": 0.93,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "stance_width_error",
+        "body_angle_error",
+        "center_of_mass_back"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "006.第二课：你真的没有做好发球前的准备.mp4"
+    },
+    {
+      "knowledge_id": "yc_006_02",
+      "time_range": "02:55-05:00",
+      "title": "准备姿势的细节：非持拍手、持拍手、身体姿态",
+      "knowledge_summary": "非持拍手扶球在腰部高度，持拍手放松准备，身体稍前倾，目光看向前方预期击球点",
+      "key_elements": [
+        "非持拍手扶球",
+        "持拍手放松",
+        "身体前倾"
+      ],
+      "common_errors": [
+        "非持拍手位置不当",
+        "持拍手紧张",
+        "身体后仰"
+      ],
+      "correction_method": [
+        "非持拍手扶球腰部",
+        "放松持拍手",
+        "身体稍前倾"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready",
+        "body_angle_error"
+      ],
+      "source_video_id": "006",
+      "source_video_name": "006.第二课：你真的没有做好发球前的准备.mp4"
+    },
+    {
+      "knowledge_id": "yc_006_03",
+      "time_range": "05:05-07:20",
+      "title": "发球前的仪式化准备流程：拍球-呼吸-聚焦",
+      "knowledge_summary": "建立固定流程：拍球2-3次建立节奏，深呼吸放松，目光聚焦到预期落点，提高专注度和一致性",
+      "key_elements": [
+        "拍球节奏",
+        "深呼吸",
+        "目光聚焦"
+      ],
+      "common_errors": [
+        "准备动作随意",
+        "缺乏专注",
+        "每次准备不同"
+      ],
+      "correction_method": [
+        "建立固定流程",
+        "每次执行",
+        "提高专注度"
+      ],
+      "quantitative_values": [
+        "2-3次",
+        "3次"
+      ],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "006",
+      "source_video_name": "006.第二课：你真的没有做好发球前的准备.mp4"
+    },
+    {
+      "knowledge_id": "yc_006_04",
+      "time_range": "07:25-09:20",
+      "title": "心理准备：排除干扰、建立自信、保持专注",
+      "knowledge_summary": "发球前的心理调整：用积极自我暗示建立自信，通过呼吸排除干扰，保持对目标的专注",
+      "key_elements": [
+        "积极暗示",
+        "排除干扰",
+        "保持专注"
+      ],
+      "common_errors": [
+        "心理紧张",
+        "注意力不集中",
+        "自我怀疑"
+      ],
+      "correction_method": [
+        "积极自我对话",
+        "深呼吸放松",
+        "专注目标"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "persona",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "006",
+      "source_video_name": "006.第二课：你真的没有做好发球前的准备.mp4"
+    },
+    {
+      "knowledge_id": "yc_007_01",
+      "time_range": "01:15-02:40",
+      "title": "大陆式握拍的食指根部定位法",
+      "knowledge_summary": "食指根部关节对准拍柄右侧面（右手持拍），虎口形成V字形对准拍框边缘，这是产生切削和上旋的基础",
+      "key_elements": [
+        "食指根部对准拍柄右侧",
+        "虎口V字形",
+        "拍框边缘参考"
+      ],
+      "common_errors": [
+        "食指位置过高或过低",
+        "虎口未对准拍框",
+        "握拍过紧导致手腕僵硬"
+      ],
+      "correction_method": [
+        "调整食指到正确位置",
+        "检查虎口V字对准",
+        "放松手指保持灵活"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "007.第三课：做好准备，用大陆式握拍发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_007_02",
+      "time_range": "02:45-04:20",
+      "title": "握拍力度与手腕灵活性的平衡",
+      "knowledge_summary": "握拍力度以'能稳定控制球拍但不会让手腕僵硬'为准，类似握锤子的力度，太紧影响手腕转动，太松控制不足",
+      "key_elements": [
+        "握拍力度适中",
+        "手腕保持灵活",
+        "锤子握法参考"
+      ],
+      "common_errors": [
+        "握拍过紧如握网球拍底线击球",
+        "握拍过松导致球拍晃动",
+        "手腕僵硬无法产生旋转"
+      ],
+      "correction_method": [
+        "练习握拍-放松-握拍的节奏",
+        "发球前检查手腕活动度",
+        "想象握锤子的感觉"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "007.第三课：做好准备，用大陆式握拍发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_007_03",
+      "time_range": "04:25-06:30",
+      "title": "大陆式握拍与正手握拍的转换练习",
+      "knowledge_summary": "发球前从正手握拍快速转换到大陆式握拍，建立肌肉记忆，转换过程应在准备姿势时完成",
+      "key_elements": [
+        "快速转换动作",
+        "准备姿势时完成",
+        "肌肉记忆建立"
+      ],
+      "common_errors": [
+        "转换动作慢影响发球节奏",
+        "转换后握拍位置不正确",
+        "发球时还在调整握拍"
+      ],
+      "correction_method": [
+        "每次发球前做3次转换练习",
+        "非持拍手辅助调整握拍",
+        "固定转换动作模式"
+      ],
+      "quantitative_values": [
+        "3次"
+      ],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "ready"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "007.第三课：做好准备，用大陆式握拍发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_007_04",
+      "time_range": "06:35-08:30",
+      "title": "握拍对发球旋转类型的影响",
+      "knowledge_summary": "大陆式握拍配合不同拍面角度可产生平击、切削、上旋三种基本发球，握拍是基础，拍面控制是关键",
+      "key_elements": [
+        "平击发球拍面",
+        "切削发球拍面",
+        "上旋发球拍面"
+      ],
+      "common_errors": [
+        "想发旋转但握拍不支持",
+        "拍面控制与握拍不协调",
+        "旋转效果不稳定"
+      ],
+      "correction_method": [
+        "先确保握拍正确",
+        "练习拍面角度微调",
+        "从切削开始练习旋转"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "ready",
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [
+        "grip_not_ready"
+      ],
+      "source_video_id": "007",
+      "source_video_name": "007.第三课：做好准备，用大陆式握拍发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_01",
+      "time_range": "01:20-03:15",
+      "title": "抛球偏后的根本原因：手臂后摆习惯",
+      "knowledge_summary": "抛球时手臂不自觉向后摆动，导致球落在身体后方或头顶位置，正确的抛球手臂应直上直下",
+      "key_elements": [
+        "手臂直上直下",
+        "避免后摆",
+        "落点在前脚内侧"
+      ],
+      "common_errors": [
+        "抛球时手臂向后拉",
+        "身体后仰配合后摆",
+        "球落在身体后方"
+      ],
+      "correction_method": [
+        "练习手臂贴耳直上",
+        "身体保持前倾",
+        "要求球落在前脚内侧前方30cm"
+      ],
+      "quantitative_values": [
+        "30cm"
+      ],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_backward",
+        "toss_path_error"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_02",
+      "time_range": "03:20-05:40",
+      "title": "抛球高度的理想标准：伸直手臂+拍长",
+      "knowledge_summary": "抛球高度应达到伸直手臂后球拍能够到的最高点再加一个拍面长度，约2-2.5米，为充分挥拍留出时间",
+      "key_elements": [
+        "伸直手臂高度",
+        "加一个拍面长度",
+        "2-2.5米范围"
+      ],
+      "common_errors": [
+        "抛球过低（1.5米以下）",
+        "抛球过高（超过3米）",
+        "高度不稳定"
+      ],
+      "correction_method": [
+        "测量理想高度标记",
+        "练习控制抛球力度",
+        "保持高度一致性"
+      ],
+      "quantitative_values": [
+        "2.5米",
+        "1.5米",
+        "3米"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_too_low",
+        "toss_too_high"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_03",
+      "time_range": "05:45-07:30",
+      "title": "手指释放技术：轻推而非抛掷",
+      "knowledge_summary": "抛球时用手指轻推球底部，而非手掌抛掷，这样球不旋转且轨迹稳定，拇指和食指最后离开球",
+      "key_elements": [
+        "手指轻推",
+        "拇指食指最后离开",
+        "球不旋转"
+      ],
+      "common_errors": [
+        "用手掌抛球导致旋转",
+        "手指用力不均",
+        "释放时机不当"
+      ],
+      "correction_method": [
+        "练习手指轻推感觉",
+        "观察球是否旋转",
+        "调整释放时机"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_release_error"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_008_04",
+      "time_range": "07:35-09:20",
+      "title": "抛球与身体协调：同步转体",
+      "knowledge_summary": "抛球动作应与身体转体同步进行，抛球开始时身体开始转动，球到最高点时身体完成转体准备击球",
+      "key_elements": [
+        "抛球与转体同步",
+        "球到最高点身体就位",
+        "节奏协调"
+      ],
+      "common_errors": [
+        "抛球与身体动作脱节",
+        "身体过早或过晚打开",
+        "节奏不协调"
+      ],
+      "correction_method": [
+        "练习抛球-转体同步",
+        "慢动作练习节奏",
+        "录像检查协调性"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "toss",
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_sync_error"
+      ],
+      "source_video_id": "008",
+      "source_video_name": "008.第四课：为什么我总是抛不好球？.mp4"
+    },
+    {
+      "knowledge_id": "yc_009_01",
+      "time_range": "01:00-02:45",
+      "title": "职业选手抛球的手臂伸直技术",
+      "knowledge_summary": "观察职业选手抛球时手臂完全伸直，肘关节不弯曲，形成直线杠杆，这样抛球高度和方向更稳定",
+      "key_elements": [
+        "手臂完全伸直",
+        "肘关节锁定",
+        "直线杠杆"
+      ],
+      "common_errors": [
+        "手臂弯曲抛球",
+        "肘关节活动导致不稳定",
+        "力量控制不均"
+      ],
+      "correction_method": [
+        "练习手臂伸直动作",
+        "贴耳抛球练习",
+        "镜子检查手臂姿态"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "toss_path_error"
+      ],
+      "source_video_id": "009",
+      "source_video_name": "009.第五课：像职业选手一样抛球.mp4"
+    },
+    {
+      "knowledge_id": "yc_009_02",
+      "time_range": "02:50-04:30",
+      "title": "职业选手的非持拍手运用",
+      "knowledge_summary": "职业选手非持拍手在抛球过程中起到平衡和引导作用，抛球后自然下落，不干扰身体转动",
+      "key_elements": [
+        "非持拍手平衡",
+        "自然下落",
+        "不干扰转体"
+      ],
+      "common_errors": [
+        "非持拍手僵硬",
+        "过早收回非持拍手",
+        "影响身体平衡"
+      ],
+      "correction_method": [
+        "放松非持拍手",
+        "让非持拍手自然下落",
+        "保持身体平衡"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "toss"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "B",
+      "issue_tags": [
+        "toss_sync_error"
+      ],
+      "source_video_id": "009",
+      "source_video_name": "009.第五课：像职业选手一样抛球.mp4"
+    },
+    {
+      "knowledge_id": "yc_009_03",
+      "time_range": "04:35-06:15",
+      "title": "职业选手抛球的视线焦点",
+      "knowledge_summary": "职业选手抛球时目光跟随球到最高点，然后视线转移到预期击球点，形成视觉引导链",
+      "key_elements": [
+        "目光跟随球",
+        "视线转移",
+        "视觉引导链"
+      ],
+      "common_errors": [
+        "目光不跟随球",
+        "视线散乱",
+        "没有明确击球点"
+      ],
+      "correction_method": [
+        "练习目光跟随",
+        "设定明确击球点",
+        "建立视觉习惯"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "A",
+      "phase": [
+        "toss",
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "009",
+      "source_video_name": "009.第五课：像职业选手一样抛球.mp4"
+    },
+    {
+      "knowledge_id": "yc_009_04",
+      "time_range": "06:20-08:45",
+      "title": "从模仿到内化：职业选手抛球的学习路径",
+      "knowledge_summary": "先模仿职业选手抛球的外在形式，再理解其力学原理，最后内化为自己的稳定技术",
+      "key_elements": [
+        "模仿外形",
+        "理解原理",
+        "内化技术"
+      ],
+      "common_errors": [
+        "只模仿不思考",
+        "急于求成",
+        "忽视基础练习"
+      ],
+      "correction_method": [
+        "慢动作模仿",
+        "分析力学原理",
+        "大量重复练习"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "009",
+      "source_video_name": "009.第五课：像职业选手一样抛球.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_01",
+      "time_range": "01:10-03:00",
+      "title": "侧面视角的C形挥拍轨迹",
+      "knowledge_summary": "从侧面看，理想的挥拍轨迹呈C字形，从准备位置向后下方，然后向上向前，形成完整的弧线",
+      "key_elements": [
+        "C字形轨迹",
+        "向后下方",
+        "向上向前弧线"
+      ],
+      "common_errors": [
+        "直线挥拍",
+        "轨迹不完整",
+        "缺少弧线"
+      ],
+      "correction_method": [
+        "想象C形路径",
+        "练习完整弧线",
+        "镜子侧面观察"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "weak_loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_02",
+      "time_range": "03:05-05:20",
+      "title": "后面视角的圆形挥拍轨迹",
+      "knowledge_summary": "从后面看，挥拍轨迹呈圆形或椭圆形，拍头从身体右侧（右手持拍）向后绕到上方，再向前",
+      "key_elements": [
+        "圆形轨迹",
+        "右侧向后",
+        "向前环绕"
+      ],
+      "common_errors": [
+        "轨迹扁平",
+        "左右摆动",
+        "没有环绕动作"
+      ],
+      "correction_method": [
+        "练习圆形挥拍",
+        "增加环绕幅度",
+        "从后面录像检查"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "weak_loading"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_03",
+      "time_range": "05:25-07:40",
+      "title": "挥拍轨迹与动力链的关系",
+      "knowledge_summary": "正确的挥拍轨迹能够串联腿部蹬地、躯干转动、肩部转动、手臂挥动，形成完整动力链",
+      "key_elements": [
+        "腿部蹬地",
+        "躯干转动",
+        "肩部手臂联动"
+      ],
+      "common_errors": [
+        "仅用手臂力量",
+        "身体各部位脱节",
+        "动力链断裂"
+      ],
+      "correction_method": [
+        "从脚开始感受力量",
+        "练习身体联动",
+        "慢动作体会传递"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "kinetic_chain_break"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_010_04",
+      "time_range": "07:45-09:30",
+      "title": "奖杯姿势在挥拍轨迹中的关键作用",
+      "knowledge_summary": "奖杯姿势是挥拍轨迹的转折点，从向后运动转为向前运动，是蓄力到释放的关键节点",
+      "key_elements": [
+        "奖杯姿势转折点",
+        "蓄力到释放",
+        "轨迹方向改变"
+      ],
+      "common_errors": [
+        "奖杯姿势不到位",
+        "转折点不清晰",
+        "直接向前挥拍"
+      ],
+      "correction_method": [
+        "定格练习奖杯姿势",
+        "明确转折点",
+        "感受蓄力释放"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_not_reached"
+      ],
+      "source_video_id": "010",
+      "source_video_name": "010.第六课：挥拍轨迹到底是什么样子的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_011_01",
+      "time_range": "01:30-03:45",
+      "title": "流畅挥拍的节奏控制：慢-快-慢",
+      "knowledge_summary": "后摆阶段慢，奖杯姿势停顿蓄力，向前挥拍加速，随挥阶段自然减速，形成快慢变化节奏",
+      "key_elements": [
+        "后摆慢",
+        "奖杯停顿",
+        "前挥快",
+        "随挥慢"
+      ],
+      "common_errors": [
+        "全程速度一致",
+        "没有停顿蓄力",
+        "随挥过快"
+      ],
+      "correction_method": [
+        "练习节奏变化",
+        "奖杯姿势定格",
+        "控制随挥速度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "weak_loading"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "011.第七课：建立流畅的挥拍轨迹.mp4"
+    },
+    {
+      "knowledge_id": "yc_011_02",
+      "time_range": "03:50-06:10",
+      "title": "消除挥拍轨迹中的卡顿点",
+      "knowledge_summary": "卡顿点通常出现在奖杯姿势和击球前，通过连续练习和慢动作录像找出并消除卡顿",
+      "key_elements": [
+        "识别卡顿点",
+        "奖杯姿势流畅",
+        "击球前加速"
+      ],
+      "common_errors": [
+        "奖杯姿势停顿过长",
+        "击球前减速",
+        "动作不连贯"
+      ],
+      "correction_method": [
+        "缩短奖杯停顿",
+        "击球前加速",
+        "练习连贯动作"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "trophy_not_reached",
+        "weak_loading"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "011.第七课：建立流畅的挥拍轨迹.mp4"
+    },
+    {
+      "knowledge_id": "yc_011_03",
+      "time_range": "06:15-08:40",
+      "title": "影子挥拍：无球练习建立肌肉记忆",
+      "knowledge_summary": "不带球进行完整挥拍练习，专注于轨迹和节奏，每天20-30次影子挥拍建立肌肉记忆",
+      "key_elements": [
+        "无球练习",
+        "专注轨迹",
+        "重复建立记忆"
+      ],
+      "common_errors": [
+        "只练有球发球",
+        "忽视影子挥拍",
+        "练习次数不足"
+      ],
+      "correction_method": [
+        "每天影子挥拍20-30次",
+        "镜子观察轨迹",
+        "录像对比"
+      ],
+      "quantitative_values": [
+        "20-30次",
+        "30次"
+      ],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [
+        "weak_loading"
+      ],
+      "source_video_id": "011",
+      "source_video_name": "011.第七课：建立流畅的挥拍轨迹.mp4"
+    },
+    {
+      "knowledge_id": "yc_011_04",
+      "time_range": "08:45-11:30",
+      "title": "010课与011课的递进关系：从知道到做到",
+      "knowledge_summary": "010课理解挥拍轨迹的理论形态，011课练习建立流畅的实际动作，从认知到技能的转化",
+      "key_elements": [
+        "010理论认知",
+        "011实践练习",
+        "认知到技能"
+      ],
+      "common_errors": [
+        "只看不练",
+        "理论与实践脱节",
+        "急于求成"
+      ],
+      "correction_method": [
+        "理解后大量练习",
+        "理论与实践结合",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "011",
+      "source_video_name": "011.第七课：建立流畅的挥拍轨迹.mp4"
+    },
+    {
+      "knowledge_id": "yc_012_01",
+      "time_range": "01:00-02:45",
+      "title": "理想击球点的三维位置",
+      "knowledge_summary": "击球点应在身体前上方，高度在伸直手臂最高点，距离身体约一臂长，形成最佳的向前击球角度",
+      "key_elements": [
+        "身体前上方",
+        "伸直手臂高度",
+        "一臂长距离"
+      ],
+      "common_errors": [
+        "击球点偏后",
+        "击球点过低",
+        "距离身体太近或太远"
+      ],
+      "correction_method": [
+        "调整抛球位置到前方",
+        "抛球高度足够",
+        "保持合适距离"
+      ],
+      "quantitative_values": [
+        "一臂长"
+      ],
+      "confidence": 0.95,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "low_contact_point",
+        "late_contact"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "012.第八课：击球点、旋内和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_012_02",
+      "time_range": "02:50-04:30",
+      "title": "旋内（Pronation）的技术原理",
+      "knowledge_summary": "击球瞬间前臂向内旋转，使拍面从垂直地面转为向前，这是产生发球力量的关键技术",
+      "key_elements": [
+        "前臂向内旋转",
+        "拍面转向",
+        "力量释放"
+      ],
+      "common_errors": [
+        "没有旋内动作",
+        "旋内时机过早或过晚",
+        "旋内幅度不足"
+      ],
+      "correction_method": [
+        "练习旋内动作",
+        "掌握旋内时机",
+        "增加旋内幅度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing",
+        "pronation_timing_error"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "012.第八课：击球点、旋内和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_012_03",
+      "time_range": "04:35-06:20",
+      "title": "结束位置与身体平衡",
+      "knowledge_summary": "发球结束后身体重心应向前转移，非持拍手自然下摆，保持平衡进入准备状态",
+      "key_elements": [
+        "重心前移",
+        "非持手下摆",
+        "保持平衡"
+      ],
+      "common_errors": [
+        "重心留在后面",
+        "身体后仰",
+        "失去平衡"
+      ],
+      "correction_method": [
+        "主动向前迈步",
+        "身体前倾",
+        "练习平衡控制"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "follow"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "incomplete_follow_through",
+        "balance_loss",
+        "weight_transfer_insufficient"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "012.第八课：击球点、旋内和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_012_04",
+      "time_range": "06:25-08:40",
+      "title": "击球点、旋内、结束位置的协调配合",
+      "knowledge_summary": "三个技术环节形成连续动作链：在正确击球点完成旋内，旋内后自然进入结束位置",
+      "key_elements": [
+        "击球点完成旋内",
+        "旋内引导结束",
+        "动作链连贯"
+      ],
+      "common_errors": [
+        "三个环节脱节",
+        "动作不连贯",
+        "顺序混乱"
+      ],
+      "correction_method": [
+        "慢动作练习完整链",
+        "建立动作顺序",
+        "练习连贯性"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact",
+        "follow"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "B",
+      "issue_tags": [
+        "pronation_timing_error",
+        "incomplete_follow_through"
+      ],
+      "source_video_id": "012",
+      "source_video_name": "012.第八课：击球点、旋内和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_013_01",
+      "time_range": "01:10-02:50",
+      "title": "旋内练习的分解步骤",
+      "knowledge_summary": "先练习无球旋内动作，再练习抛球后旋内，最后整合到完整发球中，分三步建立旋内技术",
+      "key_elements": [
+        "无球旋内",
+        "抛球旋内",
+        "完整整合"
+      ],
+      "common_errors": [
+        "直接在有球时练习",
+        "跳过分解步骤",
+        "急于求成"
+      ],
+      "correction_method": [
+        "按步骤练习",
+        "每个步骤练到位",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "013.第九课：如何建立正确的旋内、击球点和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_013_02",
+      "time_range": "02:55-04:20",
+      "title": "012课与013课的递进：从理解到掌握",
+      "knowledge_summary": "012课理解三个技术环节的概念，013课练习掌握具体方法，从理论到实践的深化",
+      "key_elements": [
+        "012理解概念",
+        "013掌握方法",
+        "理论到实践"
+      ],
+      "common_errors": [
+        "只理解不练习",
+        "理论与实践脱节"
+      ],
+      "correction_method": [
+        "理解后大量练习",
+        "用实践验证理论"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "013",
+      "source_video_name": "013.第九课：如何建立正确的旋内、击球点和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_013_03",
+      "time_range": "04:25-06:00",
+      "title": "常见旋内错误及纠正",
+      "knowledge_summary": "旋内时机过早导致击球无力，过晚导致控制不足，应在击球瞬间完成旋内",
+      "key_elements": [
+        "时机过早",
+        "时机过晚",
+        "击球瞬间"
+      ],
+      "common_errors": [
+        "旋内太早",
+        "旋内太晚",
+        "没有旋内"
+      ],
+      "correction_method": [
+        "延迟旋内时机",
+        "提前旋内时机",
+        "练习击球瞬间旋内"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_timing_error"
+      ],
+      "source_video_id": "013",
+      "source_video_name": "013.第九课：如何建立正确的旋内、击球点和结束位置.mp4"
+    },
+    {
+      "knowledge_id": "yc_014_01",
+      "time_range": "01:00-02:40",
+      "title": "4.0发球与3.0发球的核心差异",
+      "knowledge_summary": "4.0发球在3.0基础上增加了旋转控制，能够稳定发出带旋转的球，提高发球成功率和变化",
+      "key_elements": [
+        "旋转控制",
+        "成功率提升",
+        "发球变化"
+      ],
+      "common_errors": [
+        "只追求力量",
+        "忽视旋转",
+        "二发过于保守"
+      ],
+      "correction_method": [
+        "重视旋转训练",
+        "平衡力量与旋转",
+        "二发也要进攻"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "014",
+      "source_video_name": "014.第十课：4.0发球模型动作与二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_014_02",
+      "time_range": "02:45-04:30",
+      "title": "二发的战略意义与技术要求",
+      "knowledge_summary": "二发是比赛中的关键球，需要高成功率同时保持攻击性，通过旋转实现",
+      "key_elements": [
+        "高成功率",
+        "保持攻击",
+        "旋转实现"
+      ],
+      "common_errors": [
+        "二发只求过网",
+        "二发没有威胁",
+        "二发双误"
+      ],
+      "correction_method": [
+        "二发也要有目标",
+        "增加旋转提高成功率",
+        "降低双误率"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "014",
+      "source_video_name": "014.第十课：4.0发球模型动作与二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_014_03",
+      "time_range": "04:35-06:20",
+      "title": "侧旋二发的基本技术",
+      "knowledge_summary": "通过调整拍面角度和击球部位，从球的侧面刷过产生侧旋，使球落地后向边线方向弹跳",
+      "key_elements": [
+        "拍面角度",
+        "击球部位",
+        "侧旋效果"
+      ],
+      "common_errors": [
+        "拍面角度不对",
+        "没有刷球动作",
+        "侧旋不足"
+      ],
+      "correction_method": [
+        "调整拍面",
+        "练习刷球",
+        "增加侧旋幅度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "014",
+      "source_video_name": "014.第十课：4.0发球模型动作与二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_014_04",
+      "time_range": "06:25-08:30",
+      "title": "从3.0到4.0的进阶训练路径",
+      "knowledge_summary": "在3.0稳定发球基础上，逐步加入旋转训练，先练侧旋，再练上旋，最后整合",
+      "key_elements": [
+        "稳定基础",
+        "逐步加旋转",
+        "先侧旋后上旋"
+      ],
+      "common_errors": [
+        "基础不稳就加旋转",
+        "旋转类型混乱",
+        "急于求成"
+      ],
+      "correction_method": [
+        "确保3.0稳定",
+        "按顺序练习旋转",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "014",
+      "source_video_name": "014.第十课：4.0发球模型动作与二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_015_01",
+      "time_range": "01:15-02:50",
+      "title": "4.0发球的稳定性训练方法",
+      "knowledge_summary": "通过目标练习和成功率统计，建立稳定的4.0发球，目标是二发成功率85%以上",
+      "key_elements": [
+        "目标练习",
+        "成功率统计",
+        "85%标准"
+      ],
+      "common_errors": [
+        "不统计成功率",
+        "成功率过低",
+        "忽视稳定性"
+      ],
+      "correction_method": [
+        "记录每次发球结果",
+        "分析成功率",
+        "针对性改进"
+      ],
+      "quantitative_values": [
+        "85%"
+      ],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "015",
+      "source_video_name": "015.第十一课：掌握4.0发球模型动作和二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_015_02",
+      "time_range": "02:55-04:10",
+      "title": "014课与015课的递进：从学习到掌握",
+      "knowledge_summary": "014课学习4.0发球的技术概念，015课通过大量练习掌握稳定输出，从学习到应用",
+      "key_elements": [
+        "014学习概念",
+        "015掌握应用",
+        "学习曲线"
+      ],
+      "common_errors": [
+        "只学不练",
+        "练习量不足",
+        "急于求成"
+      ],
+      "correction_method": [
+        "理解后大量练习",
+        "达到掌握标准",
+        "耐心积累"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "015",
+      "source_video_name": "015.第十一课：掌握4.0发球模型动作和二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_015_03",
+      "time_range": "04:15-06:00",
+      "title": "二发的心理建设：从害怕到自信",
+      "knowledge_summary": "通过技术训练建立二发信心，把二发从'怕失误'转变为'进攻机会'",
+      "key_elements": [
+        "技术信心",
+        "心态转变",
+        "进攻意识"
+      ],
+      "common_errors": [
+        "二发时紧张",
+        "害怕双误",
+        "过于保守"
+      ],
+      "correction_method": [
+        "建立技术自信",
+        "积极二发心态",
+        "把二发当机会"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "persona",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "015",
+      "source_video_name": "015.第十一课：掌握4.0发球模型动作和二发.mp4"
+    },
+    {
+      "knowledge_id": "yc_016_01",
+      "time_range": "01:00-02:40",
+      "title": "旋转的物理原理：拍面与球的摩擦",
+      "knowledge_summary": "旋转产生于拍面与球接触时的摩擦，拍面角度和挥拍方向决定旋转类型和强度",
+      "key_elements": [
+        "拍面摩擦",
+        "拍面角度",
+        "挥拍方向"
+      ],
+      "common_errors": [
+        "不理解旋转原理",
+        "拍面角度错误",
+        "挥拍方向不对"
+      ],
+      "correction_method": [
+        "学习旋转原理",
+        "调整拍面角度",
+        "控制挥拍方向"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "016.第十二课：发球的旋转是如何产生的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_016_02",
+      "time_range": "02:45-04:30",
+      "title": "侧旋、上旋、下旋的产生方法",
+      "knowledge_summary": "侧旋：从球的侧面刷过；上旋：从球的底部向上刷；下旋：从球的顶部向下刷",
+      "key_elements": [
+        "侧旋刷侧面",
+        "上旋刷底部",
+        "下旋刷顶部"
+      ],
+      "common_errors": [
+        "旋转类型混淆",
+        "刷球部位错误",
+        "旋转效果不明显"
+      ],
+      "correction_method": [
+        "明确旋转类型",
+        "练习正确刷球",
+        "增加刷球幅度"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "pronation_missing",
+        "pronation_timing_error"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "016.第十二课：发球的旋转是如何产生的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_016_03",
+      "time_range": "04:35-06:20",
+      "title": "旋转与发球落点的关系",
+      "knowledge_summary": "侧旋使球向边线方向弹跳，上旋使球向前冲，下旋使球落地后减速，利用旋转控制落点",
+      "key_elements": [
+        "侧旋边线",
+        "上旋前冲",
+        "下旋减速"
+      ],
+      "common_errors": [
+        "不理解旋转效果",
+        "旋转与落点不匹配",
+        "旋转利用不足"
+      ],
+      "correction_method": [
+        "学习旋转效果",
+        "匹配旋转与目标",
+        "主动利用旋转"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "016",
+      "source_video_name": "016.第十二课：发球的旋转是如何产生的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_016_04",
+      "time_range": "06:25-08:10",
+      "title": "旋转发球的练习方法",
+      "knowledge_summary": "从慢动作练习开始，感受拍面与球的摩擦，逐步加速到正常发球速度",
+      "key_elements": [
+        "慢动作练习",
+        "感受摩擦",
+        "逐步加速"
+      ],
+      "common_errors": [
+        "直接全力发旋转",
+        "忽视慢动作练习",
+        "没有感受过程"
+      ],
+      "correction_method": [
+        "从慢速开始",
+        "专注感受摩擦",
+        "循序渐进加速"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "016",
+      "source_video_name": "016.第十二课：发球的旋转是如何产生的？.mp4"
+    },
+    {
+      "knowledge_id": "yc_017_01",
+      "time_range": "01:10-02:50",
+      "title": "旋转发球的视觉参照物系统",
+      "knowledge_summary": "通过设定明确的视觉参照物（如球的特定部位、预期落点），帮助建立正确的击球感觉",
+      "key_elements": [
+        "视觉参照物",
+        "球的部位",
+        "预期落点"
+      ],
+      "common_errors": [
+        "没有明确参照",
+        "参照物选择不当",
+        "视觉焦点散乱"
+      ],
+      "correction_method": [
+        "设定清晰参照物",
+        "选择合适参照",
+        "保持视觉专注"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "017",
+      "source_video_name": "017.第十三课：找对参照物一次搞定旋转发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_017_02",
+      "time_range": "02:55-04:10",
+      "title": "016课与017课的递进：从理解原理到实际应用",
+      "knowledge_summary": "016课理解旋转产生的原理，017课通过参照物方法实际掌握旋转发球技术",
+      "key_elements": [
+        "016理解原理",
+        "017实际应用",
+        "参照物桥梁"
+      ],
+      "common_errors": [
+        "理解但不会应用",
+        "缺乏实践方法",
+        "理论与实践脱节"
+      ],
+      "correction_method": [
+        "用参照物连接理论",
+        "大量实践练习",
+        "建立感觉记忆"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "017",
+      "source_video_name": "017.第十三课：找对参照物一次搞定旋转发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_017_03",
+      "time_range": "04:15-06:00",
+      "title": "不同旋转类型的参照物选择",
+      "knowledge_summary": "侧旋参照球的侧面，上旋参照球的底部，通过参照物引导拍面正确接触球",
+      "key_elements": [
+        "侧旋参照侧面",
+        "上旋参照底部",
+        "拍面引导"
+      ],
+      "common_errors": [
+        "参照物选择错误",
+        "参照物不清晰",
+        "参照与旋转不匹配"
+      ],
+      "correction_method": [
+        "选择正确参照物",
+        "明确参照点",
+        "匹配旋转类型"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "contact"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [
+        "pronation_missing"
+      ],
+      "source_video_id": "017",
+      "source_video_name": "017.第十三课：找对参照物一次搞定旋转发球.mp4"
+    },
+    {
+      "knowledge_id": "yc_018_01",
+      "time_range": "01:00-02:45",
+      "title": "5.0发球的核心：腿部蹬地的力量传递",
+      "knowledge_summary": "5.0发球在4.0基础上加入腿部蹬地，通过腿部力量增加发球速度和旋转，是高级发球的关键",
+      "key_elements": [
+        "腿部蹬地",
+        "力量传递",
+        "速度旋转增加"
+      ],
+      "common_errors": [
+        "忽视腿部力量",
+        "蹬地时机错误",
+        "力量传递断裂"
+      ],
+      "correction_method": [
+        "重视腿部训练",
+        "掌握蹬地时机",
+        "练习力量传递"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "leg_drive_timing_error",
+        "kinetic_chain_break"
+      ],
+      "source_video_id": "018",
+      "source_video_name": "018.第十四课：5.0发球模型动作与腿部的动作.mp4"
+    },
+    {
+      "knowledge_id": "yc_018_02",
+      "time_range": "02:50-04:30",
+      "title": "5.0与4.0的核心差异：动力链完整度",
+      "knowledge_summary": "5.0发球形成从脚到手的完整动力链，腿部、躯干、肩部、手臂协调发力，效率最大化",
+      "key_elements": [
+        "完整动力链",
+        "协调发力",
+        "效率最大化"
+      ],
+      "common_errors": [
+        "动力链不完整",
+        "各部位脱节",
+        "发力效率低"
+      ],
+      "correction_method": [
+        "建立完整动力链",
+        "练习协调发力",
+        "提高发力效率"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading",
+        "contact"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "kinetic_chain_break"
+      ],
+      "source_video_id": "018",
+      "source_video_name": "018.第十四课：5.0发球模型动作与腿部的动作.mp4"
+    },
+    {
+      "knowledge_id": "yc_018_03",
+      "time_range": "04:35-06:20",
+      "title": "腿部蹬地的时机与幅度",
+      "knowledge_summary": "蹬地应在抛球达到最高点前开始，在击球时达到最大伸展，幅度以能向上跳起为准",
+      "key_elements": [
+        "蹬地时机",
+        "最大伸展",
+        "向上跳起"
+      ],
+      "common_errors": [
+        "蹬地过早或过晚",
+        "伸展不充分",
+        "没有向上力量"
+      ],
+      "correction_method": [
+        "调整蹬地时机",
+        "充分伸展身体",
+        "产生向上力量"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "diagnostic",
+      "quality_grade": "A",
+      "issue_tags": [
+        "leg_drive_timing_error"
+      ],
+      "source_video_id": "018",
+      "source_video_name": "018.第十四课：5.0发球模型动作与腿部的动作.mp4"
+    },
+    {
+      "knowledge_id": "yc_018_04",
+      "time_range": "06:25-08:40",
+      "title": "从4.0到5.0的腿部训练方法",
+      "knowledge_summary": "先练习无球蹬地，再练习抛球后蹬地，最后整合到完整发球，逐步建立腿部发力习惯",
+      "key_elements": [
+        "无球蹬地",
+        "抛球蹬地",
+        "完整整合"
+      ],
+      "common_errors": [
+        "直接练完整发球",
+        "忽视分解练习",
+        "急于求成"
+      ],
+      "correction_method": [
+        "按步骤练习",
+        "每个步骤练到位",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "phase": [
+        "loading"
+      ],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [
+        "leg_drive_timing_error"
+      ],
+      "source_video_id": "018",
+      "source_video_name": "018.第十四课：5.0发球模型动作与腿部的动作.mp4"
+    },
+    {
+      "knowledge_id": "yc_019_01",
+      "time_range": "01:15-02:50",
+      "title": "5.0发球的标准与自我评估",
+      "knowledge_summary": "5.0发球标准：一发速度180km/h+或成功率70%+，二发成功率90%+且有攻击性，能够控制旋转和落点",
+      "key_elements": [
+        "速度标准",
+        "成功率标准",
+        "控制标准"
+      ],
+      "common_errors": [
+        "标准不明确",
+        "自我评估不准",
+        "目标不清晰"
+      ],
+      "correction_method": [
+        "明确5.0标准",
+        "客观自我评估",
+        "设定清晰目标"
+      ],
+      "quantitative_values": [
+        "70%+",
+        "90%+",
+        "180km/h+"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "019",
+      "source_video_name": "019.第十五课：练就5.0发球模型动作的.mp4"
+    },
+    {
+      "knowledge_id": "yc_019_02",
+      "time_range": "02:55-04:30",
+      "title": "5.0发球训练的周期规划",
+      "knowledge_summary": "从4.0到5.0需要6-12个月系统训练，分为基础强化、技术整合、实战应用三个阶段",
+      "key_elements": [
+        "6-12个月周期",
+        "三个阶段",
+        "系统训练"
+      ],
+      "common_errors": [
+        "期望速成",
+        "训练不系统",
+        "阶段混乱"
+      ],
+      "correction_method": [
+        "设定合理周期",
+        "按阶段训练",
+        "保持耐心"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.88,
+      "knowledge_class": "B",
+      "phase": [],
+      "knowledge_type": "drill",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "source_video_id": "019",
+      "source_video_name": "019.第十五课：练就5.0发球模型动作的.mp4"
+    },
+    {
+      "knowledge_id": "yc_019_03",
+      "time_range": "04:35-06:10",
+      "title": "018课与019课的递进：从学习到练就",
+      "knowledge_summary": "018课学习5.0发球的技术方法，019课通过长期系统训练真正掌握5.0发球",
+      "key_elements": [
+        "018学习方法",
+        "019长期训练",
+        "真正掌握"
+      ],
+      "common_errors": [
+        "只学不练",
+        "训练不持续",
+        "缺乏耐心"
+      ],
+      "correction_method": [
+        "理解后坚持训练",
+        "保持训练频率",
+        "长期积累"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.9,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "D",
+      "issue_tags": [],
+      "source_video_id": "019",
+      "source_video_name": "019.第十五课：练就5.0发球模型动作的.mp4"
+    },
+    {
+      "knowledge_id": "yc_019_04",
+      "time_range": "06:15-08:20",
+      "title": "从0到5.0的完整学习路径回顾",
+      "knowledge_summary": "回顾从理论基础→3.0基础→4.0进阶→5.0高级的完整路径，每个阶段的目标和关键学习点",
+      "key_elements": [
+        "完整路径",
+        "阶段目标",
+        "关键学习点"
+      ],
+      "common_errors": [
+        "跳跃阶段",
+        "基础不牢",
+        "急于求成"
+      ],
+      "correction_method": [
+        "按阶段学习",
+        "打牢基础",
+        "循序渐进"
+      ],
+      "quantitative_values": [],
+      "confidence": 0.85,
+      "knowledge_class": "C",
+      "phase": [],
+      "knowledge_type": "meta",
+      "quality_grade": "C",
+      "issue_tags": [],
+      "source_video_id": "019",
+      "source_video_name": "019.第十五课：练就5.0发球模型动作的.mp4"
+    }
+  ]
+}

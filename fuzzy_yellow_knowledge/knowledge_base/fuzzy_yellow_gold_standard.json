@@ -1,0 +1,126 @@
+{
+  "coach_name": "fuzzy_yellow",
+  "version": "v2",
+  "total_items": 5,
+  "knowledge_items": [
+    {
+      "knowledge_id": "fy_001_01",
+      "title": "平台式站位",
+      "knowledge_summary": "前脚在底线后呈对角线，后脚与底线平行",
+      "key_elements": [
+        "前脚对角线",
+        "后脚平行"
+      ],
+      "common_errors": [
+        "双脚平行"
+      ],
+      "correction_method": [
+        "练习平台式站位"
+      ],
+      "confidence": 0.92,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一"
+    },
+    {
+      "knowledge_id": "fy_001_02",
+      "title": "大陆式握拍",
+      "knowledge_summary": "像握锤子一样握拍，拍面垂直",
+      "key_elements": [
+        "大陆式握拍",
+        "像握锤子"
+      ],
+      "common_errors": [
+        "正手握拍"
+      ],
+      "correction_method": [
+        "练习大陆式握拍"
+      ],
+      "confidence": 0.9,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "ready"
+      ],
+      "source_video_id": "001",
+      "source_video_name": "发球基础之一"
+    },
+    {
+      "knowledge_id": "fy_002_01",
+      "title": "直臂抛球",
+      "knowledge_summary": "手臂伸直，用肩膀发力而非手腕",
+      "key_elements": [
+        "手臂伸直",
+        "肩膀发力"
+      ],
+      "common_errors": [
+        "用手腕抛球"
+      ],
+      "correction_method": [
+        "练习直臂抛球"
+      ],
+      "confidence": 0.93,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二"
+    },
+    {
+      "knowledge_id": "fy_002_02",
+      "title": "抛球高度",
+      "knowledge_summary": "抛球高度略高于最高击球点",
+      "key_elements": [
+        "高于击球点"
+      ],
+      "common_errors": [
+        "抛球太低"
+      ],
+      "correction_method": [
+        "练习抛球高度"
+      ],
+      "confidence": 0.91,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "toss"
+      ],
+      "source_video_id": "002",
+      "source_video_name": "发球基础之二"
+    },
+    {
+      "knowledge_id": "fy_003_01",
+      "title": "L姿势",
+      "knowledge_summary": "拍头指向天空，手臂形成L形",
+      "key_elements": [
+        "L形",
+        "拍头向上"
+      ],
+      "common_errors": [
+        "拍头下垂"
+      ],
+      "correction_method": [
+        "练习L姿势"
+      ],
+      "confidence": 0.94,
+      "knowledge_class": "A",
+      "knowledge_type": "key_point",
+      "quality_grade": "A",
+      "phase": [
+        "loading"
+      ],
+      "source_video_id": "003",
+      "source_video_name": "发球基础之三"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "coach_name": "fuzzy_yellow",
+  "course_name": "FYB发球教学",
+  "total_videos": 16,
+  "teaching_focus": [
+    "发球基础",
+    "发球进阶"
+  ],
+  "correction_style": [
+    "动作分解",
+    "常见错误纠正"
+  ],
+  "language_style": [
+    "简洁",
+    "实用"
+  ],
+  "typical_expressions": [
+    "注意这个动作",
+    "很多人犯错"
+  ],
+  "suitable_user_levels": [
+    "3.0",
+    "4.0"
+  ],
+  "dominant_style_tags": [
+    "基础教学"
+  ]
+}
