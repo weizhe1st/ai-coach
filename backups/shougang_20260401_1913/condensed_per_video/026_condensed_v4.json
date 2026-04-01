@@ -1,0 +1,28 @@
+{
+  "video_id": "026",
+  "file_name": "IMG_5252.MP4",
+  "title": "shougang发球教学视频026",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_026_01",
+      "time_range": "",
+      "title": "就是如果速度慢\n那我们的这个拍子\n这么去打 那低的可以能见\n但是如果速...",
+      "knowledge_summary": "就是如果速度慢\n那我们的这个拍子\n这么去打 那低的可以能见\n但是如果速度快了以后呢\n这样去发力\n它能发进了概率就会很差\n所以我们进可能要去找高一点的维织\n是\n你再泡完了以后\n你的点的维织\n你也还可以\n但是我不觉得够\n我觉得你稍微还得再高一点\n那高一点的话\n如果我们的泡球不用剩你\n你能觉得问题是\n我把它拍到再靠前一点\n那也可以从高落往前去折\n这个也没问题\n但是竟然不要这样和\n这样的差距就出来了\n所以竟可能要把这个地方再剩高一点",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.06,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "video_id": "021",
+  "file_name": "IMG_5247.MP4",
+  "title": "shougang发球教学视频021",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_021_01",
+      "time_range": "",
+      "title": "然后丁\n然后再回来再找\n这个时候呢\n我们的抛球的目的是什么呢\n也可以说...",
+      "knowledge_summary": "然后丁\n然后再回来再找\n这个时候呢\n我们的抛球的目的是什么呢\n也可以说把它抛上去\n也可以说把它放在最高点呢\n就是把这个球已经慢一点\n把这个拍\n好球放到最高点呢\n把它准备说你要说抛的话\n你可能不是会这么高或者是怎么去做\n那个可能就是不号捧\n但是你先有一个最重要的目的是\n然后再这里打球\n先确定好这个点\n我就\n好带走\n但你不要一直在做这个工作\n然后再比画好这个球\n这个球他得到我这里\n不是说我觉得抛好了再打\n现在抛好了再打以后\n等于是你抛好了以后\n你再觉得这个球是抛好了\n我再重新做准备\n不要打球要不然的话我就放棄\n所以你要那样的话\n其实你抛球会很难恋\n所以还是竞争取竞争做到\n准备好我要抛到这个位置\n把球放到这里\n然后\n要来回忆子抛\n来回忆子抛抛到最后你会发现\n你就算抛球了\n什么也没点走\n下红烧",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.01,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

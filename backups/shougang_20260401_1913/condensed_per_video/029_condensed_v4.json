@@ -1,0 +1,28 @@
+{
+  "video_id": "029",
+  "file_name": "IMG_5255.MP4",
+  "title": "shougang发球教学视频029",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_029_01",
+      "time_range": "",
+      "title": "那我的手足在这个位置\n我这个时候再往这时间的话\n它是往哪\n它是往下\n所...",
+      "knowledge_summary": "那我的手足在这个位置\n我这个时候再往这时间的话\n它是往哪\n它是往下\n所以二发的砲球\n要砲到身体的这边来\n所以我们的砲球要砲到这边\n就往后的这个位置砲\n或者落到二多的这个上方\n这个时候我们的拍子就有了一个\n像上了一个刷的空间\n这个就是我们的\n上旋\n看到了吗\n但是很多人为什么\n你说他上旋不好旋\n你把就砲到这儿\n你在这儿上旋\n你当然不好旋了\n所以上旋的砲球点\n又有些需要改变了\n这个可能又比较难\n因为你会习惯\n就用到这儿\n所以根据球的需要\n你这把球中到这儿\n然后现在我们如果是说\n他就先把拍子放到这儿\n这个角度上走\n就刷到这边\n一点都不要往前走\n就这么蹭一下\n然后球来了以后\n你看\n球把的砲到后面\n然后就往这边\n这个太小了\n就蹭到这边\n轻轻地蹭起来\n先找这一感觉\n要不然他就放进去\n发不出来的\n那我看你那手\n然后就这样\n就这样\n就刷完了\n我就放松了\n我要是在这儿的刷完\n在时间的话\n我这个地方就该吃不下了",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.09,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "coach_name": "shougang",
+  "course_name": "shougang发球教学系列",
+  "total_videos": 58,
+  "teaching_focus": [
+    "发球技术",
+    "击球点控制",
+    "抛球技巧"
+  ],
+  "correction_style": [
+    "现场示范",
+    "动作分解"
+  ],
+  "language_style": [
+    "口语化",
+    "实战导向"
+  ],
+  "typical_expressions": [
+    "我们来看一下",
+    "先确定好"
+  ],
+  "suitable_user_levels": [
+    "3.0",
+    "4.0"
+  ],
+  "dominant_style_tags": [
+    "实战教学"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "video_id": "048",
+  "file_name": "IMG_5274.MP4",
+  "title": "shougang发球教学视频048",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_048_01",
+      "time_range": "",
+      "title": "容量是这么一个动作,我就拿这个动作来举力吧\n那你看我的这个拍子走的时候...",
+      "knowledge_summary": "容量是这么一个动作,我就拿这个动作来举力吧\n那你看我的这个拍子走的时候,我的球往哪,我的球\n我的拍王那,走球王那走\n这个能能能看到吧\n但是在看一下这个\n你就想往这儿打的是你的拍子呢,是\n它走出了一个不一样的角度出来\n我们先找到找准的,就是要经常去找好这个角度,就是比如说\n我想往这儿走\n我的拍面,它就是,我想往这儿打\n我的拍面是这样的,就从那个角度去看\n我的球应该是打到外角上,如果我想这边呢\n它就应该是内角上,但是我不能是\n这样出来这个球,它要跟着这个方向走\n它要跟着我走的球的这个方向走\n如果我需要平的这么少\n我少完以后这个球要平的这么出去\n我不能说我少完以后,再往上走\n所以这个方向你到\n走到,走到习惯找的很吹,很干净",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.28,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}

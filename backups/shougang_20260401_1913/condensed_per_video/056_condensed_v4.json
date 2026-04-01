@@ -1,0 +1,28 @@
+{
+  "video_id": "056",
+  "file_name": "IMG_5282.MP4",
+  "title": "shougang发球教学视频056",
+  "phase": "待定",
+  "duration": "",
+  "total_records": 1,
+  "records": [
+    {
+      "knowledge_id": "sg_056_01",
+      "time_range": "",
+      "title": "反正之后也出现了一个手上\n能够给,它的深刀最直\n深刀最直,然后往前\n7...",
+      "knowledge_summary": "反正之后也出现了一个手上\n能够给,它的深刀最直\n深刀最直,然后往前\n7分之后分成ここ\n先把新吵尾变着\n再弗大胃\n2\n3\n3\n斣排一半\n1\n2\n好回\n2\n下红叔",
+      "key_elements": [],
+      "common_errors": [],
+      "correction_method": [],
+      "quantitative_values": [],
+      "confidence": 1.36,
+      "knowledge_class": "B",
+      "knowledge_type": "principle",
+      "quality_grade": "B",
+      "issue_tags": [],
+      "phase": [
+        "contact"
+      ]
+    }
+  ]
+}
