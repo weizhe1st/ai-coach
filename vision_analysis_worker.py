@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 vision_analysis_worker.py
-Kimi K2.5 视觉分析 — 极简直接传视频版
-去掉 ffmpeg、cv2、numpy，直接上传视频给 Kimi
+Kimi K2.5 视觉分析 — 抽帧图片版
+Moonshot不支持直接传视频，改为抽取关键帧上传图片
 """
 
 import os
@@ -10,15 +10,16 @@ import json
 import time
 import sqlite3
 import traceback
+import subprocess
 from openai import OpenAI
 
 # ═══════════════════════════════════════════════
 # 配置
 # ═══════════════════════════════════════════════
-MOONSHOT_API_KEY = os.environ.get('MOONSHOT_API_KEY', 'A8dY7k6zEYhxc7E80jlhj2vtSr5iWXVJh2oyuLO63a8zNk6w')
+MOONSHOT_API_KEY = os.environ.get('MOONSHOT_API_KEY', 'sk-LsZC9HAarYmH6oH4EkOzCEhIIUZ02yvsU6J7xr1u26iifksq')
 DB_PATH = '/data/db/xiaolongxia_learning.db'
-PROMPT_VERSION = 'v3.0_minimal'
-KNOWLEDGE_BASE_VERSION = 'v5.0_3coaches_169items'
+FRAMES_DIR = '/data/tmp/vision_frames'
+PROMPT_VERSION = 'v4.0_frames'
 MODEL_NAME = 'kimi-k2.5'
 
 client = OpenAI(
@@ -27,143 +28,142 @@ client = OpenAI(
 )
 
 # ═══════════════════════════════════════════════
-# System Prompt（三教练知识库 + 评分标准）
+# System Prompt
 # ═══════════════════════════════════════════════
-SYSTEM_PROMPT = """你是一个专业的网球发球分析系统。你将收到一段网球发球视频，需要仔细观看完整视频，分析发球技术并给出NTRP等级评估。
+SYSTEM_PROMPT = """你是一个专业的网球发球分析系统。你将收到网球发球视频的关键帧图片（按时间顺序排列），需要分析发球技术并给出NTRP等级评估。
 
 ## 三位教练的评估标准（169条知识点）
 
 ### 杨超教练（71条）— 分级标准权威
-等级定义：
-- 3.0级：成功率70%+，动作基本规范不变形，能控制落点。四大核心：稳定抛球、大陆式握拍、完整挥拍轨迹、合理击球点。
-- 4.0级：能控制旋转方向和旋转量，一发成功率65%+，二发成功率85%+，有明确落点策略。
-- 5.0级：加入腿部动力链，力量占比为腿部40%、核心转体30%、手臂挥拍20%、手腕旋内10%。膝盖弯曲约120-130度。
+- 3.0级：成功率70%+，动作基本规范，能控制落点
+- 4.0级：能控制旋转方向和量，一发成功率65%+
+- 5.0级：完整动力链，腿部40%+核心30%+手臂20%+手腕10%
 
-关键技术标准：
-- 大陆式握拍：虎口对准2号面
-- 抛球：前上方向、手臂直度、落点稳定
-- 奖杯位置：球拍背后最低点，肘部高于肩膀
-- 击球点：身体前上方，手臂完全伸展
-- 旋内：前臂从外旋到内旋，收拍到非持拍手侧
-- 挥拍轨迹：倒C形 → 背挠 → 加速 → 旋内
+关键技术：大陆式握拍、抛球稳定、奖杯姿势、完整旋内
 
 ### 赵凌曦教练（41条）— 节奏与纠错
-- 发球节奏1-2-3：拉拍停顿 → 蓄力奖杯 → 加速击球
-- 顶髋是重心后摆后自然前倾，不是后仰
-- 架拍僵硬说明手腕手肘过紧
+- 发球节奏1-2-3：拉拍停顿→蓄力奖杯→加速击球
+- 顶髋是重心前倾，不是后仰
 - 抛球方向必须与发球方向一致
 
 ### Yellow教练（57条）— 动作细节
 - 完整动作链条和各阶段要点
-- 站位、握拍、抛球、蓄力、击球、随挥标准
 
-## NTRP 等级标准（严格执行）
-2.0级（入门）：动作不完整，无背挠，抛球不稳，无膝盖蓄力
-3.0级（基础）：有完整框架但执行质量一般，膝盖蓄力不够，旋内不充分
-3.5级（进阶）：框架完整有流畅性，有一定蓄力但不够深
-4.0级（熟练）：流畅连贯，膝盖深蹲蓄力(90-100度)，明显转肩，完整旋内
-4.5级（高级）：高度流畅，明确旋转意图，腿部蹬地有力
-5.0级（精通）：教科书标准，完整动力链，击球腾空，极为放松
-5.0+级（专业）：职业水平，完美动力链，极高击球点
+## NTRP 等级标准
+2.0级（入门）：动作不完整，无蓄力
+3.0级（基础）：有框架但执行一般
+4.0级（熟练）：流畅连贯，深蹲蓄力
+5.0级（精通）：教科书标准，完整动力链
 
 ## 评分红线
-1. 看"质"不看"形"：有框架 ≠ 执行到位
-2. 膝盖蓄力是分水岭：不弯 → 2.0-3.0；浅弯 → 3.0-3.5；深蹲 → 4.0+
+1. 看"质"不看"形"
+2. 膝盖蓄力是分水岭
 3. 短板决定上限
-4. 看不清就说看不清，不猜测
-5. 业余选手容易高估，4.5+要非常谨慎
-6. 如果视频中有多个发球，综合评估整体水平
+4. 看不清就说看不清
 
-## 输出格式（只输出 JSON，不要任何其他内容）
+## 输出格式（只输出JSON）
 {
-  "ntrp_level": "3.0",
-  "ntrp_level_name": "基础级",
-  "confidence": 0.75,
-  "overall_score": 55,
+  "ntrp_level": "4.0",
+  "ntrp_level_name": "熟练级",
+  "confidence": 0.8,
+  "overall_score": 75,
   "serves_observed": 3,
   "phase_analysis": {
-    "ready": {"score": 60, "observations": ["描述"], "issues": ["问题"]},
-    "toss": {"score": 50, "observations": [], "issues": []},
-    "loading": {"score": 45, "observations": [], "issues": []},
-    "contact": {"score": 55, "observations": [], "issues": []},
-    "follow": {"score": 60, "observations": [], "issues": []}
+    "ready": {"score": 70, "observations": [], "issues": []},
+    "toss": {"score": 75, "observations": [], "issues": []},
+    "loading": {"score": 80, "observations": [], "issues": []},
+    "contact": {"score": 75, "observations": [], "issues": []},
+    "follow": {"score": 70, "observations": [], "issues": []}
   },
   "key_strengths": ["优点1", "优点2"],
-  "key_issues": [{"issue": "问题", "severity": "high/medium/low", "phase": "阶段", "coach_advice": "建议"}],
-  "training_plan": ["建议1", "建议2", "建议3"],
-  "detection_quality": "reliable/partial/poor",
-  "detection_notes": "视频质量影响说明",
+  "key_issues": [{"issue": "", "severity": "", "phase": "", "coach_advice": ""}],
+  "training_plan": ["建议1", "建议2"],
+  "detection_quality": "reliable",
   "level_reasoning": "等级推理过程"
 }"""
 
 # ═══════════════════════════════════════════════
-# 极简输入检查
+# 抽帧
 # ═══════════════════════════════════════════════
 
-def check_input_quality(video_path):
-    """极简检查：文件存在、大小合适"""
-    if not os.path.exists(video_path):
-        return False, "视频文件不存在"
+def extract_frames(video_path, output_dir, num_frames=8):
+    """抽取关键帧"""
+    os.makedirs(output_dir, exist_ok=True)
     
-    file_size = os.path.getsize(video_path) / 1024 / 1024  # MB
-    if file_size < 0.1:
-        return False, "文件过小"
-    if file_size > 100:
-        return False, f"文件过大 ({file_size:.0f}MB)"
+    # 清空旧帧
+    for f in os.listdir(output_dir):
+        if f.endswith('.jpg'):
+            os.remove(os.path.join(output_dir, f))
     
-    return True, f"文件大小: {file_size:.1f}MB"
-
-# ═══════════════════════════════════════════════
-# JSON 校验
-# ═══════════════════════════════════════════════
-
-def validate_response(result):
-    """校验 JSON 结构"""
-    errors = []
-    required = ['ntrp_level', 'confidence', 'phase_analysis']
+    # 使用ffmpeg抽帧
+    cmd = [
+        'ffmpeg', '-i', video_path,
+        '-vf', f'fps=1/2,scale=640:360',
+        '-vframes', str(num_frames),
+        os.path.join(output_dir, 'frame_%02d.jpg')
+    ]
     
-    for f in required:
-        if f not in result:
-            errors.append(f"缺少: {f}")
-    
-    valid_levels = ['2.0', '2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.0+']
-    if result.get('ntrp_level') not in valid_levels:
-        errors.append(f"无效等级: {result.get('ntrp_level')}")
-    
-    return len(errors) == 0, errors
-
-# ═══════════════════════════════════════════════
-# Kimi 分析（直接传视频）
-# ═══════════════════════════════════════════════
-
-def analyze_with_kimi(video_path):
-    """直接上传视频给 Kimi 分析"""
     try:
-        print(f"[Kimi] 分析视频: {os.path.basename(video_path)}")
+        subprocess.run(cmd, capture_output=True, timeout=30)
+        frames = [f for f in os.listdir(output_dir) if f.endswith('.jpg')]
+        return len(frames) >= 3, sorted(frames)
+    except Exception as e:
+        print(f"[FFmpeg] 错误: {e}")
+        return False, []
+
+# ═══════════════════════════════════════════════
+# 检查
+# ═══════════════════════════════════════════════
+
+def check_input(video_path):
+    """检查输入"""
+    if not os.path.exists(video_path):
+        return False, "文件不存在"
+    
+    size = os.path.getsize(video_path) / 1024 / 1024
+    if size < 0.1:
+        return False, "文件过小"
+    if size > 100:
+        return False, f"文件过大({size:.0f}MB)"
+    
+    return True, f"{size:.1f}MB"
+
+# ═══════════════════════════════════════════════
+# Kimi 分析
+# ═══════════════════════════════════════════════
+
+import base64
+
+def analyze_frames(frame_dir, frame_files):
+    """上传图片给Kimi分析（使用base64编码）"""
+    try:
+        print(f"[Kimi] 分析 {len(frame_files)} 帧...")
         
-        # 打开视频文件
-        with open(video_path, 'rb') as video_file:
-            # 创建文件对象
-            file_object = client.files.create(file=video_file, purpose="user-content")
+        # 构建消息
+        content = [{"type": "text", "text": "请按时间顺序观察这些网球发球关键帧，分析完整发球动作，给出NTRP等级评估。"}]
         
-        # 调用 API
+        # 读取图片并转为base64（最多6张）
+        for fname in frame_files[:6]:
+            img_path = os.path.join(frame_dir, fname)
+            with open(img_path, 'rb') as img_file:
+                img_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+                content.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{img_base64}"}
+                })
+        
+        # 调用API
         response = client.chat.completions.create(
             model="kimi-k2.5",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": "请仔细观看这段网球发球视频，分析完整的发球动作过程，给出NTRP等级评估和详细技术分析。"},
-                        {"type": "file", "file_url": {"url": file_object.url}}
-                    ]
-                }
+                {"role": "user", "content": content}
             ],
-            temperature=0.3,
-            max_tokens=2500
+            temperature=1,
+            max_tokens=2000
         )
         
-        # 解析 JSON
+        # 解析JSON
         content = response.choices[0].message.content
         if "```json" in content:
             json_str = content.split("```json")[1].split("```")[0].strip()
@@ -179,6 +179,21 @@ def analyze_with_kimi(video_path):
         return False, {"error": str(e)}
 
 # ═══════════════════════════════════════════════
+# 校验
+# ═══════════════════════════════════════════════
+
+def validate(result):
+    """校验结果"""
+    required = ['ntrp_level', 'confidence', 'phase_analysis']
+    errors = [f"缺少:{f}" for f in required if f not in result]
+    
+    valid_levels = ['2.0', '2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.0+']
+    if result.get('ntrp_level') not in valid_levels:
+        errors.append(f"无效等级:{result.get('ntrp_level')}")
+    
+    return len(errors) == 0, errors
+
+# ═══════════════════════════════════════════════
 # 主流程
 # ═══════════════════════════════════════════════
 
@@ -190,84 +205,59 @@ def analyze_video(video_path, task_id):
     print(f"{'='*50}\n")
     
     # 1. 检查
-    print("[1] 检查视频...")
-    ok, info = check_input_quality(video_path)
+    print("[1] 检查...")
+    ok, info = check_input(video_path)
     if not ok:
         print(f"  ✗ {info}")
         return {"status": "low_quality", "reason": info}
     print(f"  ✓ {info}")
     
-    # 2. 分析
-    print("[2] Kimi 分析视频...")
-    success, result = analyze_with_kimi(video_path)
+    # 2. 抽帧
+    print("[2] 抽帧...")
+    frame_dir = os.path.join(FRAMES_DIR, task_id)
+    success, frames = extract_frames(video_path, frame_dir)
     if not success:
-        print(f"  ✗ 失败: {result.get('error')}")
+        print(f"  ✗ 抽帧失败")
+        return {"status": "failed", "reason": "抽帧失败"}
+    print(f"  ✓ {len(frames)}帧")
+    
+    # 3. 分析
+    print("[3] Kimi分析...")
+    success, result = analyze_frames(frame_dir, frames)
+    if not success:
+        print(f"  ✗ {result.get('error')}")
         return {"status": "failed", "reason": result.get('error')}
     print(f"  ✓ 完成")
     
-    # 3. 校验
-    print("[3] 校验结果...")
-    valid, errors = validate_response(result)
+    # 4. 校验
+    print("[4] 校验...")
+    valid, errors = validate(result)
     if not valid:
         print(f"  ✗ {errors}")
-        return {"status": "failed", "reason": "JSON无效", "errors": errors}
+        return {"status": "failed", "reason": "校验失败", "errors": errors}
     print(f"  ✓ 通过")
     
-    # 结果
     print(f"\n{'='*50}")
     print(f"等级: {result.get('ntrp_level')}")
     print(f"置信度: {result.get('confidence')}")
-    print(f"发球数: {result.get('serves_observed', 1)}")
     print(f"{'='*50}\n")
     
     return {
         "status": "success",
         "task_id": task_id,
         "analysis": result,
-        "model": MODEL_NAME,
-        "prompt_version": PROMPT_VERSION
+        "model": MODEL_NAME
     }
 
-def save_to_db(task_id, result):
-    """保存到数据库"""
-    try:
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        
-        analysis = result.get('analysis', {})
-        cursor.execute('''
-            UPDATE video_analysis_tasks 
-            SET analysis_status = ?,
-                ntrp_level = ?,
-                ntrp_confidence = ?,
-                analysis_result = ?,
-                finished_at = datetime('now')
-            WHERE id = ?
-        ''', (
-            result['status'],
-            analysis.get('ntrp_level'),
-            analysis.get('confidence'),
-            json.dumps(result, ensure_ascii=False),
-            task_id
-        ))
-        conn.commit()
-        conn.close()
-        print("[DB] 已保存\n")
-        return True
-    except Exception as e:
-        print(f"[DB] 错误: {e}\n")
-        return False
-
 # ═══════════════════════════════════════════════
-# Worker 循环
+# Worker循环
 # ═══════════════════════════════════════════════
 
 def worker_loop():
     """主循环"""
     print("\n" + "="*50)
-    print("🚀 Vision Worker 启动")
+    print("🚀 Vision Worker")
     print(f"   模型: {MODEL_NAME}")
-    print(f"   知识库: {KNOWLEDGE_BASE_VERSION}")
     print("="*50 + "\n")
     
     while True:
@@ -287,20 +277,33 @@ def worker_loop():
             if task:
                 task_id, video_id = task
                 
-                # 找视频文件
                 for path in [f"/root/.openclaw/media/inbound/{video_id}.mp4",
                             f"/data/videos/{video_id}.mp4"]:
                     if os.path.exists(path):
                         result = analyze_video(path, task_id)
-                        save_to_db(task_id, result)
+                        
+                        # 保存到数据库
+                        conn = sqlite3.connect(DB_PATH)
+                        cursor = conn.cursor()
+                        analysis = result.get('analysis', {})
+                        cursor.execute('''
+                            UPDATE video_analysis_tasks 
+                            SET analysis_status = ?, ntrp_level = ?, 
+                                ntrp_confidence = ?, analysis_result = ?
+                            WHERE id = ?
+                        ''', (result['status'], analysis.get('ntrp_level'),
+                              analysis.get('confidence'), 
+                              json.dumps(result), task_id))
+                        conn.commit()
+                        conn.close()
                         break
                 else:
-                    print(f"✗ 找不到视频: {video_id}\n")
+                    print(f"✗ 找不到视频: {video_id}")
             else:
                 time.sleep(5)
                 
         except Exception as e:
-            print(f"错误: {e}\n")
+            print(f"错误: {e}")
             traceback.print_exc()
             time.sleep(10)
 
