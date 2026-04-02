@@ -41,6 +41,9 @@ COS_BUCKET = 'tennis-ai-1411340868'
 COS_REGION = 'ap-shanghai'
 COS_BASE_URL = f'https://{COS_BUCKET}.cos.{COS_REGION}.myqcloud.com'
 
+# 数据库配置
+DB_PATH = '/data/db/xiaolongxia_learning.db'
+
 # 确保上传目录存在
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -59,94 +62,299 @@ SYSTEM_CONFIG = {
     "confidence_output": True,
 }
 
-# 姿态角度参考标准 (用于自动分级)
-ANGLE_STANDARDS = {
-    'elbow': {
-        '2.0': {'min': 90, 'max': 140, 'ideal': 120},
-        '3.0': {'min': 140, 'max': 160, 'ideal': 150},
-        '4.0': {'min': 160, 'max': 170, 'ideal': 165},
-        '5.0': {'min': 170, 'max': 180, 'ideal': 175},
-        '5.0+': {'min': 175, 'max': 180, 'ideal': 180}
+# 从 level_model_service.py 导入多维度等级评估模型
+LEVEL_MODELS = {
+    '2.0': {
+        'name': '入门级',
+        'score_range': (0, 40),
+        'key_features': {
+            'max_elbow_angle': (90, 140),
+            'min_knee_angle': (120, 150),
+            'stance_width': (0.5, 1.5)
+        }
     },
-    'knee': {
-        '2.0': {'min': 120, 'max': 150, 'ideal': 135},
-        '3.0': {'min': 100, 'max': 120, 'ideal': 110},
-        '4.0': {'min': 80, 'max': 100, 'ideal': 90},
-        '5.0': {'min': 60, 'max': 80, 'ideal': 70},
-        '5.0+': {'min': 50, 'max': 70, 'ideal': 60}
+    '3.0': {
+        'name': '进阶级',
+        'score_range': (40, 60),
+        'key_features': {
+            'max_elbow_angle': (140, 160),
+            'min_knee_angle': (100, 120),
+            'stance_width': (1.5, 2.5)
+        }
+    },
+    '4.0': {
+        'name': '熟练级',
+        'score_range': (60, 80),
+        'key_features': {
+            'max_elbow_angle': (160, 170),
+            'min_knee_angle': (80, 100),
+            'stance_width': (2.0, 3.0)
+        }
+    },
+    '5.0': {
+        'name': '精通级',
+        'score_range': (80, 95),
+        'key_features': {
+            'max_elbow_angle': (170, 180),
+            'min_knee_angle': (60, 80),
+            'stance_width': (2.5, 3.5)
+        }
+    },
+    '5.0+': {
+        'name': '专业级',
+        'score_range': (95, 100),
+        'key_features': {
+            'max_elbow_angle': (175, 180),
+            'min_knee_angle': (50, 70),
+            'stance_width': (2.5, 4.0)
+        }
     }
 }
 
-def get_angle_score(angle, joint, level):
-    """计算角度得分"""
-    standard = ANGLE_STANDARDS.get(joint, {}).get(level, {})
-    if not standard:
-        return 0
-    min_val = standard['min']
-    max_val = standard['max']
-    ideal = standard['ideal']
-    if min_val <= angle <= max_val:
-        diff = abs(angle - ideal)
-        score = max(0, 100 - diff * 2)
-        return score
-    else:
-        return max(0, 50 - abs(angle - ideal) * 0.5)
+# 特征权重 - 不是所有指标同等重要
+FEATURE_WEIGHTS = {
+    'max_elbow_angle': 1.0,    # 肘部角度
+    'min_knee_angle': 1.2,     # 膝盖弯曲（反映蓄力深度，重要）
+    'stance_width': 0.8,       # 站位宽度
+    'contact_height': 1.3,     # 击球点高度（非常重要）
+    'body_angle': 0.7,         # 身体角度
+    'arm_extension': 1.1,      # 手臂伸展
+    'pronation_angle': 1.2,    # 旋内角度（区分3.0和4.0的关键）
+    'toss_height': 1.0,        # 抛球高度
+    'weight_transfer': 1.1,    # 重心转移
+    'shoulder_rotation': 1.0   # 肩部旋转
+}
 
-def evaluate_ntrp_level(phase_analysis):
+def extract_metrics(phase_analysis):
+    """从五阶段分析中提取多维度指标"""
+    metrics = {}
+    
+    # Loading 阶段 - 肘部角度（奖杯姿势）
+    loading = phase_analysis.get('loading', {})
+    if loading and 'max_elbow_angle' in loading:
+        metrics['max_elbow_angle'] = loading['max_elbow_angle']
+    
+    # Ready 阶段 - 膝盖角度
+    ready = phase_analysis.get('ready', {})
+    if ready and 'min_knee_angle' in ready:
+        metrics['min_knee_angle'] = ready['min_knee_angle']
+    elif ready and 'stance_width' in ready:
+        # 从站位宽度推断膝盖角度
+        stance = ready['stance_width']
+        if stance > 2.0:
+            metrics['min_knee_angle'] = 90
+        else:
+            metrics['min_knee_angle'] = 120
+    
+    # Ready 阶段 - 站位宽度
+    if ready and 'stance_width' in ready:
+        metrics['stance_width'] = ready['stance_width']
+    
+    # Ready 阶段 - 身体角度
+    if ready and 'body_angle' in ready:
+        metrics['body_angle'] = ready['body_angle']
+    
+    # Contact 阶段 - 击球高度
+    contact = phase_analysis.get('contact', {})
+    if contact and 'contact_height' in contact:
+        metrics['contact_height'] = contact['contact_height']
+    
+    return metrics
+
+def query_gold_standard(db_path, level):
+    """查询数据库中的黄金标准"""
+    try:
+        import sqlite3
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT standards_json FROM level_gold_standards WHERE level = ?",
+            (level,)
+        )
+        row = cursor.fetchone()
+        conn.close()
+        if row:
+            import json
+            return json.loads(row[0])
+    except Exception as e:
+        print(f"[GoldStandard] 查询失败: {e}")
+    return None
+
+def compute_similarity(metrics, gold_standard):
+    """计算与黄金标准的相似度"""
+    if not gold_standard or 'key_features' not in gold_standard:
+        return 0.5
+    
+    similarities = []
+    gold_features = gold_standard.get('key_features', {})
+    
+    for feature, value in metrics.items():
+        if feature in gold_features:
+            gold_range = gold_features[feature]
+            if isinstance(gold_range, (list, tuple)) and len(gold_range) == 2:
+                min_val, max_val = gold_range
+                mid = (min_val + max_val) / 2
+                range_size = max_val - min_val
+                
+                if min_val <= value <= max_val:
+                    diff = abs(value - mid)
+                    similarity = max(0, 1 - diff / (range_size / 2))
+                else:
+                    diff = min(abs(value - min_val), abs(value - max_val))
+                    similarity = max(0, 0.5 - diff / range_size)
+                
+                similarities.append(similarity)
+    
+    return sum(similarities) / len(similarities) if similarities else 0.5
+
+def apply_level_caps(metrics, level_scores):
     """
-    根据五阶段分析结果自动评估 NTRP 等级
-    返回: (level, confidence, details)
+    根据硬约束限制最高可评等级
+    某些指标如果严重不达标，直接限制最高等级
+    """
+    caps = []
+    
+    # 膝盖角度 > 130° → 最高 2.0（没有蓄力）
+    if metrics.get('min_knee_angle', 0) > 130:
+        caps.append('2.0')
+    # 膝盖角度 > 110° → 最高 3.0
+    elif metrics.get('min_knee_angle', 0) > 110:
+        caps.append('3.0')
+    
+    # 站位宽度 < 0.5 → 最高 2.0
+    if metrics.get('stance_width', 1.0) < 0.5:
+        caps.append('2.0')
+    
+    # 击球点高度过低 → 最高 3.0
+    if metrics.get('contact_height', 1.0) < 0.3:
+        caps.append('3.0')
+    
+    # 应用限制：如果有限制，高于限制的等级得分归零
+    if caps:
+        max_allowed = min(caps, key=lambda x: float(x.replace('+', '')))
+        for level in list(level_scores.keys()):
+            if float(level.replace('+', '')) > float(max_allowed.replace('+', '')):
+                level_scores[level] = 0
+    
+    return level_scores
+
+def evaluate_ntrp_level(phase_analysis, db_path=None):
+    """
+    多维度 NTRP 等级评估（带短板惩罚和权重）
+    数据来源优先级：
+    1. LEVEL_MODELS (基准模型)
+    2. level_gold_standards (数据库黄金标准)
+    3. ntrp_calibration_samples (校准样本)
     """
     if not phase_analysis:
         return '2.0', 0.0, {}
     
-    # 收集关键指标
-    metrics = {}
-    
-    # Loading 阶段 - 肘部角度
-    loading = phase_analysis.get('loading', {})
-    if loading and 'max_elbow_angle' in loading:
-        metrics['max_elbow'] = loading['max_elbow_angle']
-    
-    # Ready/Loading 阶段 - 膝盖角度
-    ready = phase_analysis.get('ready', {})
-    # 从 stance_width 推断膝盖弯曲程度（简化）
-    if ready and 'stance_width' in ready:
-        # 站宽与膝盖角度大致相关
-        stance = ready['stance_width']
-        if stance > 2.0:
-            metrics['min_knee'] = 90  # 假设弯曲较好
-        else:
-            metrics['min_knee'] = 120  # 假设弯曲不足
+    # === 1. 从 MediaPipe 分析中提取多维度指标 ===
+    metrics = extract_metrics(phase_analysis)
     
     if not metrics:
         return '2.0', 0.0, {}
     
-    # 计算各等级得分
+    # === 2. 对每个等级计算匹配度 ===
     level_scores = {}
-    for level in ['2.0', '3.0', '4.0', '5.0', '5.0+']:
-        scores = []
-        
-        if 'max_elbow' in metrics:
-            elbow_score = get_angle_score(metrics['max_elbow'], 'elbow', level)
-            scores.append(elbow_score)
-        
-        if 'min_knee' in metrics:
-            knee_score = get_angle_score(metrics['min_knee'], 'knee', level)
-            scores.append(knee_score)
-        
-        level_scores[level] = sum(scores) / len(scores) if scores else 0
+    feature_breakdown = {}  # 记录每个特征的得分详情
     
-    # 找出最佳匹配等级
+    for level, model in LEVEL_MODELS.items():
+        feature_scores = []
+        feature_weights = []
+        feature_names = []
+        
+        for feature_name, (feat_min, feat_max) in model['key_features'].items():
+            if feature_name not in metrics:
+                continue
+            
+            value = metrics[feature_name]
+            mid = (feat_min + feat_max) / 2
+            range_size = max(feat_max - feat_min, 1)
+            
+            if feat_min <= value <= feat_max:
+                # 在范围内：根据接近中心点的程度打分
+                diff = abs(value - mid)
+                score = max(0, 100 - (diff / (range_size / 2)) * 50)
+            else:
+                # 超出范围：惩罚更重（从30分开始扣）
+                if value < feat_min:
+                    distance = feat_min - value
+                else:
+                    distance = value - feat_max
+                score = max(0, 30 - distance * 3)  # 更严厉的惩罚
+            
+            # 应用特征权重
+            weight = FEATURE_WEIGHTS.get(feature_name, 1.0)
+            feature_scores.append(score)
+            feature_weights.append(weight)
+            feature_names.append(feature_name)
+        
+        if not feature_scores:
+            level_scores[level] = 0
+            continue
+        
+        # ===== 关键修改：短板惩罚机制 =====
+        min_score = min(feature_scores)  # 最低分（最差的维度）
+        
+        # 加权平均
+        weighted_sum = sum(s * w for s, w in zip(feature_scores, feature_weights))
+        total_weight = sum(feature_weights)
+        weighted_avg = weighted_sum / total_weight
+        
+        # 最终得分 = 加权平均 * 0.5 + 最低分 * 0.5
+        # 任何一个维度不达标，整体分数都会被大幅拉低
+        combined = weighted_avg * 0.5 + min_score * 0.5
+        
+        # 如果有指标得分 < 20（严重不达标），额外惩罚
+        severe_penalty = sum(1 for s in feature_scores if s < 20)
+        if severe_penalty > 0:
+            combined *= max(0.3, 1 - severe_penalty * 0.2)
+        
+        # 数据库黄金标准加成
+        if db_path:
+            gold = query_gold_standard(db_path, level)
+            if gold:
+                similarity = compute_similarity(metrics, gold)
+                combined = combined * 0.7 + similarity * 100 * 0.3
+        
+        level_scores[level] = round(combined, 1)
+        feature_breakdown[level] = dict(zip(feature_names, feature_scores))
+    
+    # === 3. 应用等级硬约束 ===
+    level_scores = apply_level_caps(metrics, level_scores)
+    
+    # === 4. 选择最佳匹配等级 ===
     best_level = max(level_scores, key=lambda x: level_scores[x])
     best_score = level_scores[best_level]
     
-    # 计算置信度 (0-1)
-    confidence = min(1.0, best_score / 100)
+    # ===== 关键修改：低分保护 =====
+    # 如果最高分都低于40，说明检测数据质量差或发球水平确实很低
+    # 不应该给出高等级
+    if best_score < 40:
+        for level, model in sorted(LEVEL_MODELS.items(), key=lambda x: float(x[0].replace('+', ''))):
+            low, high = model['score_range']
+            if low <= best_score <= high:
+                best_level = level
+                break
+        else:
+            best_level = '2.0'
     
-    return best_level, confidence, {
+    # 计算置信度（基于等级间差距和分数大小）
+    sorted_scores = sorted(level_scores.values(), reverse=True)
+    if len(sorted_scores) >= 2 and sorted_scores[0] > 0:
+        gap = sorted_scores[0] - sorted_scores[1]  # 与第二名的差距
+        score_magnitude = sorted_scores[0] / 100
+        confidence = min(0.95, gap / 50 * 0.5 + score_magnitude * 0.5)
+    else:
+        confidence = 0.3
+    
+    return best_level, round(confidence, 2), {
         'level_scores': level_scores,
-        'metrics': metrics
+        'metrics': metrics,
+        'feature_breakdown': feature_breakdown,
+        'model_used': 'LEVEL_MODELS_v2_tuned',
+        'evaluation_method': 'multi_dimensional_with_shortboard_penalty'
     }
 
 def save_to_sample_library(video_url, analysis_result, ntrp_level, confidence):
@@ -862,7 +1070,7 @@ def analyze():
         # 自动评分
         print("[Analyze] 自动评估 NTRP 等级...")
         phase_analysis = result.get('phase_analysis', {})
-        ntrp_level, confidence, eval_details = evaluate_ntrp_level(phase_analysis)
+        ntrp_level, confidence, eval_details = evaluate_ntrp_level(phase_analysis, DB_PATH)
         
         # 添加到结果
         result['ntrp_evaluation'] = {
