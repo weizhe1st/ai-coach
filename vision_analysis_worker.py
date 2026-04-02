@@ -15,7 +15,7 @@ from openai import OpenAI
 # ═══════════════════════════════════════════════
 # 配置
 # ═══════════════════════════════════════════════
-MOONSHOT_API_KEY = os.environ.get('MOONSHOT_API_KEY', '')
+MOONSHOT_API_KEY = os.environ.get('MOONSHOT_API_KEY', 'A8dY7k6zEYhxc7E80jlhj2vtSr5iWXVJh2oyuLO63a8zNk6w')
 DB_PATH = '/data/db/xiaolongxia_learning.db'
 PROMPT_VERSION = 'v3.0_minimal'
 KNOWLEDGE_BASE_VERSION = 'v5.0_3coaches_169items'
