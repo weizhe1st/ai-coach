@@ -400,9 +400,10 @@ def _parse_json_robust(content: str) -> dict:
     """
     鲁棒 JSON 解析，按优先级依次尝试四种策略：
     策略1: 直接解析（Kimi 输出标准 JSON 时走这里，最快）
-    策略2: 提取第一个完整 JSON 对象（处理 Extra data 场景）
-    策略3: 截断修复（处理 max_tokens 截断场景）
-    策略4: 宽松提取（最后兜底）
+    策略2: 提取 markdown 代码块（处理 ```json ... ``` 场景）
+    策略3: 提取第一个完整 JSON 对象（处理 Extra data 场景）
+    策略4: 截断修复（处理 max_tokens 截断场景）
+    策略5: 宽松提取（最后兜底）
     Raises:
         ValueError: 四种策略均失败时抛出，附带原始响应片段用于调试
     """
@@ -415,7 +416,21 @@ def _parse_json_robust(content: str) -> dict:
     except json.JSONDecodeError:
         pass
     
-    # ── 策略2: 提取第一个完整 JSON 对象 ──────────────────────
+    # ── 策略2: 提取 markdown 代码块 ──────────────────────────
+    # 处理 Kimi 在 JSON 外包了 ```json ... ``` 的情况
+    code_block_patterns = [
+        r'```json\s*(\{[\s\S]*?\})\s*```',  # ```json ... ```
+        r'```\s*(\{[\s\S]*?\})\s*```',      # ``` ... ```
+    ]
+    for pattern in code_block_patterns:
+        match = re.search(pattern, content, re.DOTALL)
+        if match:
+            try:
+                return json.loads(match.group(1))
+            except json.JSONDecodeError:
+                pass
+    
+    # ── 策略3: 提取第一个完整 JSON 对象 ──────────────────────
     # 找到第一个 { 的位置，然后用括号计数找到配对的 }
     # 解决 "Extra data" 问题：Kimi 在 JSON 后面追加了解释文字
     brace_start = content.find('{')
@@ -446,7 +461,7 @@ def _parse_json_robust(content: str) -> dict:
                     except json.JSONDecodeError:
                         break  # 括号匹配到了但内容有问题，继续下一策略
     
-    # ── 策略3: 截断修复 ──────────────────────────────────────
+    # ── 策略4: 截断修复 ──────────────────────────────────────
     # 处理 max_tokens 截断导致的不完整 JSON
     # 找到最后一个完整的顶级字段，截断到那里并补全结构
     if brace_start != -1:
@@ -495,7 +510,7 @@ def _parse_json_robust(content: str) -> dict:
             except json.JSONDecodeError:
                 pass
     
-    # ── 策略4: 宽松正则提取（最后兜底）────────────────────────
+    # ── 策略5: 宽松正则提取（最后兜底）────────────────────────
     # 处理 Kimi 在 JSON 外包了 markdown 代码块的情况
     patterns = [
         r'```json\s*(\{.*?\})\s*```',  # ```json ... ```
