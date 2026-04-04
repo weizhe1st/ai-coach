@@ -161,6 +161,80 @@ def extract_metrics(phase_analysis):
     
     return metrics
 
+# 异常值过滤：超出物理合理范围的指标不参与评分
+VALID_RANGES = {
+    'max_elbow_angle': (30, 180),
+    'min_knee_angle': (30, 180),
+    'stance_width': (0.1, 5.0),
+    'contact_height': (0.1, 1.5),
+    'body_angle': (0, 45),
+}
+
+def filter_metrics(metrics):
+    """
+    过滤异常值：超出物理合理范围的指标不参与评分
+    返回: (filtered_metrics, excluded_metrics)
+    """
+    filtered_metrics = {}
+    excluded_metrics = {}
+    
+    for key, value in metrics.items():
+        if key in VALID_RANGES:
+            low, high = VALID_RANGES[key]
+            if low <= value <= high:
+                filtered_metrics[key] = value
+            else:
+                excluded_metrics[key] = f"{value:.2f}（合理范围{low}-{high}）"
+                print(f"[Filter] 排除异常值: {key}={value:.2f}，超出范围[{low}, {high}]")
+        else:
+            filtered_metrics[key] = value
+    
+    return filtered_metrics, excluded_metrics
+
+def level_to_num(level):
+    """等级转数字"""
+    return {'2.0': 2, '3.0': 3, '4.0': 4, '5.0': 5, '5.0+': 6}.get(level, 3)
+
+def estimate_single_level(value, feature):
+    """单个指标估算等级"""
+    for level in ['5.0+', '5.0', '4.0', '3.0', '2.0']:
+        if level in LEVEL_MODELS:
+            feat_range = LEVEL_MODELS[level]['key_features'].get(feature)
+            if feat_range and feat_range[0] <= value <= feat_range[1]:
+                return level
+    return '2.0'
+
+def assess_detection_quality(metrics, excluded_metrics):
+    """
+    评估 MediaPipe 检测质量，决定是否可信
+    返回: (quality, reason)
+    quality: 'reliable' | 'unreliable' | 'insufficient' | 'contradictory'
+    """
+    total_expected = 5   # 期望5个维度
+    valid_count = len(metrics)
+    excluded_count = len(excluded_metrics)
+    
+    # 1. 如果超过一半指标被排除，检测不可信
+    if excluded_count >= total_expected * 0.4:
+        return 'unreliable', f'超过40%的指标被排除({excluded_count}/{total_expected})'
+    
+    # 2. 如果有效指标不足3个，数据不够评级
+    if valid_count < 3:
+        return 'insufficient', f'仅{valid_count}个有效指标，不足以评级'
+    
+    # 3. 检查指标之间是否矛盾
+    #    肘部角度5.0+级但膝盖2.0级，差距超过2个等级，说明检测可能有误
+    elbow = metrics.get('max_elbow_angle')
+    knee = metrics.get('min_knee_angle')
+    if elbow and knee:
+        elbow_level = estimate_single_level(elbow, 'max_elbow_angle')
+        knee_level = estimate_single_level(knee, 'min_knee_angle')
+        level_gap = abs(level_to_num(elbow_level) - level_to_num(knee_level))
+        if level_gap >= 3:
+            return 'contradictory', f'肘部{elbow_level}级 vs 膝盖{knee_level}级，差距过大，检测可能有误'
+    
+    return 'reliable', ''
+
 def query_gold_standard(db_path, level):
     """查询数据库中的黄金标准"""
     try:
@@ -209,24 +283,43 @@ def compute_similarity(metrics, gold_standard):
 
 def apply_level_caps(metrics, level_scores):
     """
-    根据硬约束限制最高可评等级
+    根据硬约束限制最高可评等级（带例外条款）
     某些指标如果严重不达标，直接限制最高等级
+    但如果其他关键指标优秀（如球速、肘部角度），可以突破限制
     """
     caps = []
     
-    # 膝盖角度 > 130° → 最高 2.0（没有蓄力）
-    if metrics.get('min_knee_angle', 0) > 130:
-        caps.append('2.0')
-    # 膝盖角度 > 110° → 最高 3.0
-    elif metrics.get('min_knee_angle', 0) > 110:
-        caps.append('3.0')
+    # 获取关键指标
+    min_knee = metrics.get('min_knee_angle', 0)
+    max_elbow = metrics.get('max_elbow_angle', 0)
+    stance_width = metrics.get('stance_width', 1.0)
+    contact_height = metrics.get('contact_height', 1.0)
     
-    # 站位宽度 < 0.5 → 最高 2.0
-    if metrics.get('stance_width', 1.0) < 0.5:
-        caps.append('2.0')
+    # ===== 例外条款：如果肘部角度优秀（>170°），放宽膝盖角度限制 =====
+    # 说明：高速发球时MediaPipe可能检测不到准确的膝盖角度
+    elbow_exception = max_elbow > 170
     
-    # 击球点高度过低 → 最高 3.0
-    if metrics.get('contact_height', 1.0) < 0.3:
+    # 膝盖角度限制（带例外条款）
+    if min_knee > 130:
+        if not elbow_exception:
+            caps.append('2.0')
+        else:
+            # 肘部角度优秀时，只限制到3.0而不是2.0
+            caps.append('3.0')
+    elif min_knee > 110:
+        if not elbow_exception:
+            caps.append('3.0')
+    
+    # 站位宽度限制（带例外条款）
+    if stance_width < 0.5:
+        if not elbow_exception:
+            caps.append('2.0')
+        else:
+            # 可能是检测误差，只警告不限制
+            pass
+    
+    # 击球点高度限制
+    if contact_height < 0.3 and not elbow_exception:
         caps.append('3.0')
     
     # 应用限制：如果有限制，高于限制的等级得分归零
@@ -240,20 +333,49 @@ def apply_level_caps(metrics, level_scores):
 
 def evaluate_ntrp_level(phase_analysis, db_path=None):
     """
-    多维度 NTRP 等级评估（带短板惩罚和权重）
+    多维度 NTRP 等级评估（带短板惩罚、权重、异常值过滤和检测质量评估）
     数据来源优先级：
     1. LEVEL_MODELS (基准模型)
     2. level_gold_standards (数据库黄金标准)
     3. ntrp_calibration_samples (校准样本)
     """
     if not phase_analysis:
-        return '2.0', 0.0, {}
+        return '2.0', 0.0, {'detection_quality': 'insufficient', 'detection_quality_reason': '无姿态数据'}
     
     # === 1. 从 MediaPipe 分析中提取多维度指标 ===
-    metrics = extract_metrics(phase_analysis)
+    raw_metrics = extract_metrics(phase_analysis)
+    
+    if not raw_metrics:
+        return '2.0', 0.0, {'detection_quality': 'insufficient', 'detection_quality_reason': '无法提取指标'}
+    
+    # === 2. 异常值过滤 ===
+    metrics, excluded_metrics = filter_metrics(raw_metrics)
     
     if not metrics:
-        return '2.0', 0.0, {}
+        # 如果所有指标都被过滤，使用原始指标但标记为低可信度
+        print("[Warning] 所有指标都被过滤，使用原始指标")
+        metrics = raw_metrics
+        excluded_metrics = {}
+    
+    # === 3. 检测质量评估 ===
+    quality, reason = assess_detection_quality(metrics, excluded_metrics)
+    
+    if quality == 'unreliable' or quality == 'insufficient':
+        return 'unknown', 0.0, {
+            'level': 'unknown',
+            'level_name': '无法评估',
+            'score': 0,
+            'confidence': 0,
+            'detection_quality': quality,
+            'detection_quality_reason': reason,
+            'metrics_used': metrics,
+            'excluded_metrics': excluded_metrics,
+            'recommendation': '建议人工评估或重新上传更清晰的视频'
+        }
+    
+    if quality == 'contradictory':
+        # 指标矛盾时，执行正常评估但标注低置信度
+        print(f"[Warning] 检测指标矛盾: {reason}")
     
     # === 2. 对每个等级计算匹配度 ===
     level_scores = {}
@@ -349,13 +471,26 @@ def evaluate_ntrp_level(phase_analysis, db_path=None):
     else:
         confidence = 0.3
     
-    return best_level, round(confidence, 2), {
+    result = {
         'level_scores': level_scores,
         'metrics': metrics,
+        'raw_metrics': raw_metrics,  # 原始指标（包含被过滤的）
+        'excluded_metrics': excluded_metrics,  # 被排除的异常指标
         'feature_breakdown': feature_breakdown,
         'model_used': 'LEVEL_MODELS_v2_tuned',
-        'evaluation_method': 'multi_dimensional_with_shortboard_penalty'
+        'evaluation_method': 'multi_dimensional_with_shortboard_penalty_and_outlier_filter'
     }
+    
+    # 如果检测质量为contradictory，添加标记
+    if quality == 'contradictory':
+        result['detection_quality'] = 'contradictory'
+        result['detection_quality_reason'] = reason
+        result['confidence'] = min(confidence, 0.3)
+        result['recommendation'] = '指标存在矛盾，评估结果仅供参考，建议人工复核'
+    else:
+        result['detection_quality'] = 'reliable'
+    
+    return best_level, round(confidence, 2), result
 
 def save_to_sample_library(video_url, analysis_result, ntrp_level, confidence):
     """
@@ -1000,9 +1135,53 @@ def health_check():
     })
 
 
-def download_video_from_url(url, output_path, timeout=120):
-    """从URL下载视频文件"""
+def get_cos_signed_url(object_key):
+    """获取COS私有文件的签名URL"""
     try:
+        from qcloud_cos import CosConfig, CosS3Client
+        
+        secret_id = os.environ.get('COS_SECRET_ID', '')
+        secret_key = os.environ.get('COS_SECRET_KEY', '')
+        region = os.environ.get('COS_REGION', 'ap-shanghai')
+        bucket = os.environ.get('COS_BUCKET', 'tennis-ai-1411340868')
+        
+        if not secret_id or not secret_key:
+            print("[COS] 未配置 COS 密钥")
+            return None
+        
+        config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key)
+        client = CosS3Client(config)
+        
+        # 生成签名URL，有效期1小时
+        signed_url = client.get_presigned_url(
+            Method='GET',
+            Bucket=bucket,
+            Key=object_key,
+            Expired=3600
+        )
+        return signed_url
+    except Exception as e:
+        print(f"[COS] 获取签名URL失败: {e}")
+        return None
+
+def download_video_from_url(url, output_path, timeout=120):
+    """从URL下载视频文件，支持COS私有文件自动签名"""
+    try:
+        # 检查是否是COS私有文件（没有签名参数）
+        if 'myqcloud.com' in url and 'q-sign-algorithm' not in url:
+            print("[Download] 检测到COS私有文件，获取签名URL...")
+            # 提取 object_key
+            if 'private-ai-learning' in url or 'videos/' in url:
+                parts = url.split('.myqcloud.com/')
+                if len(parts) > 1:
+                    object_key = parts[1].split('?')[0]
+                    signed_url = get_cos_signed_url(object_key)
+                    if signed_url:
+                        url = signed_url
+                        print(f"[Download] 已获取签名URL")
+                    else:
+                        print("[Download] 获取签名URL失败，使用原URL")
+        
         req = urllib.request.Request(url)
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
         
@@ -1126,6 +1305,151 @@ def index():
             'feishu_bot': 'videos/'
         }
     })
+
+
+def format_analysis_report(result):
+    """格式化分析报告为易读的文本格式"""
+    lines = []
+    
+    # 获取基本信息
+    ntrp = result.get('ntrp_evaluation', {})
+    ntrp_level = ntrp.get('level', '?')
+    confidence = ntrp.get('confidence', 0)
+    phases = result.get('phase_analysis', {})
+    video_info = result.get('video_info', {})
+    
+    # 等级表情
+    level_emoji = {'2.0': '🌱', '2.5': '🌿', '3.0': '🌳', '3.5': '🌲', '4.0': '🏆', '4.5': '🥈', '5.0': '🥇', '5.0+': '👑'}.get(ntrp_level, '🎯')
+    
+    # 标题
+    lines.append(f"{level_emoji} NTRP 等级评估: {ntrp_level} 级")
+    lines.append(f"   置信度: {confidence:.0%}")
+    lines.append('')
+    
+    # 检测质量警告
+    details = ntrp.get('details', {})
+    if details.get('detection_quality') == 'contradictory':
+        lines.append(f"⚠️ 注意: {details.get('detection_quality_reason', '指标存在矛盾')}")
+        lines.append(f"   建议: {details.get('recommendation', '人工复核')}")
+        lines.append('')
+    
+    # 五阶段分析
+    lines.append('📊 五阶段分析:')
+    phase_names = {'ready': '准备', 'toss': '抛球', 'loading': '蓄力', 'contact': '击球', 'follow': '随挥'}
+    for phase_key, phase_name in phase_names.items():
+        phase_data = phases.get(phase_key, {})
+        conf = phase_data.get('confidence', 0)
+        issues = phase_data.get('issues', {})
+        issue_list = [k for k, v in issues.items() if v > 0.3]
+        
+        status = '✅' if conf > 0.8 else '⚠️' if conf > 0.6 else '❌'
+        lines.append(f"  {status} {phase_name}: 置信度{conf:.0%}")
+        
+        # 显示问题
+        if issue_list:
+            for issue in issue_list[:2]:
+                lines.append(f"     - {issue}")
+        
+        # 显示召回的知识
+        knowledge = phase_data.get('recalled_knowledge', [])
+        if knowledge:
+            lines.append(f"     💡 匹配 {len(knowledge)} 条知识点")
+            for k in knowledge[:1]:
+                title = k.get('title', '')
+                coach = k.get('coach_name', k.get('coach_id', ''))
+                if title:
+                    lines.append(f"        • {coach}: {title[:30]}...")
+    
+    lines.append('')
+    
+    # 量化指标
+    metrics = details.get('metrics', {})
+    if metrics:
+        lines.append('📏 量化指标:')
+        if metrics.get('min_knee_angle'):
+            lines.append(f"  膝盖角度: {metrics['min_knee_angle']:.1f}°")
+        if metrics.get('max_elbow_angle'):
+            lines.append(f"  肘部角度: {metrics['max_elbow_angle']:.1f}°")
+        if metrics.get('stance_width'):
+            lines.append(f"  站位宽度: {metrics['stance_width']:.2f}")
+        lines.append('')
+    
+    # 视频信息
+    if video_info:
+        lines.append(f"🎥 视频信息: {video_info.get('duration_seconds', 0):.1f}秒, {video_info.get('analyzed_frames', 0)}帧")
+        lines.append('')
+    
+    # 样本库状态
+    sample = result.get('sample_library', {})
+    if sample.get('saved'):
+        lines.append(f"✅ 已保存到样本库")
+    
+    return '\n'.join(lines)
+
+
+@app.route('/analyze_with_report', methods=['POST'])
+def analyze_with_report():
+    """分析视频并返回格式化报告"""
+    try:
+        # 获取 JSON 数据
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': '请提供 JSON 数据'}), 400
+        
+        video_url = data.get('video_url') or data.get('videoUrl')
+        player_name = data.get('player_name', '未知球员')
+        
+        if not video_url:
+            return jsonify({'error': '请提供 video_url'}), 400
+        
+        # 下载视频
+        filename = secure_filename(video_url.split('/')[-1].split('?')[0]) or 'video.mp4'
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        
+        print(f"[Analyze] 从URL下载视频: {video_url}")
+        if not download_video_from_url(video_url, filepath):
+            return jsonify({'error': 'Failed to download video from URL'}), 400
+        
+        # 分析视频
+        result = analyze_video(filepath)
+        
+        # 清理临时文件
+        if os.path.exists(filepath):
+            os.remove(filepath)
+        
+        if 'error' in result:
+            return jsonify(result), 500
+        
+        # 自动评分
+        print("[Analyze] 自动评估 NTRP 等级...")
+        phase_analysis = result.get('phase_analysis', {})
+        ntrp_level, confidence, eval_details = evaluate_ntrp_level(phase_analysis, DB_PATH)
+        
+        result['ntrp_evaluation'] = {
+            'level': ntrp_level,
+            'confidence': round(confidence, 3),
+            'details': eval_details
+        }
+        
+        # 保存到样本库
+        print(f"[Analyze] 保存到样本库: {ntrp_level}级")
+        success, message = save_to_sample_library(video_url, result, ntrp_level, confidence)
+        result['sample_library'] = {
+            'saved': success,
+            'message': message
+        }
+        
+        # 生成格式化报告
+        report = format_analysis_report(result)
+        
+        return jsonify({
+            'success': True,
+            'report': report,
+            'raw_result': result
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':

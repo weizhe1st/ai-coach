@@ -1,7 +1,17 @@
- * Tip: There are .env files present. Install python-dotenv to use them.
 ============================================================
-统一的网球发球分析服务 v2.0
-支持: 直接分析 + 微信回调 + COS上传
+五阶段网球发球分析服务 v2.3
+集成三教练融合知识库（杨超+赵凌曦+fuzzy_yellow）
+============================================================
+MediaPipe可用: True
+模型文件: /tmp/pose_landmarker.task
+模型存在: True
+知识库URL: https://tennis-ai-1411340868.cos.ap-shanghai.myqcloud.com/coaches/unified_knowledge_base/merged/unified_knowledge_v3.json
+============================================================
+[Startup] 预加载统一知识库...
+[Knowledge] 从本地加载统一知识库: 112 条知识点
+[Knowledge] 包含教练: 杨超, 赵凌曦
+[Startup] 知识库加载成功: 112 条知识点
+[Startup] 包含教练: 杨超, 赵凌曦
 ============================================================
  * Serving Flask app 'tennis_analysis_server'
  * Debug mode: off
@@ -10,4 +20,4 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://127.0.0.1:5000
  * Running on http://10.0.0.6:5000
 Press CTRL+C to quit
-127.0.0.1 - - [01/Apr/2026 08:42:49] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [03/Apr/2026 21:12:47] "GET /health HTTP/1.1" 200 -

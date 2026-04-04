@@ -1,0 +1,35 @@
+# 依赖
+node_modules/
+__pycache__/
+*.pyc
+
+# 日志
+logs/*.log
+logs/*.log.*
+
+# 环境变量
+.env
+
+# 临时文件
+*.tmp
+*.temp
+.DS_Store
+
+# 数据库
+*.db
+*.sqlite
+
+# 模型文件
+*.task
+*.tflite
+
+# 视频和图像
+*.mp4
+*.avi
+*.mov
+*.jpg
+*.png
+
+# 测试文件
+test_*.py
+test_*.js

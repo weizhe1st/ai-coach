@@ -127,3 +127,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 📁 报告位置: /data/apps/xiaolongxia/reports/daily_report_20260402.json
 📁 日志位置: /data/apps/xiaolongxia/logs/daily_review_20260402_030001.log
 ==========================================
+/bin/sh: 1: /data/apps/xiaolongxia/daily_review_and_backup.sh: not found
+/bin/sh: 1: /data/apps/xiaolongxia/daily_review_and_backup.sh: not found
+/bin/sh: 1: /data/apps/xiaolongxia/daily_review_and_backup.sh: not found
+/bin/sh: 1: /data/apps/xiaolongxia/daily_review_and_backup.sh: not found

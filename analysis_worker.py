@@ -98,16 +98,197 @@ def download_video(cos_key, local_path):
         return False
 
 def analyze_video_with_mediapipe(video_path):
-    """使用MediaPipe分析视频"""
+    """使用MediaPipe分析视频 - 强制使用MediaPipe，不使用模拟数据"""
     if not MEDIAPIPE_AVAILABLE:
-        print("[Worker] MediaPipe不可用，使用模拟分析")
-        return simulate_analysis()
+        raise Exception("MediaPipe不可用，无法进行分析")
     
     print(f"[Worker] 使用MediaPipe分析: {video_path}")
     
-    # 这里应该调用完整的MediaPipe分析
-    # 简化版：返回模拟结果
-    return simulate_analysis()
+    # 调用真正的MediaPipe分析
+    import cv2
+    import numpy as np
+    
+    # 打开视频
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        raise Exception(f"无法打开视频: {video_path}")
+    
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    
+    print(f"   视频信息: {total_frames}帧, {fps}fps")
+    
+    # 使用MediaPipe Tasks API
+    from mediapipe.tasks.python.vision import PoseLandmarker, PoseLandmarkerOptions, RunningMode
+    from mediapipe.tasks.python.core.base_options import BaseOptions
+    from pathlib import Path
+    
+    # 检查模型文件
+    model_path = Path('/data/apps/xiaolongxia/pose_landmarker_lite.task')
+    if not model_path.exists():
+        raise Exception("MediaPipe模型文件不存在")
+    
+    # 配置选项
+    options = PoseLandmarkerOptions(
+        base_options=BaseOptions(model_asset_path=str(model_path)),
+        running_mode=RunningMode.VIDEO,
+        num_poses=1,
+        min_pose_detection_confidence=0.5,
+        min_pose_presence_confidence=0.5,
+        min_tracking_confidence=0.5
+    )
+    
+    pose_data = []
+    frame_count = 0
+    
+    with PoseLandmarker.create_from_options(options) as landmarker:
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break
+            
+            frame_count += 1
+            
+            # 每5帧分析一次
+            if frame_count % 5 != 0:
+                continue
+            
+            # 转换帧格式
+            mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+            
+            # 检测姿态
+            timestamp_ms = int((frame_count / fps) * 1000)
+            result = landmarker.detect_for_video(mp_image, timestamp_ms)
+            
+            if result.pose_landmarks:
+                landmarks = result.pose_landmarks[0]
+                
+                # 提取关键点（右臂）
+                right_shoulder = landmarks[12]  # RIGHT_SHOULDER
+                right_elbow = landmarks[14]     # RIGHT_ELBOW
+                right_wrist = landmarks[16]     # RIGHT_WRIST
+                right_hip = landmarks[24]       # RIGHT_HIP
+                right_knee = landmarks[26]      # RIGHT_KNEE
+                right_ankle = landmarks[28]     # RIGHT_ANKLE
+                
+                # 计算角度
+                def calculate_angle(a, b, c):
+                    import math
+                    a = np.array([a.x, a.y])
+                    b = np.array([b.x, b.y])
+                    c = np.array([c.x, c.y])
+                    
+                    radians = np.arctan2(c[1] - b[1], c[0] - b[0]) - np.arctan2(a[1] - b[1], a[0] - b[0])
+                    angle = np.abs(radians * 180.0 / np.pi)
+                    
+                    if angle > 180.0:
+                        angle = 360 - angle
+                    
+                    return angle
+                
+                elbow_angle = calculate_angle(right_shoulder, right_elbow, right_wrist)
+                knee_angle = calculate_angle(right_hip, right_knee, right_ankle)
+                
+                pose_data.append({
+                    'frame': frame_count,
+                    'timestamp': frame_count / fps,
+                    'elbow_angle': elbow_angle,
+                    'knee_angle': knee_angle,
+                    'shoulder_angle': 90
+                })
+                
+                if len(pose_data) % 10 == 0:
+                    print(f"   已分析 {len(pose_data)} 帧...")
+    
+    cap.release()
+    print(f"✅ MediaPipe分析完成: {len(pose_data)} 帧")
+    
+    if not pose_data:
+        raise Exception("MediaPipe未检测到姿态数据")
+    
+    # 基于姿态数据分析
+    return analyze_pose_data(pose_data)
+
+
+def analyze_pose_data(pose_data):
+    """基于MediaPipe姿态数据分析"""
+    if not pose_data:
+        raise Exception("无姿态数据")
+    
+    # 统计数据
+    elbow_angles = [d['elbow_angle'] for d in pose_data]
+    knee_angles = [d['knee_angle'] for d in pose_data]
+    
+    avg_elbow = sum(elbow_angles) / len(elbow_angles)
+    avg_knee = sum(knee_angles) / len(knee_angles)
+    min_knee = min(knee_angles)
+    max_elbow = max(elbow_angles)
+    
+    print(f"   平均肘部角度: {avg_elbow:.1f}°")
+    print(f"   平均膝盖角度: {avg_knee:.1f}°")
+    print(f"   最小膝盖角度: {min_knee:.1f}°")
+    print(f"   最大肘部角度: {max_elbow:.1f}°")
+    
+    # 计算评分
+    base_score = 70
+    problems = []
+    
+    # 根据角度判断问题
+    if min_knee > 120:
+        problems.append({"phase": "loading", "problem_code": "knee_bend", "description": "蓄力不足，膝盖弯曲不够"})
+        base_score -= 5
+    
+    if max_elbow < 150:
+        problems.append({"phase": "contact", "problem_code": "elbow_extension", "description": "肘部伸展不足，击球点偏低"})
+        base_score -= 5
+    
+    if avg_knee > 130:
+        problems.append({"phase": "loading", "problem_code": "loading_weak", "description": "蓄力可加强"})
+        base_score -= 3
+    
+    # 计算档位
+    final_score = max(0, min(100, base_score))
+    if final_score >= 95:
+        bucket = '5.5+'
+    elif final_score >= 90:
+        bucket = '5.0'
+    elif final_score >= 85:
+        bucket = '4.5'
+    elif final_score >= 80:
+        bucket = '4.0'
+    elif final_score >= 72:
+        bucket = '3.5'
+    elif final_score >= 65:
+        bucket = '3.0'
+    elif final_score >= 58:
+        bucket = '2.5'
+    elif final_score >= 50:
+        bucket = '2.0'
+    elif final_score >= 40:
+        bucket = '1.5'
+    else:
+        bucket = '1.0'
+    
+    return {
+        "total_score": final_score,
+        "bucket": bucket,
+        "problems": problems if problems else [{"phase": "general", "problem_code": "good_form", "description": "动作良好，继续保持"}],
+        "recommendations": ["继续练习，保持动作稳定性"],
+        "phase_analysis": {
+            "ready": {"score": min(85, final_score + 5), "issues": []},
+            "toss": {"score": min(80, final_score), "issues": []},
+            "loading": {"score": min(85, final_score + 5) if min_knee < 120 else min(70, final_score), "issues": ["蓄力不足"] if min_knee > 120 else []},
+            "contact": {"score": min(80, final_score) if max_elbow > 150 else min(65, final_score), "issues": ["肘部伸展不足"] if max_elbow < 150 else []},
+            "follow": {"score": min(82, final_score + 3), "issues": []}
+        },
+        "statistics": {
+            "avg_elbow_angle": avg_elbow,
+            "avg_knee_angle": avg_knee,
+            "min_knee_angle": min_knee,
+            "max_elbow_angle": max_elbow,
+            "frames_analyzed": len(pose_data)
+        }
+    }
 
 def simulate_analysis():
     """模拟分析结果（当MediaPipe不可用时）"""
