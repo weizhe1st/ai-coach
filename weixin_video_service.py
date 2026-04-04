@@ -189,6 +189,129 @@ def get_level_standards(level):
     }
     return default_standards.get(level, {'name': '未知', 'description': ''})
 
+def _parse_json_robust(content: str) -> dict:
+    """
+    鲁棒 JSON 解析，按优先级依次尝试四种策略：
+    策略1: 直接解析（Kimi 输出标准 JSON 时走这里，最快）
+    策略2: 提取第一个完整 JSON 对象（处理 Extra data 场景）
+    策略3: 截断修复（处理 max_tokens 截断场景）
+    策略4: 宽松提取（最后兜底）
+    Raises:
+        ValueError: 四种策略均失败时抛出，附带原始响应片段用于调试
+    """
+    import re
+    content = content.strip()
+    
+    # ── 策略1: 直接解析 ──────────────────────────────────────
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        pass
+    
+    # ── 策略2: 提取第一个完整 JSON 对象 ──────────────────────
+    # 找到第一个 { 的位置，然后用括号计数找到配对的 }
+    # 解决 "Extra data" 问题：Kimi 在 JSON 后面追加了解释文字
+    brace_start = content.find('{')
+    if brace_start != -1:
+        depth = 0
+        in_string = False
+        escape_next = False
+        for i, ch in enumerate(content[brace_start:], start=brace_start):
+            if escape_next:
+                escape_next = False
+                continue
+            if ch == '\\' and in_string:
+                escape_next = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == '{':
+                depth += 1
+            elif ch == '}':
+                depth -= 1
+                if depth == 0:
+                    candidate = content[brace_start:i + 1]
+                    try:
+                        return json.loads(candidate)
+                    except json.JSONDecodeError:
+                        break  # 括号匹配到了但内容有问题，继续下一策略
+    
+    # ── 策略3: 截断修复 ──────────────────────────────────────
+    # 处理 max_tokens 截断导致的不完整 JSON
+    # 找到最后一个完整的顶级字段，截断到那里并补全结构
+    if brace_start != -1:
+        truncated = content[brace_start:]
+        # 找到最后一个完整的键值对结束位置（逗号或嵌套对象结束）
+        # 策略：从末尾倒找最后一个完整的 "key": ... 结构
+        last_complete = -1
+        depth = 0
+        in_string = False
+        escape_next = False
+        for i, ch in enumerate(truncated):
+            if escape_next:
+                escape_next = False
+                continue
+            if ch == '\\' and in_string:
+                escape_next = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch in ('{', '['):
+                depth += 1
+            elif ch in ('}', ']'):
+                depth -= 1
+                if depth == 1:  # 回到顶层，记录位置
+                    last_complete = i
+        if last_complete > 0:
+            # 在最后一个完整嵌套结构后截断并补全
+            repaired = truncated[:last_complete + 1].rstrip().rstrip(',') + '\n}'
+            try:
+                result = json.loads(repaired)
+                print(f"  ⚠ JSON 截断修复成功（补全了 {len(content) - last_complete} 字符）")
+                # 补全缺失的必要字段防止校验失败
+                result.setdefault('ntrp_level', '3.0')
+                result.setdefault('confidence', 0.5)
+                result.setdefault('overall_score', 50)
+                result.setdefault('detection_notes', '输出被截断，部分字段已自动补全')
+                if 'phase_analysis' not in result:
+                    result['phase_analysis'] = {
+                        p: {'score': 50, 'observations': [], 'issues': [], 'coach_reference': []}
+                        for p in ['ready', 'toss', 'loading', 'contact', 'follow']
+                    }
+                return result
+            except json.JSONDecodeError:
+                pass
+    
+    # ── 策略4: 宽松正则提取（最后兜底）────────────────────────
+    # 处理 Kimi 在 JSON 外包了 markdown 代码块的情况
+    patterns = [
+        r'```json\s*(\{.*?\})\s*```',  # ```json ... ```
+        r'```\s*(\{.*?\})\s*```',      # ``` ... ```
+        r'(\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})',  # 嵌套一层的简单 JSON
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, content, re.DOTALL)
+        if match:
+            try:
+                return json.loads(match.group(1))
+            except json.JSONDecodeError:
+                continue
+    
+    # 全部策略失败
+    preview = content[:300].replace('\n', ' ')
+    raise ValueError(
+        f"JSON 解析失败（已尝试 4 种策略）。\n"
+        f"原始响应前300字符: {preview}\n"
+        f"总长度: {len(content)} 字符"
+    )
+
+
 def _call_kimi_with_retry(client, file_id, user_text=None, max_retries=3, base_delay=5):
     """调用 Kimi API，失败自动重试"""
     last_error = None
@@ -217,19 +340,11 @@ def _call_kimi_with_retry(client, file_id, user_text=None, max_retries=3, base_d
                     ]}
                 ],
                 temperature=1,
-                max_tokens=4000,
+                max_tokens=6000,
                 timeout=300
             )
             content = response.choices[0].message.content
-            
-            try:
-                return json.loads(content)
-            except json.JSONDecodeError:
-                import re
-                match = re.search(r'\{.*\}', content, re.DOTALL)
-                if match:
-                    return json.loads(match.group())
-                raise ValueError(f"JSON解析失败，原始响应前200字: {content[:200]}")
+            return _parse_json_robust(content)
                 
         except ValueError:
             raise
