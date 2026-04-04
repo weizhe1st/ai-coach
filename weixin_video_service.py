@@ -189,6 +189,98 @@ def get_level_standards(level):
     }
     return default_standards.get(level, {'name': '未知', 'description': ''})
 
+
+def check_level_consistency(result: dict) -> dict:
+    """
+    用黄金标准样本库对 Kimi 定级做一致性校验。
+    
+    校验维度：
+    1. 等级偏差：与同等级样本的平均分对比
+    2. 阶段分异常：某阶段分与同等级样本差距超过20分
+    3. 置信度过低：低于0.6时标记为不可靠
+    
+    Returns:
+        dict: 包含校验结果和警告信息
+    """
+    warnings = []
+    ntrp_level = result.get('ntrp_level', '3.0')
+    overall_score = result.get('overall_score', 50)
+    confidence = result.get('confidence', 0.5)
+    phase_analysis = result.get('phase_analysis', {})
+    
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        
+        # 1. 检查同等级样本的平均分
+        avg_row = conn.execute("""
+            SELECT AVG(overall_score) as avg_score, COUNT(*) as cnt
+            FROM gold_standard_samples
+            WHERE level = ? AND status = 'active'
+        """, (ntrp_level,)).fetchone()
+        
+        if avg_row and avg_row['cnt'] > 0:
+            avg_score = avg_row['avg_score']
+            score_diff = abs(overall_score - avg_score)
+            
+            # 如果偏差超过15分，发出警告
+            if score_diff > 15:
+                warnings.append(
+                    f"总分异常：{overall_score}分，"
+                    f"同等级{ntrp_level}样本平均{avg_score:.1f}分，"
+                    f"偏差{score_diff:.1f}分"
+                )
+        
+        # 2. 检查阶段分异常
+        phase_scores = {}
+        for phase_key in ['ready', 'toss', 'loading', 'contact', 'follow']:
+            phase_data = phase_analysis.get(phase_key, {})
+            if isinstance(phase_data, dict):
+                phase_scores[phase_key] = phase_data.get('score', 50)
+        
+        if phase_scores:
+            # 查询同等级样本的阶段平均分
+            for phase_key, score in phase_scores.items():
+                avg_phase_row = conn.execute(f"""
+                    SELECT AVG(
+                        CASE 
+                            WHEN json_extract(phase_analysis, '$.{phase_key}.score') IS NOT NULL
+                            THEN json_extract(phase_analysis, '$.{phase_key}.score')
+                            ELSE 50
+                        END
+                    ) as avg_phase_score
+                    FROM gold_standard_samples
+                    WHERE level = ? AND status = 'active'
+                """, (ntrp_level,)).fetchone()
+                
+                if avg_phase_row and avg_phase_row['avg_phase_score']:
+                    avg_phase = avg_phase_row['avg_phase_score']
+                    phase_diff = abs(score - avg_phase)
+                    
+                    if phase_diff > 20:
+                        warnings.append(
+                            f"阶段分异常：{phase_key}={score}分，"
+                            f"同等级平均{avg_phase:.1f}分，"
+                            f"偏差{phase_diff:.1f}分"
+                        )
+        
+        conn.close()
+        
+    except Exception as e:
+        print(f"[一致性校验] 查询样本库失败: {e}")
+    
+    # 3. 检查置信度
+    if confidence < 0.6:
+        warnings.append(f"置信度过低：{confidence:.2f}，建议人工复核")
+    
+    return {
+        'level': ntrp_level,
+        'score': overall_score,
+        'confidence': confidence,
+        'warnings': warnings,
+        'is_consistent': len(warnings) == 0
+    }
+
 def _parse_json_robust(content: str) -> dict:
     """
     鲁棒 JSON 解析，按优先级依次尝试四种策略：
