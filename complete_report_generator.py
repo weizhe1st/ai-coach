@@ -48,11 +48,17 @@ def generate_complete_report(result, quality_info, knowledge_results=None,
     # ─── 第一行：等级 + 核心短板 ──────────────────────────
     top_issue = ''
     for iss in key_issues:
-        if iss.get('severity') == 'high':
-            top_issue = iss.get('issue', '')
+        # 兼容字符串和字典两种格式
+        if isinstance(iss, dict):
+            if iss.get('severity') == 'high':
+                top_issue = iss.get('issue', '')
+                break
+        elif isinstance(iss, str):
+            top_issue = iss
             break
     if not top_issue and key_issues:
-        top_issue = key_issues[0].get('issue', '')
+        first = key_issues[0]
+        top_issue = first.get('issue', '') if isinstance(first, dict) else str(first)
     
     level_emoji = {'2.0': '🌱', '2.5': '🌿', '3.0': '🌳', '3.5': '🌲', '4.0': '🏆', '4.5': '🥈', '5.0': '🥇', '5.0+': '👑'}.get(ntrp_level, '🎯')
     
@@ -130,15 +136,20 @@ def generate_complete_report(result, quality_info, knowledge_results=None,
     if key_issues:
         lines.append('🔴 必改要点：')
         severity_emojis = {'high': '🔴', 'medium': '🟡', 'low': '🟢'}
-        severity_order = {'high': 0, 'medium': 1, 'low': 2}
-        sorted_issues = sorted(key_issues, key=lambda x: severity_order.get(x.get('severity', 'medium'), 1))
         
         serial = ['①', '②', '③']
-        for i, iss in enumerate(sorted_issues[:3]):
-            sev = iss.get('severity', 'medium')
-            emoji = severity_emojis.get(sev, '⚪')
-            issue = iss.get('issue', '')
-            advice = iss.get('coach_advice', '')
+        for i, iss in enumerate(key_issues[:3]):
+            # 兼容字符串和字典两种格式
+            if isinstance(iss, dict):
+                sev = iss.get('severity', 'medium')
+                emoji = severity_emojis.get(sev, '⚪')
+                issue = iss.get('issue', '')
+                advice = iss.get('coach_advice', '')
+            else:
+                # 字符串格式，默认高优先级
+                emoji = '🔴'
+                issue = str(iss)
+                advice = ''
             lines.append(f"{serial[i]} {emoji} {issue}")
             if advice:
                 lines.append(f"   → {advice}")
