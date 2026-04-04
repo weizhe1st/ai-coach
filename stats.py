@@ -51,24 +51,44 @@ def stats_overview(conn, days, full):
     section("总览")
     where, params = date_filter(days)
     
-    # vision_analysis_direct 表
-    rows = conn.execute(f"""
-        SELECT status, COUNT(*) as cnt
-        FROM vision_analysis_direct
+    # 主流程写入 weixin_analysis_results（成功记录）
+    weixin_count = conn.execute(f"""
+        SELECT COUNT(*) as cnt
+        FROM weixin_analysis_results
         WHERE 1=1 {where}
-        GROUP BY status
-        ORDER BY cnt DESC
-    """, params).fetchall()
+    """, params).fetchone()['cnt']
     
-    total = sum(r['cnt'] for r in rows)
-    success = next((r['cnt'] for r in rows if r['status'] == 'success'), 0)
-    failed = next((r['cnt'] for r in rows if r['status'] == 'failed'), 0)
-    low_q = next((r['cnt'] for r in rows if r['status'] == 'low_quality'), 0)
+    # vision_analysis_direct 表（含成功/失败/质检未通过）
+    try:
+        rows = conn.execute(f"""
+            SELECT status, COUNT(*) as cnt
+            FROM vision_analysis_direct
+            WHERE 1=1 {where}
+            GROUP BY status
+            ORDER BY cnt DESC
+        """, params).fetchall()
+        
+        total_direct = sum(r['cnt'] for r in rows)
+        success_direct = next((r['cnt'] for r in rows if r['status'] == 'success'), 0)
+        failed = next((r['cnt'] for r in rows if r['status'] == 'failed'), 0)
+        low_q = next((r['cnt'] for r in rows if r['status'] == 'low_quality'), 0)
+    except sqlite3.OperationalError:
+        # vision_analysis_direct 表不存在或没有 status 列
+        rows = []
+        total_direct = 0
+        success_direct = 0
+        failed = 0
+        low_q = 0
     
-    print(f"\n  分析总量 {total} 次")
+    # 取两张表中较大的成功数（避免重复计数）
+    success = max(weixin_count, success_direct)
+    total = success + failed + low_q
+    
+    print(f"\n  分析总量 {total} 次（含成功{success}/失败{failed}/质检拒绝{low_q}）")
     print(f"  成功 {success} 次 {bar(success, total)}")
     print(f"  质检未通过 {low_q} 次 {bar(low_q, total)}")
     print(f"  API失败 {failed} 次 {bar(failed, total)}")
+    print(f"\n  注：weixin_analysis_results={weixin_count}条，vision_analysis_direct成功={success_direct}条")
     
     # 成功率趋势（按天）
     if full and total > 0:
@@ -92,15 +112,27 @@ def stats_ntrp(conn, days, full):
     section("NTRP 等级分布")
     where, params = date_filter(days)
     
+    # 优先从 weixin_analysis_results 取（主流程写入的表）
     rows = conn.execute(f"""
         SELECT ntrp_level, COUNT(*) as cnt
-        FROM vision_analysis_direct
-        WHERE status = 'success'
-          AND ntrp_level IS NOT NULL
+        FROM weixin_analysis_results
+        WHERE ntrp_level IS NOT NULL
           {where}
         GROUP BY ntrp_level
         ORDER BY ntrp_level
     """, params).fetchall()
+    
+    # 如果 weixin_analysis_results 无数据，降级到 vision_analysis_direct
+    if not rows:
+        rows = conn.execute(f"""
+            SELECT ntrp_level, COUNT(*) as cnt
+            FROM vision_analysis_direct
+            WHERE status = 'success'
+              AND ntrp_level IS NOT NULL
+              {where}
+            GROUP BY ntrp_level
+            ORDER BY ntrp_level
+        """, params).fetchall()
     
     if not rows:
         print("\n  暂无数据")
@@ -134,9 +166,20 @@ def stats_confidence(conn, days, full):
                ROUND(MIN(confidence), 3) as min_conf,
                ROUND(AVG(overall_score), 1) as avg_score,
                COUNT(*) as cnt
-        FROM vision_analysis_direct
-        WHERE status = 'success' {where}
+        FROM weixin_analysis_results
+        WHERE confidence IS NOT NULL {where}
     """, params).fetchone()
+    
+    # 降级
+    if not row or row['cnt'] == 0:
+        row = conn.execute(f"""
+            SELECT ROUND(AVG(confidence), 3) as avg_conf,
+                   ROUND(MIN(confidence), 3) as min_conf,
+                   ROUND(AVG(overall_score), 1) as avg_score,
+                   COUNT(*) as cnt
+            FROM vision_analysis_direct
+            WHERE status = 'success' {where}
+        """, params).fetchone()
     
     if not row or row['cnt'] == 0:
         print("\n  暂无数据")
@@ -154,11 +197,20 @@ def stats_confidence(conn, days, full):
                    'contact':'击球','follow':'随挥'}
     phase_scores = {k: [] for k in phase_keys}
     
+    # 优先从 weixin_analysis_results 取
     records = conn.execute(f"""
         SELECT phase_analysis
-        FROM vision_analysis_direct
-        WHERE status = 'success' AND phase_analysis IS NOT NULL {where}
+        FROM weixin_analysis_results
+        WHERE phase_analysis IS NOT NULL {where}
     """, params).fetchall()
+    
+    # 降级到 vision_analysis_direct
+    if not records:
+        records = conn.execute(f"""
+            SELECT phase_analysis
+            FROM vision_analysis_direct
+            WHERE status = 'success' AND phase_analysis IS NOT NULL {where}
+        """, params).fetchall()
     
     for rec in records:
         try:

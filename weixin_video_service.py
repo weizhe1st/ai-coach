@@ -213,7 +213,7 @@ def _call_kimi_with_retry(client, file_id, user_text=None, max_retries=3, base_d
 
 {user_text or ''}
 
-只输出JSON，不含任何其他内容。"""
+只输出JSON，不含任何其他内容。"""}
                     ]}
                 ],
                 temperature=1,
