@@ -13,10 +13,10 @@ from uuid import uuid4
 from flask import Flask, request, jsonify
 
 # COS配置
-COS_SECRET_ID = "AKIDaHuZDoEKB5qOipqgJkx2uZ1HLPFvXxBC"
-COS_SECRET_KEY = "sZ3KOG5nIcUaifjjbIwhIgqqfKpAKJ6r"
-COS_BUCKET = "tennis-ai-1411340868"
-COS_REGION = "ap-shanghai"
+COS_SECRET_ID = os.environ.get('COS_SECRET_ID', '')
+COS_SECRET_KEY = os.environ.get('COS_SECRET_KEY', '')
+COS_BUCKET = os.environ.get('COS_BUCKET', 'tennis-ai-1411340868')
+COS_REGION = os.environ.get('COS_REGION', 'ap-shanghai')
 COS_PREFIX = "private-ai-learning/raw_videos"
 
 DB_PATH = '/data/db/xiaolongxia_learning.db'

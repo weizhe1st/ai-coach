@@ -59,8 +59,48 @@ def load_knowledge_base():
         print(f"[Knowledge] 加载失败: {e}")
         return {'knowledge_items': []}
 
+# 自然语言描述 → 知识库标准 tag 的映射
+# key: 自然语言中的关键词（小写），value: 对应的标准 tag
+ISSUE_KEYWORD_TO_TAG = {
+    '膝盖': 'weak_loading',
+    '蓄力': 'weak_loading',
+    '抛球': 'toss_backward',
+    '偏内': 'toss_backward',
+    '偏后': 'toss_backward',
+    '抛球过低': 'toss_too_low',
+    '抛球过高': 'toss_too_high',
+    '旋内': 'incomplete_pronation',
+    '收拍': 'incomplete_follow_through',
+    '随挥': 'incomplete_follow_through',
+    '肘部': 'trophy_not_reached',
+    '奖杯': 'trophy_not_reached',
+    '站位': 'stance_width_error',
+    '握拍': 'grip_error',
+    '击球点': 'low_contact_point',
+    '击球低': 'low_contact_point',
+}
+
+def issues_to_tags(issues: list) -> list:
+    """
+    将自然语言 issues 列表转换为知识库标准 tag 列表。
+    同时保留原始文本，用于内容匹配兜底。
+    """
+    tags = []
+    for issue in issues:
+        if not isinstance(issue, str):
+            continue
+        issue_lower = issue.lower()
+        for keyword, tag in ISSUE_KEYWORD_TO_TAG.items():
+            if keyword in issue_lower and tag not in tags:
+                tags.append(tag)
+    # 如果没有匹配到任何 tag，返回原始文本列表（触发内容匹配兜底）
+    return tags if tags else issues
+
 def recall_knowledge(phase, issue_tags, limit=2):
     """召回知识点"""
+    # 将自然语言转换为标准 tag
+    issue_tags = issues_to_tags(issue_tags)
+    
     knowledge_base = load_knowledge_base()
     knowledge_items = knowledge_base.get('knowledge_items', [])
     
@@ -165,13 +205,15 @@ def _call_kimi_with_retry(client, file_id, user_text=None, max_retries=3, base_d
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": [
                         {"type": "video_url", "video_url": {"url": f"ms://{file_id}"}},
-                        {"type": "text", "text": """请严格按照三步分析法分析这段网球发球视频：
+                        {"type": "text", "text": f"""请严格按照三步分析法分析这段网球发球视频：
 
 第一步（逐帧观察）：逐阶段描述你看到的具体动作，每个阶段覆盖系统提示中的所有锚点，看不清的写"不可见"。
 第二步（标准对照）：将观察结果与三位教练标准对照，明确每个锚点的达标/不达标情况。
 第三步（输出JSON）：基于前两步推导，填写最终JSON，不得跳过前两步直接给出结论。
 
-只输出JSON，不含任何其他内容。"""}
+{user_text or ''}
+
+只输出JSON，不含任何其他内容。"""
                     ]}
                 ],
                 temperature=1,
@@ -296,7 +338,7 @@ def analyze_video(video_path, user_id=None):
         # 3. 调用 Kimi 分析（带重试）
         print("[分析服务] 调用 Kimi K2.5 分析视频（最多重试3次，超时60秒）...")
         try:
-            result = _call_kimi_with_retry(client, file_object.id, max_retries=3, base_delay=5)
+            result = _call_kimi_with_retry(client, file_object.id, user_text=mp_formatted_text, max_retries=3, base_delay=5)
             print("  ✓ Kimi 分析完成")
         except RuntimeError as e:
             return {
@@ -349,12 +391,14 @@ def analyze_video(video_path, user_id=None):
         
         # 8. 生成完整报告
         print("[分析服务] 生成完整报告...")
+        # 从 validated_result 中取出已整合的量化指标传给报告生成器
+        mp_metrics_for_report = validated_result.get('quantitative_metrics') if mp_result else None
         report = generate_complete_report(
             validated_result, 
             quality_info, 
             knowledge_results, 
             similar_cases,
-            None,  # mp_metrics 可选
+            mp_metrics_for_report,
             level_standards
         )
         print("  ✓ 完整报告生成完成")

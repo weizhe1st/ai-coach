@@ -35,10 +35,10 @@ except ImportError:
 
 # 配置
 DB_PATH = '/data/db/xiaolongxia_learning.db'
-COS_SECRET_ID = "AKIDaHuZDoEKB5qOipqgJkx2uZ1HLPFvXxBC"
-COS_SECRET_KEY = "sZ3KOG5nIcUaifjjbIwhIgqqfKpAKJ6r"
-COS_BUCKET = 'tennis-ai-1411340868'
-COS_REGION = 'ap-shanghai'
+COS_SECRET_ID = os.environ.get('COS_SECRET_ID', '')
+COS_SECRET_KEY = os.environ.get('COS_SECRET_KEY', '')
+COS_BUCKET = os.environ.get('COS_BUCKET', 'tennis-ai-1411340868')
+COS_REGION = os.environ.get('COS_REGION', 'ap-shanghai')
 
 def get_db_connection():
     """获取数据库连接"""
