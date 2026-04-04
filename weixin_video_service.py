@@ -190,95 +190,210 @@ def get_level_standards(level):
     return default_standards.get(level, {'name': '未知', 'description': ''})
 
 
+# 虚拟等级定义：由相邻实体等级的样本动态计算中位数
+VIRTUAL_LEVELS = {
+    '2.5': ('2.0', '3.0'),
+    '3.5': ('3.0', '4.0'),
+}
+
+# 等级数值映射（用于计算偏差方向）
+LEVEL_NUM = {
+    '2.0': 2.0, '2.5': 2.5, '3.0': 3.0, '3.5': 3.5,
+    '4.0': 4.0, '4.5': 4.5, '5.0': 5.0, '5.0+': 5.5
+}
+
+LEVEL_ORDER = ['2.0', '2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.0+']
+
+
+def _get_level_stats(conn, level: str) -> dict:
+    """
+    获取某等级的统计参照值。
+
+    实体等级：直接查 gold_standard_samples 同等级样本的中位数。
+    虚拟等级（2.5/3.5）：取相邻两个实体等级样本合并后的中位数。
+
+    Returns:
+        dict: {
+            'sample_count': int,
+            'avg_score': float or None,
+            'avg_loading': float or None,
+            'avg_toss': float or None,
+            'avg_contact': float or None,
+            'is_virtual': bool,
+        }
+    """
+    import numpy as np
+
+    def fetch_scores(lv):
+        rows = conn.execute("""
+            SELECT
+                overall_score,
+                CAST(json_extract(phase_analysis, '$.loading.score') AS REAL) as loading,
+                CAST(json_extract(phase_analysis, '$.toss.score') AS REAL) as toss,
+                CAST(json_extract(phase_analysis, '$.contact.score') AS REAL) as contact
+            FROM gold_standard_samples
+            WHERE level = ? AND status = 'active'
+        """, (lv,)).fetchall()
+        return rows
+
+    if level in VIRTUAL_LEVELS:
+        # 虚拟等级：合并相邻两组样本
+        lower_lv, upper_lv = VIRTUAL_LEVELS[level]
+        lower_rows = fetch_scores(lower_lv)
+        upper_rows = fetch_scores(upper_lv)
+        all_rows = list(lower_rows) + list(upper_rows)
+
+        if len(all_rows) < 2:
+            return {'sample_count': len(all_rows), 'avg_score': None,
+                    'avg_loading': None, 'avg_toss': None, 'avg_contact': None,
+                    'is_virtual': True}
+
+        scores   = [r['overall_score'] for r in all_rows if r['overall_score'] is not None]
+        loadings = [r['loading'] for r in all_rows if r['loading'] is not None]
+        tosses   = [r['toss'] for r in all_rows if r['toss'] is not None]
+        contacts = [r['contact'] for r in all_rows if r['contact'] is not None]
+
+        return {
+            'sample_count': len(all_rows),
+            'avg_score':   float(np.median(scores))   if scores   else None,
+            'avg_loading': float(np.median(loadings)) if loadings else None,
+            'avg_toss':    float(np.median(tosses))   if tosses   else None,
+            'avg_contact': float(np.median(contacts)) if contacts else None,
+            'is_virtual': True,
+            'composed_from': f"{lower_lv}级({len(lower_rows)}条) + {upper_lv}级({len(upper_rows)}条)",
+        }
+
+    else:
+        # 实体等级：直接查同等级样本
+        rows = fetch_scores(level)
+        if not rows:
+            return {'sample_count': 0, 'avg_score': None,
+                    'avg_loading': None, 'avg_toss': None, 'avg_contact': None,
+                    'is_virtual': False}
+
+        scores   = [r['overall_score'] for r in rows if r['overall_score'] is not None]
+        loadings = [r['loading'] for r in rows if r['loading'] is not None]
+        tosses   = [r['toss'] for r in rows if r['toss'] is not None]
+        contacts = [r['contact'] for r in rows if r['contact'] is not None]
+
+        return {
+            'sample_count': len(rows),
+            'avg_score':   float(np.median(scores))   if scores   else None,
+            'avg_loading': float(np.median(loadings)) if loadings else None,
+            'avg_toss':    float(np.median(tosses))   if tosses   else None,
+            'avg_contact': float(np.median(contacts)) if contacts else None,
+            'is_virtual': False,
+        }
+
+
 def check_level_consistency(result: dict) -> dict:
     """
     用黄金标准样本库对 Kimi 定级做一致性校验。
-    
-    校验维度：
-    1. 等级偏差：与同等级样本的平均分对比
-    2. 阶段分异常：某阶段分与同等级样本差距超过20分
-    3. 置信度过低：低于0.6时标记为不可靠
-    
+
+    - 实体等级（2.0/3.0/4.0/4.5/5.0/5.0+）：与同等级样本中位数对比
+    - 虚拟等级（2.5/3.5）：与相邻两等级合并后的中位数对比，动态计算
+
     Returns:
-        dict: 包含校验结果和警告信息
+        dict: {
+            'passed': bool,
+            'warnings': list[str],
+            'level_adjusted': str or None,
+            'sample_count': int,
+            'reference_score': float or None,  # 参照中位数总分
+            'is_virtual_level': bool,          # 是否为虚拟等级
+        }
     """
-    warnings = []
-    ntrp_level = result.get('ntrp_level', '3.0')
-    overall_score = result.get('overall_score', 50)
-    confidence = result.get('confidence', 0.5)
-    phase_analysis = result.get('phase_analysis', {})
-    
+    ntrp_level   = result.get('ntrp_level', '3.0')
+    overall_score = result.get('overall_score', 0)
+    confidence   = result.get('confidence', 0)
+    phases       = result.get('phase_analysis', {})
+
+    warnings      = []
+    level_adjusted = None
+
+    # ── 置信度过低 ──────────────────────────────────────────
+    if confidence < 0.6:
+        warnings.append(f"置信度偏低（{confidence:.0%}），定级结果仅供参考")
+
     try:
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
-        
-        # 1. 检查同等级样本的平均分
-        avg_row = conn.execute("""
-            SELECT AVG(overall_score) as avg_score, COUNT(*) as cnt
-            FROM gold_standard_samples
-            WHERE level = ? AND status = 'active'
-        """, (ntrp_level,)).fetchone()
-        
-        if avg_row and avg_row['cnt'] > 0:
-            avg_score = avg_row['avg_score']
-            score_diff = abs(overall_score - avg_score)
-            
-            # 如果偏差超过15分，发出警告
-            if score_diff > 15:
-                warnings.append(
-                    f"总分异常：{overall_score}分，"
-                    f"同等级{ntrp_level}样本平均{avg_score:.1f}分，"
-                    f"偏差{score_diff:.1f}分"
-                )
-        
-        # 2. 检查阶段分异常
-        phase_scores = {}
-        for phase_key in ['ready', 'toss', 'loading', 'contact', 'follow']:
-            phase_data = phase_analysis.get(phase_key, {})
-            if isinstance(phase_data, dict):
-                phase_scores[phase_key] = phase_data.get('score', 50)
-        
-        if phase_scores:
-            # 查询同等级样本的阶段平均分
-            for phase_key, score in phase_scores.items():
-                avg_phase_row = conn.execute(f"""
-                    SELECT AVG(
-                        CASE 
-                            WHEN json_extract(phase_analysis, '$.{phase_key}.score') IS NOT NULL
-                            THEN json_extract(phase_analysis, '$.{phase_key}.score')
-                            ELSE 50
-                        END
-                    ) as avg_phase_score
-                    FROM gold_standard_samples
-                    WHERE level = ? AND status = 'active'
-                """, (ntrp_level,)).fetchone()
-                
-                if avg_phase_row and avg_phase_row['avg_phase_score']:
-                    avg_phase = avg_phase_row['avg_phase_score']
-                    phase_diff = abs(score - avg_phase)
-                    
-                    if phase_diff > 20:
-                        warnings.append(
-                            f"阶段分异常：{phase_key}={score}分，"
-                            f"同等级平均{avg_phase:.1f}分，"
-                            f"偏差{phase_diff:.1f}分"
-                        )
-        
+
+        stats = _get_level_stats(conn, ntrp_level)
         conn.close()
-        
+
+        sample_count   = stats['sample_count']
+        avg_score      = stats['avg_score']
+        avg_loading    = stats['avg_loading']
+        is_virtual     = stats['is_virtual']
+
+        # 虚拟等级日志
+        if is_virtual and 'composed_from' in stats:
+            print(f"  [一致性校验] 虚拟等级 {ntrp_level}，参照来源：{stats['composed_from']}")
+
+        min_samples = 2 if is_virtual else 2
+
+        if sample_count < min_samples:
+            warnings.append(
+                f"{ntrp_level}级参考样本不足（{sample_count}条），跳过一致性校验"
+            )
+            return {
+                'passed': True,
+                'warnings': warnings,
+                'level_adjusted': None,
+                'sample_count': sample_count,
+                'reference_score': None,
+                'is_virtual_level': is_virtual,
+            }
+
+        # ── 总分偏差校验 ────────────────────────────────────
+        score_diff = overall_score - avg_score
+        if abs(score_diff) > 15:
+            direction = '偏高' if score_diff > 0 else '偏低'
+            ref_type  = '相邻等级中位数' if is_virtual else '同等级样本中位数'
+            warnings.append(
+                f"总分{direction}：本次{overall_score}分，"
+                f"{ref_type}{avg_score:.0f}分，差距{abs(score_diff):.0f}分"
+            )
+
+            # 偏差超过20分时建议调整等级
+            if score_diff > 20 and ntrp_level in LEVEL_ORDER:
+                idx = LEVEL_ORDER.index(ntrp_level)
+                if idx < len(LEVEL_ORDER) - 1:
+                    level_adjusted = LEVEL_ORDER[idx + 1]
+                    warnings.append(f"建议复核是否应为 {level_adjusted} 级")
+            elif score_diff < -20 and ntrp_level in LEVEL_ORDER:
+                idx = LEVEL_ORDER.index(ntrp_level)
+                if idx > 0:
+                    level_adjusted = LEVEL_ORDER[idx - 1]
+                    warnings.append(f"建议复核是否应为 {level_adjusted} 级")
+
+        # ── 蓄力阶段分校验（等级分水岭）──────────────────────
+        loading_score = phases.get('loading', {}).get('score', 0)
+        if avg_loading and abs(loading_score - avg_loading) > 20:
+            direction = '偏高' if loading_score > avg_loading else '偏低'
+            warnings.append(
+                f"蓄力阶段分{direction}：本次{loading_score}，"
+                f"参照中位数{avg_loading:.0f}，差距{abs(loading_score - avg_loading):.0f}"
+            )
+
     except Exception as e:
-        print(f"[一致性校验] 查询样本库失败: {e}")
-    
-    # 3. 检查置信度
-    if confidence < 0.6:
-        warnings.append(f"置信度过低：{confidence:.2f}，建议人工复核")
-    
+        print(f"  ⚠ 一致性校验失败（不影响主流程）: {e}")
+        import traceback
+        traceback.print_exc()
+        sample_count = 0
+        avg_score    = None
+        is_virtual   = ntrp_level in VIRTUAL_LEVELS
+
+    passed = len([w for w in warnings if '建议复核' in w]) == 0
+
     return {
-        'level': ntrp_level,
-        'score': overall_score,
-        'confidence': confidence,
+        'passed': passed,
         'warnings': warnings,
-        'is_consistent': len(warnings) == 0
+        'level_adjusted': level_adjusted,
+        'sample_count': sample_count,
+        'reference_score': avg_score if 'avg_score' in dir() else None,
+        'is_virtual_level': is_virtual if 'is_virtual' in dir() else ntrp_level in VIRTUAL_LEVELS,
     }
 
 def _parse_json_robust(content: str) -> dict:
