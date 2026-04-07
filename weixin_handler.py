@@ -187,7 +187,7 @@ if __name__ == '__main__':
     
     if args.video:
         # 直接分析本地视频
-        result = analyze_video(args.video, args.user_id)
+        result = analyze_video_complete(args.video, args.user_id)
         print(result['report'])
     else:
         print("用法: python3 weixin_handler.py --video <视频路径>")

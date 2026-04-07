@@ -49,6 +49,151 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+
+def _parse_json_robust(content: str) -> dict:
+    """
+    鲁棒 JSON 解析，按优先级依次尝试四种策略：
+    策略1: 直接解析（Kimi 输出标准 JSON 时走这里，最快）
+    策略2: 提取 markdown 代码块（处理 ```json ... ``` 场景）
+    策略3: 提取第一个完整 JSON 对象（处理 Extra data 场景）
+    策略4: 截断修复（处理 max_tokens 截断场景）
+    策略5: 宽松提取（最后兜底）
+    Raises:
+        ValueError: 四种策略均失败时抛出，附带原始响应片段用于调试
+    """
+    import re
+    content = content.strip()
+    
+    # ── 策略1: 直接解析 ──────────────────────────────────────
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        pass
+    
+    # ── 策略2: 提取 markdown 代码块 ──────────────────────────
+    # 处理 Kimi 在 JSON 外包了 ```json ... ``` 的情况
+    code_block_patterns = [
+        r'```json\s*(\{[\s\S]*?\})\s*```',  # ```json ... ```
+        r'```\s*(\{[\s\S]*?\})\s*```',      # ``` ... ```
+    ]
+    for pattern in code_block_patterns:
+        match = re.search(pattern, content, re.DOTALL)
+        if match:
+            try:
+                return json.loads(match.group(1))
+            except json.JSONDecodeError:
+                pass
+    
+    # ── 策略3: 提取第一个完整 JSON 对象 ──────────────────────
+    # 找到第一个 { 的位置，然后用括号计数找到配对的 }
+    # 解决 "Extra data" 问题：Kimi 在 JSON 后面追加了解释文字
+    brace_start = content.find('{')
+    if brace_start != -1:
+        depth = 0
+        in_string = False
+        escape_next = False
+        for i, ch in enumerate(content[brace_start:], start=brace_start):
+            if escape_next:
+                escape_next = False
+                continue
+            if ch == '\\' and in_string:
+                escape_next = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if not in_string:
+                if ch == '{':
+                    depth += 1
+                elif ch == '}':
+                    depth -= 1
+                    if depth == 0:
+                        # 找到了配对的 }
+                        try:
+                            return json.loads(content[brace_start:i+1])
+                        except json.JSONDecodeError:
+                            pass
+                        break
+    
+    # ── 策略4: 截断修复 ──────────────────────────────────────
+    # 处理 max_tokens 截断场景：JSON 在最后一个字段处被截断
+    # 找到最后一个完整的字段，然后补全 JSON
+    truncated_patterns = [
+        # 在字符串值中间截断: "key": "value...
+        (r'("\w+":\s*"[^"]*)(?:[^"}]*)$', r'\1"}'),
+        # 在数字值后面截断: "key": 123...
+        (r'("\w+":\s*\d+)(?:[^\d}]*)$', r'\1}'),
+        # 在数组/对象中间截断
+        (r'("\w+":\s*\[[^\]]*)(?:[^\]]*)$', r'\1]}'),
+        (r'("\w+":\s*\{[^}]*)(?:[^}]*)$', r'\1}}'),
+    ]
+    
+    for pattern, replacement in truncated_patterns:
+        fixed = re.sub(pattern, replacement, content, flags=re.MULTILINE)
+        if fixed != content:
+            try:
+                return json.loads(fixed)
+            except json.JSONDecodeError:
+                pass
+    
+    # ── 策略5: 宽松提取（最后兜底）───────────────────────────
+    # 使用更宽松的模式，尝试提取任何看起来像 JSON 对象的内容
+    json_like_pattern = r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}'
+    matches = re.findall(json_like_pattern, content, re.DOTALL)
+    for match in matches:
+        try:
+            return json.loads(match)
+        except json.JSONDecodeError:
+            continue
+    
+    # 所有策略都失败
+    raise ValueError(f"无法解析 JSON，已尝试5种策略。原始内容前500字: {content[:500]}")
+
+
+def _call_kimi_with_retry(client, file_id, user_text=None, max_retries=3, base_delay=5):
+    """调用 Kimi API，失败自动重试"""
+    last_error = None
+    for attempt in range(max_retries + 1):
+        if attempt > 0:
+            wait = base_delay * attempt
+            print(f"[重试] 第{attempt}次重试，等待{wait}秒... (上次错误: {last_error})")
+            time.sleep(wait)
+        
+        try:
+            response = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": [
+                        {"type": "video_url", "video_url": {"url": f"ms://{file_id}"}},
+                        {"type": "text", "text": f"""请严格按照三步分析法分析这段网球发球视频：
+
+第一步（逐帧观察）：逐阶段描述你看到的具体动作，每个阶段覆盖系统提示中的所有锚点，看不清的写"不可见"。
+第二步（标准对照）：将观察结果与三位教练标准对照，明确每个锚点的达标/不达标情况。
+第三步（输出JSON）：基于前两步推导，填写最终JSON，不得跳过前两步直接给出结论。
+
+{user_text or ''}
+
+只输出JSON，不含任何其他内容。"""}
+                    ]}
+                ],
+                temperature=1,
+                max_tokens=6000,
+                timeout=300
+            )
+            content = response.choices[0].message.content
+            return _parse_json_robust(content)
+                
+        except ValueError:
+            raise
+        except Exception as e:
+            last_error = str(e)
+            if attempt == max_retries:
+                raise RuntimeError(f"Kimi API 调用失败，已重试{max_retries}次。最后错误: {last_error}")
+            continue
+    
+    raise RuntimeError("不应到达此处")
+
 def save_clip_pose_results(clip_id, pose_data, metrics):
     """保存姿态分析结果"""
     try:
@@ -397,48 +542,14 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         print("\n[4/8] Kimi K2.5 视觉分析...")
         mp_formatted = format_for_kimi(mp_result['metrics'], mp_result['data_quality']) if mp_result else None
         
-        # 构建消息（使用正确的视频格式）
-        messages = [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": [
-                {"type": "video_url", "video_url": {"url": f"ms://{file_object.id}"}},
-                {"type": "text", "text": mp_formatted or "请分析这个网球发球视频"}
-            ]}
-        ]
-        
-        response = client.chat.completions.create(
-            model=MODEL_NAME,
-            messages=messages,
-            temperature=1,
-            max_tokens=4000
+        # 使用 _call_kimi_with_retry 调用Kimi API
+        analysis_result = _call_kimi_with_retry(
+            client, 
+            file_object.id, 
+            user_text=mp_formatted,
+            max_retries=3,
+            base_delay=5
         )
-        
-        # 解析结果
-        result_text = response.choices[0].message.content
-        # 提取 JSON - 使用更健壮的解析
-        import re
-        try:
-            # 尝试直接解析整个响应
-            analysis_result = json.loads(result_text)
-        except json.JSONDecodeError:
-            # 尝试提取JSON块
-            json_match = re.search(r'\{[\s\S]*\}', result_text)
-            if json_match:
-                try:
-                    analysis_result = json.loads(json_match.group())
-                except json.JSONDecodeError as e:
-                    # 尝试修复常见的JSON错误
-                    json_str = json_match.group()
-                    # 移除可能的注释
-                    json_str = re.sub(r'//.*?\n', '\n', json_str)
-                    json_str = re.sub(r'/\*.*?\*/', '', json_str, flags=re.DOTALL)
-                    # 尝试再次解析
-                    try:
-                        analysis_result = json.loads(json_str)
-                    except:
-                        raise ValueError(f"JSON解析失败: {e}")
-            else:
-                raise ValueError("无法从响应中提取JSON")
         
         print("  ✓ Kimi 分析完成")
         
