@@ -8,8 +8,12 @@ import os
 import sys
 import json
 import logging
+import threading
 from datetime import datetime
 from flask import Flask, request, jsonify
+
+# 全局信号量，限制最大并发数为3
+semaphore = threading.Semaphore(3)
 
 # 设置日志
 logging.basicConfig(
@@ -37,12 +41,22 @@ def health():
 @app.route('/wechat/video', methods=['POST'])
 def handle_video():
     """处理微信视频消息"""
+    # 检查并发限制
+    if not semaphore.acquire(blocking=False):
+        logger.warning("[Webhook] 分析队列已满，拒绝新请求")
+        return jsonify({
+            'status': 'busy',
+            'message': '分析队列已满，请稍后重试',
+            'timestamp': datetime.now().isoformat()
+        }), 429
+    
     try:
         # 获取请求数据
         data = request.get_json() or request.form.to_dict()
         
         logger.info("[Webhook] 收到视频消息: %s", data.get('FromUserName', 'unknown'))
         logger.info("[Webhook] VideoUrl: %s...", data.get('VideoUrl', 'N/A')[:60])
+        logger.info("[Webhook] 当前并发数: %d/3", 3 - semaphore._value)
         
         # 调用处理器
         result = handle_weixin_message(data)
@@ -64,6 +78,10 @@ def handle_video():
             'error': str(e),
             'timestamp': datetime.now().isoformat()
         }), 500
+    finally:
+        # 释放信号量
+        semaphore.release()
+        logger.info("[Webhook] 释放信号量，当前并发数: %d/3", 3 - semaphore._value)
 
 @app.route('/wechat/message', methods=['POST'])
 def handle_message():
