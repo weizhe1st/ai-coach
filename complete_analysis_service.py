@@ -415,13 +415,30 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         
         # 解析结果
         result_text = response.choices[0].message.content
-        # 提取 JSON
+        # 提取 JSON - 使用更健壮的解析
         import re
-        json_match = re.search(r'\{[\s\S]*\}', result_text)
-        if json_match:
-            analysis_result = json.loads(json_match.group())
-        else:
-            raise ValueError("无法解析分析结果")
+        try:
+            # 尝试直接解析整个响应
+            analysis_result = json.loads(result_text)
+        except json.JSONDecodeError:
+            # 尝试提取JSON块
+            json_match = re.search(r'\{[\s\S]*\}', result_text)
+            if json_match:
+                try:
+                    analysis_result = json.loads(json_match.group())
+                except json.JSONDecodeError as e:
+                    # 尝试修复常见的JSON错误
+                    json_str = json_match.group()
+                    # 移除可能的注释
+                    json_str = re.sub(r'//.*?\n', '\n', json_str)
+                    json_str = re.sub(r'/\*.*?\*/', '', json_str, flags=re.DOTALL)
+                    # 尝试再次解析
+                    try:
+                        analysis_result = json.loads(json_str)
+                    except:
+                        raise ValueError(f"JSON解析失败: {e}")
+            else:
+                raise ValueError("无法从响应中提取JSON")
         
         print("  ✓ Kimi 分析完成")
         
