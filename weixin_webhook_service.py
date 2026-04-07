@@ -99,7 +99,7 @@ if __name__ == '__main__':
         sys.exit(1)
     logger.info("[Init] MOONSHOT_API_KEY 已配置")
     
-    port = int(os.environ.get('WEBHOOK_PORT', 5002))
+    port = int(os.environ.get('WEBHOOK_PORT', 5003))
     
     print("="*60)
     print("微信视频分析 Webhook 服务")
