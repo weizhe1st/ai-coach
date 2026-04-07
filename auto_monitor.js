@@ -9,9 +9,17 @@ require('dotenv').config();
 const Database = require('better-sqlite3');
 const { spawn } = require('child_process');
 const path = require('path');
+const chokidar = require('chokidar');
+const fs = require('fs');
 
 const dbPath = process.env.DB_PATH || '/data/db/xiaolongxia_learning.db';
 const db = new Database(dbPath);
+
+// 文件系统监控配置
+const INBOUND_DIR = '/root/.openclaw/media/inbound';
+const WATCH_EXTENSIONS = ['.mp4', '.mov', '.avi', '.mkv'];
+let fileWatcher = null;
+let processedFiles = new Set(); // 内存中记录已处理的文件
 
 // 导入微信发送模块
 let wechatSender;
@@ -95,6 +103,140 @@ function updateDeliveryTask(deliveryId, status, error) {
 
 function markUploadProcessed(uploadId) {
   db.prepare('UPDATE video_uploads SET processed = 1 WHERE upload_id = ?').run(uploadId);
+}
+
+// ---------------------------------------------------------------------------
+// 文件系统监控功能
+// ---------------------------------------------------------------------------
+
+/**
+ * 检查文件是否已存在于 video_uploads 表中
+ * 通过文件名匹配检查
+ */
+function isFileAlreadyRecorded(fileName) {
+  try {
+    const result = db.prepare('SELECT COUNT(*) as count FROM video_uploads WHERE file_name = ?').get(fileName);
+    return result && result.count > 0;
+  } catch (error) {
+    console.error('❌ 检查文件记录失败:', error.message);
+    return false;
+  }
+}
+
+/**
+ * 从本地文件路径创建视频上传记录
+ * 视频URL使用本地文件路径，后续处理流程会上传到COS
+ */
+function recordLocalVideo(filePath) {
+  const fileName = path.basename(filePath);
+  const uploadId = 'fs:' + fileName;
+  
+  // 检查是否已存在
+  if (isFileAlreadyRecorded(fileName)) {
+    console.log('⏭️ 文件已存在，跳过:', fileName);
+    return null;
+  }
+  
+  // 检查内存中是否已处理（防止重复触发）
+  if (processedFiles.has(fileName)) {
+    console.log('⏭️ 文件正在处理中，跳过:', fileName);
+    return null;
+  }
+  
+  try {
+    // 使用本地文件路径作为 video_url（后续处理流程会上传到COS）
+    const videoUrl = 'file://' + filePath;
+    
+    db.prepare('INSERT OR IGNORE INTO video_uploads (upload_id, channel, message_id, video_url, file_name, processed) VALUES (?, ?, ?, ?, ?, ?)')
+      .run(uploadId, 'weixin', null, videoUrl, fileName, 0);
+    
+    processedFiles.add(fileName);
+    console.log('✅ 新视频已记录:', fileName);
+    return uploadId;
+  } catch (error) {
+    console.error('❌ 记录本地视频失败:', error.message);
+    return null;
+  }
+}
+
+/**
+ * 启动文件系统监控
+ * 监控 /root/.openclaw/media/inbound/ 目录下的视频文件
+ */
+function startFileWatcher() {
+  if (fileWatcher) {
+    console.log('⚠️ 文件监控已在运行');
+    return;
+  }
+  
+  console.log('👁️ 启动文件系统监控:', INBOUND_DIR);
+  console.log('   监控扩展名:', WATCH_EXTENSIONS.join(', '));
+  
+  // 确保目录存在
+  if (!fs.existsSync(INBOUND_DIR)) {
+    console.error('❌ 监控目录不存在:', INBOUND_DIR);
+    return;
+  }
+  
+  // 初始化已处理文件集合（从数据库加载）
+  const existingFiles = db.prepare('SELECT file_name FROM video_uploads WHERE channel = ?').all('weixin');
+  existingFiles.forEach(row => processedFiles.add(row.file_name));
+  console.log('   已加载', processedFiles.size, '个历史文件记录');
+  
+  // 创建监控器
+  const watchPattern = path.join(INBOUND_DIR, '*');
+  fileWatcher = chokidar.watch(watchPattern, {
+    persistent: true,
+    ignoreInitial: false, // 启动时处理已存在的文件
+    awaitWriteFinish: {
+      stabilityThreshold: 2000, // 等待文件写入完成（2秒）
+      pollInterval: 100
+    },
+    depth: 0
+  });
+  
+  // 文件添加事件
+  fileWatcher.on('add', (filePath) => {
+    const ext = path.extname(filePath).toLowerCase();
+    if (!WATCH_EXTENSIONS.includes(ext)) {
+      return; // 跳过非视频文件
+    }
+    
+    console.log('\n🎬 发现新视频文件:', path.basename(filePath));
+    const uploadId = recordLocalVideo(filePath);
+    if (uploadId) {
+      console.log('   已创建上传记录:', uploadId);
+    }
+  });
+  
+  // 文件修改事件（可选，主要用于大文件分段写入）
+  fileWatcher.on('change', (filePath) => {
+    // 文件修改通常不需要处理，chokidar 的 awaitWriteFinish 已经处理了写入完成检测
+    console.log('📝 文件修改:', path.basename(filePath));
+  });
+  
+  // 错误处理
+  fileWatcher.on('error', (error) => {
+    console.error('❌ 文件监控错误:', error.message);
+  });
+  
+  // 就绪事件
+  fileWatcher.on('ready', () => {
+    console.log('✅ 文件监控已就绪，正在监听:', INBOUND_DIR);
+  });
+  
+  console.log('✅ 文件系统监控已启动');
+}
+
+/**
+ * 停止文件系统监控
+ */
+function stopFileWatcher() {
+  if (fileWatcher) {
+    fileWatcher.close();
+    fileWatcher = null;
+    console.log('🛑 文件监控已停止');
+  }
 }
 
 async function processAnalysisTask(task) {
@@ -244,7 +386,13 @@ function startMonitoring(intervalMs) {
   console.log('   使用 MediaPipe 0.10+ 分析');
   console.log('   应用杨超教练知识点评估');
   console.log('   报告发送: 微信机器人');
+  console.log('   文件监控: 已启用');
   initTables();
+  
+  // 启动文件系统监控
+  startFileWatcher();
+  
+  // 启动数据库监控
   monitor();
   setInterval(monitor, intervalMs);
   console.log('✅ 监控系统已启动');
@@ -318,4 +466,15 @@ if (require.main === module) {
   }
 }
 
-module.exports = { initTables, recordUpload, createAnalysisTask, createDeliveryTask, addVideo, startMonitoring, monitor };
+module.exports = { 
+  initTables, 
+  recordUpload, 
+  createAnalysisTask, 
+  createDeliveryTask, 
+  addVideo, 
+  startMonitoring, 
+  monitor,
+  startFileWatcher,
+  stopFileWatcher,
+  recordLocalVideo
+};
