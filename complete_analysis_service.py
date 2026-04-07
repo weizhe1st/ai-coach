@@ -229,35 +229,56 @@ def query_unified_knowledge(level, phase, issue_tags):
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # 查询相关知识点（使用 coach_knowledge 表）
-        # 根据 issue_tags 匹配知识点
+        # 关键词映射表 - 将常见描述映射到知识库中的关键词
+        keyword_mapping = {
+            '膝盖蓄力': ['膝盖', '蓄力', '弯曲', '重心', 'loading', '奖杯'],
+            '抛球': ['抛球', 'toss', '释放', '落点'],
+            '奖杯姿势': ['奖杯', 'trophy', '肘部', '肩膀', 'loading'],
+            '旋内': ['旋内', 'pron', '包裹', '刷球', 'contact'],
+            '随挥': ['随挥', 'follow', '收拍', 'follow-through'],
+            '击球点': ['击球点', 'contact', '高度', '最高点'],
+            '握拍': ['握拍', 'grip', '大陆式'],
+            '重心': ['重心', '平衡', '转移', '蹬地']
+        }
+        
         results = []
         for tag in issue_tags:
             tag_str = tag if isinstance(tag, str) else str(tag)
-            cursor.execute('''
-                SELECT coach_name, knowledge_type, title, summary, 
-                       key_elements, common_errors, correction_method
-                FROM coach_knowledge
-                WHERE summary LIKE ? OR title LIKE ? OR key_elements LIKE ?
-                ORDER BY quality_grade DESC, confidence DESC
-                LIMIT 3
-            ''', (f'%{tag_str}%', f'%{tag_str}%', f'%{tag_str}%'))
             
-            for row in cursor.fetchall():
-                content = f"{row['title']}：{row['summary']}"
-                if row['key_elements']:
-                    content += f"\n关键要素：{row['key_elements']}"
-                if row['common_errors']:
-                    content += f"\n常见错误：{row['common_errors']}"
-                if row['correction_method']:
-                    content += f"\n纠正方法：{row['correction_method']}"
+            # 扩展搜索关键词
+            search_terms = [tag_str]
+            for key, synonyms in keyword_mapping.items():
+                if key in tag_str:
+                    search_terms.extend(synonyms)
+            
+            # 去重并限制数量
+            search_terms = list(set(search_terms))[:5]
+            
+            for term in search_terms:
+                cursor.execute('''
+                    SELECT coach_name, knowledge_type, title, summary, 
+                           key_elements, common_errors, correction_method
+                    FROM coach_knowledge
+                    WHERE summary LIKE ? OR title LIKE ? OR key_elements LIKE ?
+                    ORDER BY quality_grade DESC, confidence DESC
+                    LIMIT 2
+                ''', (f'%{term}%', f'%{term}%', f'%{term}%'))
                 
-                results.append({
-                    'coach': row['coach_name'],
-                    'phase': row['knowledge_type'],
-                    'content': content,
-                    'quality': 'A'
-                })
+                for row in cursor.fetchall():
+                    content = f"{row['title']}：{row['summary']}"
+                    if row['key_elements']:
+                        content += f"\n关键要素：{row['key_elements']}"
+                    if row['common_errors']:
+                        content += f"\n常见错误：{row['common_errors']}"
+                    if row['correction_method']:
+                        content += f"\n纠正方法：{row['correction_method']}"
+                    
+                    results.append({
+                        'coach': row['coach_name'],
+                        'phase': row['knowledge_type'],
+                        'content': content,
+                        'quality': 'A'
+                    })
         
         conn.close()
         # 去重
@@ -272,6 +293,8 @@ def query_unified_knowledge(level, phase, issue_tags):
         return unique_results[:10]  # 最多返回10条
     except Exception as e:
         print(f"  [知识库] 查询失败: {e}")
+        import traceback
+        traceback.print_exc()
         return []
 
 def query_similar_cases_from_db(level, limit=3):
