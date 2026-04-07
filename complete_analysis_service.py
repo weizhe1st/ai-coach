@@ -349,7 +349,7 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": [
-                {"type": "file", "file_url": {"url": file_object.id}},
+                {"type": "video_url", "video_url": {"url": f"ms://{file_object.id}"}},
                 {"type": "text", "text": mp_formatted or "请分析这个网球发球视频"}
             ]}
         ]
