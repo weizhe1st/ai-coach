@@ -14,8 +14,6 @@ from datetime import datetime
 from qcloud_cos import CosConfig, CosS3Client
 
 # COS配置
-COS_SECRET_ID = os.environ.get('COS_SECRET_ID', '')
-COS_SECRET_KEY = os.environ.get('COS_SECRET_KEY', '')
 COS_BUCKET = os.environ.get('COS_BUCKET', 'tennis-ai-1411340868')
 COS_REGION = os.environ.get('COS_REGION', 'ap-shanghai')
 COS_PREFIX = os.environ.get('COS_PREFIX', 'private-ai-learning/raw_videos')
@@ -24,20 +22,32 @@ COS_PREFIX = os.environ.get('COS_PREFIX', 'private-ai-learning/raw_videos')
 CALLBACK_SERVICE_URL = os.environ.get('CALLBACK_SERVICE_URL', 'http://122.152.207.136:5003/wechat/video')
 TASK_STATUS_URL = os.environ.get('TASK_STATUS_URL', 'http://122.152.207.136:5003/task/status')
 
-# 初始化COS客户端
-config = CosConfig(Region=COS_REGION, SecretId=COS_SECRET_ID, SecretKey=COS_SECRET_KEY)
-cos_client = CosS3Client(config)
+# COS客户端（延迟初始化）
+cos_client = None
+
+def get_cos_client():
+    """获取COS客户端（延迟初始化）"""
+    global cos_client
+    if cos_client is None:
+        secret_id = os.environ.get('COS_SECRET_ID', '')
+        secret_key = os.environ.get('COS_SECRET_KEY', '')
+        if not secret_id or not secret_key:
+            raise ValueError("COS_SECRET_ID 和 COS_SECRET_KEY 环境变量必须设置")
+        config = CosConfig(Region=COS_REGION, SecretId=secret_id, SecretKey=secret_key)
+        cos_client = CosS3Client(config)
+    return cos_client
 
 def upload_to_cos(local_path, file_name):
     """上传文件到腾讯云COS"""
     try:
+        client = get_cos_client()
         date = datetime.now().strftime("%Y-%m-%d")
         cos_key = f"{COS_PREFIX}/{date}/{int(datetime.now().timestamp())}_{file_name}"
-        
+
         print(f"上传到COS: {cos_key}")
-        
+
         with open(local_path, 'rb') as fp:
-            response = cos_client.put_object(
+            response = client.put_object(
                 Bucket=COS_BUCKET,
                 Body=fp,
                 Key=cos_key,
