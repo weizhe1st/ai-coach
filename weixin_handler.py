@@ -11,7 +11,7 @@ from pathlib import Path
 
 # 导入分析服务
 sys.path.insert(0, '/data/apps/xiaolongxia')
-from weixin_video_service import analyze_video
+from complete_analysis_service import analyze_video_complete
 
 def download_video_streaming(video_url, output_path, max_size_mb=100):
     """
@@ -110,7 +110,7 @@ def handle_weixin_message(message_data):
             if not os.path.exists(video_path):
                 return WAITING_PREFIX + "❌ 本地视频文件不存在"
             
-            result = analyze_video(video_path, user_id)
+            result = analyze_video_complete(video_path, user_id)
             if result['success']:
                 return WAITING_PREFIX + "─" * 20 + "\n" + result['report']
             else:
@@ -128,8 +128,8 @@ def handle_weixin_message(message_data):
             if not success:
                 return WAITING_PREFIX + f"❌ {msg}"
             
-            # 分析视频
-            result = analyze_video(video_path, user_id)
+            # 分析视频（完整版）
+            result = analyze_video_complete(video_path, user_id)
             
             if result['success']:
                 # 分析成功：在报告前加确认前缀
