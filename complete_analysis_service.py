@@ -418,15 +418,19 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         phases = analysis_result.get('phase_analysis', {})
         
         knowledge_results = {}
+        total_knowledge = 0
         for phase_name, phase_data in phases.items():
-            issue_tags = phase_data.get('issue_tags', [])
-            if issue_tags:
-                knowledge_results[phase_name] = query_unified_knowledge(ntrp_level, phase_name, issue_tags)
+            # 使用中文 issues 而不是英文 issue_tags
+            issues = phase_data.get('issues', [])
+            if issues:
+                knowledge_results[phase_name] = query_unified_knowledge(ntrp_level, phase_name, issues)
+                total_knowledge += len(knowledge_results[phase_name])
                 print(f"  [{phase_name}] 召回 {len(knowledge_results[phase_name])} 条知识点")
         
         # 添加到结果
         analysis_result['knowledge_recall'] = knowledge_results
-        analysis_result['knowledge_recall_count'] = sum(len(v) for v in knowledge_results.values())
+        analysis_result['knowledge_recall_count'] = total_knowledge
+        print(f"  ✓ 知识库查询完成，共 {total_knowledge} 条")
         
         # 7. 查询相似案例（黄金标准）
         print("\n[7/8] 查询黄金标准案例...")
