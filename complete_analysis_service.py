@@ -224,17 +224,20 @@ def update_video_analysis_task(task_id, status, result_data=None, error_msg=None
 # ═══════════════════════════════════════════════════════════════════
 
 def query_unified_knowledge(level, phase, issue_tags):
-    """查询统一知识库"""
+    """查询统一知识库 - 使用 coach_knowledge 表"""
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # 查询相关知识点
+        # 查询相关知识点（使用 coach_knowledge 表）
         cursor.execute('''
-            SELECT coach_name, phase, content, quality_grade
-            FROM unified_knowledge
+            SELECT coach_name, phase, content, 
+                   knee_angle_min, knee_angle_max,
+                   elbow_angle_min, elbow_angle_max,
+                   contact_height_ratio_min, contact_height_ratio_max
+            FROM coach_knowledge
             WHERE level = ? AND phase = ?
-            ORDER BY quality_grade DESC
+            ORDER BY created_at DESC
             LIMIT 5
         ''', (level, phase))
         
@@ -244,7 +247,12 @@ def query_unified_knowledge(level, phase, issue_tags):
                 'coach': row['coach_name'],
                 'phase': row['phase'],
                 'content': row['content'],
-                'quality': row['quality_grade']
+                'quality': 'A',
+                'metrics': {
+                    'knee_angle': (row['knee_angle_min'], row['knee_angle_max']),
+                    'elbow_angle': (row['elbow_angle_min'], row['elbow_angle_max']),
+                    'contact_height': (row['contact_height_ratio_min'], row['contact_height_ratio_max'])
+                }
             })
         
         conn.close()
@@ -254,27 +262,29 @@ def query_unified_knowledge(level, phase, issue_tags):
         return []
 
 def query_similar_cases_from_db(level, limit=3):
-    """从数据库查询相似案例"""
+    """从数据库查询相似案例 - 使用 gold_standard_samples 表"""
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
         
         # 查询黄金标准样本
         cursor.execute('''
-            SELECT id, level, description, features_json
+            SELECT id, level, video_path, overall_score, key_issues, analysis_result
             FROM gold_standard_samples
-            WHERE level = ?
+            WHERE level = ? AND status = 'active'
             ORDER BY created_at DESC
             LIMIT ?
         ''', (level, limit))
         
         results = []
         for row in cursor.fetchall():
+            key_issues = json.loads(row['key_issues']) if row['key_issues'] else []
             results.append({
                 'id': row['id'],
                 'level': row['level'],
-                'description': row['description'],
-                'features': json.loads(row['features_json']) if row['features_json'] else {}
+                'score': row['overall_score'],
+                'description': f"得分{row['overall_score']}，主要问题: {', '.join(key_issues[:2])}" if key_issues else f"黄金标准样本，得分{row['overall_score']}",
+                'features': {'key_issues': key_issues}
             })
         
         conn.close()
