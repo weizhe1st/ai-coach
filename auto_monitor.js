@@ -188,9 +188,15 @@ async function processVideoAnalysisTask(task) {
     updateVideoAnalysisTaskStatus(task.task_id, 'running');
     
     // 准备 webhook 数据（兼容 weixin_handler.py 格式）
+    // 检查本地文件是否存在，优先使用本地文件路径
+    const localFilePath = '/root/.openclaw/media/inbound/' + task.file_name;
+    const videoUrl = fs.existsSync(localFilePath) 
+      ? 'file://' + localFilePath  // 本地文件使用 file:// 协议
+      : task.cos_url;  // 否则使用 COS URL
+    
     const webhookData = {
       MsgType: 'video',
-      VideoUrl: task.cos_url,
+      VideoUrl: videoUrl,
       FromUserName: task.user_id || 'unknown',
       FileName: task.file_name,
       FileSizeMB: task.file_size_mb,
