@@ -325,7 +325,7 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         response = client.chat.completions.create(
             model=MODEL_NAME,
             messages=messages,
-            temperature=0.3,
+            temperature=1,
             max_tokens=4000
         )
         
@@ -404,7 +404,7 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         save_coach_style_report(clip_id, ntrp_level, coach_reports)
         
         # 生成完整报告
-        report = generate_complete_report(analysis_result, similar_cases, knowledge_results)
+        report = generate_complete_report(analysis_result, quality_info, knowledge_results, similar_cases)
         analysis_result['report'] = report
         
         # 更新任务状态
