@@ -187,8 +187,9 @@ async function processVideoAnalysisTask(task) {
     // 更新状态为 running，防止重复处理
     updateVideoAnalysisTaskStatus(task.task_id, 'running');
     
-    // 准备 webhook 数据
+    // 准备 webhook 数据（兼容 weixin_handler.py 格式）
     const webhookData = {
+      MsgType: 'video',
       VideoUrl: task.cos_url,
       FromUserName: task.user_id || 'unknown',
       FileName: task.file_name,
