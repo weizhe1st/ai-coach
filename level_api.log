@@ -11,3 +11,5 @@ WARNING: This is a development server. Do not use it in a production deployment.
 Press CTRL+C to quit
 127.0.0.1 - - [31/Mar/2026 07:41:22] "GET / HTTP/1.1" 200 -
 127.0.0.1 - - [31/Mar/2026 07:41:55] "POST /level/evaluate HTTP/1.1" 200 -
+127.0.0.1 - - [05/Apr/2026 13:38:18] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [05/Apr/2026 13:38:21] "GET /health HTTP/1.1" 200 -
