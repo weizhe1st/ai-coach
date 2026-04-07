@@ -508,8 +508,18 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         
         save_coach_style_report(clip_id, ntrp_level, coach_reports)
         
-        # 生成完整报告
-        report = generate_complete_report(analysis_result, quality_info, knowledge_results, similar_cases)
+        # 生成完整报告 - 转换知识库格式以兼容 generate_complete_report
+        # knowledge_results 是 {phase: [items]}，需要转换为 {phase: {coach: [items]}}
+        formatted_knowledge = {}
+        for phase, items in knowledge_results.items():
+            formatted_knowledge[phase] = {}
+            for item in items:
+                coach = item.get('coach', 'Unknown')
+                if coach not in formatted_knowledge[phase]:
+                    formatted_knowledge[phase][coach] = []
+                formatted_knowledge[phase][coach].append(item)
+        
+        report = generate_complete_report(analysis_result, quality_info, formatted_knowledge, similar_cases)
         analysis_result['report'] = report
         
         # 更新任务状态
