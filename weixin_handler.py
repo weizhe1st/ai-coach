@@ -111,10 +111,10 @@ def handle_weixin_message(message_data):
                 return WAITING_PREFIX + "❌ 本地视频文件不存在"
             
             result = analyze_video_complete(video_path, user_id)
-            if result['success']:
-                return WAITING_PREFIX + "─" * 20 + "\n" + result['report']
+            if result.get('success'):
+                return WAITING_PREFIX + "─" * 20 + "\n" + result.get('report', '分析完成，但报告生成失败')
             else:
-                return WAITING_PREFIX + result['report']
+                return WAITING_PREFIX + result.get('report', result.get('error', '分析失败'))
         
         # 下载视频（流式）
         video_path = None
@@ -133,9 +133,9 @@ def handle_weixin_message(message_data):
             
             if result['success']:
                 # 分析成功：在报告前加确认前缀
-                return WAITING_PREFIX + "─" * 20 + "\n" + result['report']
+                return WAITING_PREFIX + "─" * 20 + "\n" + result.get('report', '分析完成')
             else:
-                return WAITING_PREFIX + result['report']
+                return WAITING_PREFIX + result.get('report', result.get('error', '分析失败'))
                 
         except Exception as e:
             return WAITING_PREFIX + f"❌ 分析过程出错，请稍后重新发送视频\n错误信息：{str(e)}"
