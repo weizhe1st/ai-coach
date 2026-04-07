@@ -230,33 +230,46 @@ def query_unified_knowledge(level, phase, issue_tags):
         cursor = conn.cursor()
         
         # 查询相关知识点（使用 coach_knowledge 表）
-        cursor.execute('''
-            SELECT coach_name, phase, content, 
-                   knee_angle_min, knee_angle_max,
-                   elbow_angle_min, elbow_angle_max,
-                   contact_height_ratio_min, contact_height_ratio_max
-            FROM coach_knowledge
-            WHERE level = ? AND phase = ?
-            ORDER BY created_at DESC
-            LIMIT 5
-        ''', (level, phase))
-        
+        # 根据 issue_tags 匹配知识点
         results = []
-        for row in cursor.fetchall():
-            results.append({
-                'coach': row['coach_name'],
-                'phase': row['phase'],
-                'content': row['content'],
-                'quality': 'A',
-                'metrics': {
-                    'knee_angle': (row['knee_angle_min'], row['knee_angle_max']),
-                    'elbow_angle': (row['elbow_angle_min'], row['elbow_angle_max']),
-                    'contact_height': (row['contact_height_ratio_min'], row['contact_height_ratio_max'])
-                }
-            })
+        for tag in issue_tags:
+            tag_str = tag if isinstance(tag, str) else str(tag)
+            cursor.execute('''
+                SELECT coach_name, knowledge_type, title, summary, 
+                       key_elements, common_errors, correction_method
+                FROM coach_knowledge
+                WHERE summary LIKE ? OR title LIKE ? OR key_elements LIKE ?
+                ORDER BY quality_grade DESC, confidence DESC
+                LIMIT 3
+            ''', (f'%{tag_str}%', f'%{tag_str}%', f'%{tag_str}%'))
+            
+            for row in cursor.fetchall():
+                content = f"{row['title']}：{row['summary']}"
+                if row['key_elements']:
+                    content += f"\n关键要素：{row['key_elements']}"
+                if row['common_errors']:
+                    content += f"\n常见错误：{row['common_errors']}"
+                if row['correction_method']:
+                    content += f"\n纠正方法：{row['correction_method']}"
+                
+                results.append({
+                    'coach': row['coach_name'],
+                    'phase': row['knowledge_type'],
+                    'content': content,
+                    'quality': 'A'
+                })
         
         conn.close()
-        return results
+        # 去重
+        seen = set()
+        unique_results = []
+        for r in results:
+            key = (r['coach'], r['content'][:50])
+            if key not in seen:
+                seen.add(key)
+                unique_results.append(r)
+        
+        return unique_results[:10]  # 最多返回10条
     except Exception as e:
         print(f"  [知识库] 查询失败: {e}")
         return []
@@ -271,26 +284,36 @@ def query_similar_cases_from_db(level, limit=3):
         cursor.execute('''
             SELECT id, level, video_path, overall_score, key_issues, analysis_result
             FROM gold_standard_samples
-            WHERE level = ? AND status = 'active'
+            WHERE level = ?
             ORDER BY created_at DESC
             LIMIT ?
         ''', (level, limit))
         
         results = []
         for row in cursor.fetchall():
-            key_issues = json.loads(row['key_issues']) if row['key_issues'] else []
+            try:
+                key_issues = json.loads(row['key_issues']) if row['key_issues'] else []
+                if isinstance(key_issues, list):
+                    key_issues_str = ', '.join(str(k) for k in key_issues[:2])
+                else:
+                    key_issues_str = str(key_issues)
+            except:
+                key_issues_str = str(row['key_issues']) if row['key_issues'] else ''
+            
             results.append({
                 'id': row['id'],
                 'level': row['level'],
                 'score': row['overall_score'],
-                'description': f"得分{row['overall_score']}，主要问题: {', '.join(key_issues[:2])}" if key_issues else f"黄金标准样本，得分{row['overall_score']}",
-                'features': {'key_issues': key_issues}
+                'description': f"得分{row['overall_score']}，主要问题: {key_issues_str}" if key_issues_str else f"黄金标准样本，得分{row['overall_score']}",
+                'features': {'key_issues': key_issues if isinstance(key_issues, list) else []}
             })
         
         conn.close()
         return results
     except Exception as e:
         print(f"  [案例库] 查询失败: {e}")
+        import traceback
+        traceback.print_exc()
         return []
 
 # ═══════════════════════════════════════════════════════════════════
