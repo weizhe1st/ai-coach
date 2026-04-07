@@ -275,37 +275,33 @@ def query_unified_knowledge(level, phase, issue_tags):
         return []
 
 def query_similar_cases_from_db(level, limit=3):
-    """从数据库查询相似案例 - 使用 gold_standard_samples 表"""
+    """从数据库查询相似案例 - 使用 level_gold_standards 表"""
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
         
         # 查询黄金标准样本
         cursor.execute('''
-            SELECT id, level, video_path, overall_score, key_issues, analysis_result
-            FROM gold_standard_samples
+            SELECT id, level, description, reference_sample_id, sample_count, standards_json
+            FROM level_gold_standards
             WHERE level = ?
-            ORDER BY created_at DESC
+            ORDER BY sample_count DESC
             LIMIT ?
         ''', (level, limit))
         
         results = []
         for row in cursor.fetchall():
             try:
-                key_issues = json.loads(row['key_issues']) if row['key_issues'] else []
-                if isinstance(key_issues, list):
-                    key_issues_str = ', '.join(str(k) for k in key_issues[:2])
-                else:
-                    key_issues_str = str(key_issues)
+                standards = json.loads(row['standards_json']) if row['standards_json'] else {}
             except:
-                key_issues_str = str(row['key_issues']) if row['key_issues'] else ''
+                standards = {}
             
             results.append({
                 'id': row['id'],
                 'level': row['level'],
-                'score': row['overall_score'],
-                'description': f"得分{row['overall_score']}，主要问题: {key_issues_str}" if key_issues_str else f"黄金标准样本，得分{row['overall_score']}",
-                'features': {'key_issues': key_issues if isinstance(key_issues, list) else []}
+                'score': 75,  # 默认分数
+                'description': f"[{row['level']}级] {row['description']} (样本数: {row['sample_count']})",
+                'features': standards
             })
         
         conn.close()
