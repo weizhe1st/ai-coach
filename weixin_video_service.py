@@ -84,17 +84,24 @@ def issues_to_tags(issues: list) -> list:
     """
     将自然语言 issues 列表转换为知识库标准 tag 列表。
     同时保留原始文本，用于内容匹配兜底。
+    支持 issues 为字符串列表或 dict 列表（提取 description 字段）
     """
     tags = []
     for issue in issues:
-        if not isinstance(issue, str):
+        # 处理 dict 类型（提取 description 或 rule 字段）
+        if isinstance(issue, dict):
+            issue_text = issue.get('description', '') or issue.get('rule', '') or str(issue)
+        elif isinstance(issue, str):
+            issue_text = issue
+        else:
             continue
-        issue_lower = issue.lower()
+        
+        issue_lower = issue_text.lower()
         for keyword, tag in ISSUE_KEYWORD_TO_TAG.items():
             if keyword in issue_lower and tag not in tags:
                 tags.append(tag)
     # 如果没有匹配到任何 tag，返回原始文本列表（触发内容匹配兜底）
-    return tags if tags else issues
+    return tags if tags else [i if isinstance(i, str) else str(i) for i in issues]
 
 def recall_knowledge(phase, issue_tags, limit=2):
     """召回知识点"""
