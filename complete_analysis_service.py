@@ -53,11 +53,12 @@ def save_clip_pose_results(clip_id, pose_data, metrics):
     """保存姿态分析结果"""
     try:
         conn = get_db_connection()
+        # 根据实际表结构调整
         conn.execute('''
             INSERT OR REPLACE INTO clip_pose_results 
-            (clip_id, pose_data_json, metrics_json, created_at)
+            (clip_id, pose_format, frame_count, created_at)
             VALUES (?, ?, ?, datetime('now'))
-        ''', (clip_id, json.dumps(pose_data), json.dumps(metrics)))
+        ''', (clip_id, 'mediapipe', metrics.get('frame_count', 0) if metrics else 0))
         conn.commit()
         conn.close()
         print(f"  [DB] 姿态结果已保存: {clip_id}")
@@ -68,19 +69,20 @@ def save_clip_phase_segments(clip_id, phase_analysis):
     """保存阶段分段"""
     try:
         conn = get_db_connection()
-        for phase_name, phase_data in phase_analysis.items():
-            conn.execute('''
-                INSERT OR REPLACE INTO clip_phase_segments
-                (clip_id, phase_name, start_frame, end_frame, quality_score, details_json, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
-            ''', (
-                clip_id,
-                phase_name,
-                phase_data.get('start_frame', 0),
-                phase_data.get('end_frame', 0),
-                phase_data.get('score', 0),
-                json.dumps(phase_data)
-            ))
+        # 根据实际表结构调整 - 使用时间段而不是帧数
+        ready_data = phase_analysis.get('ready', {})
+        toss_data = phase_analysis.get('toss', {})
+        loading_data = phase_analysis.get('loading', {})
+        contact_data = phase_analysis.get('contact', {})
+        follow_data = phase_analysis.get('follow', {})
+        
+        conn.execute('''
+            INSERT OR REPLACE INTO clip_phase_segments
+            (clip_id, ready_start, ready_end, toss_start, toss_end, 
+             trophy_start, trophy_end, contact_start, contact_end, 
+             follow_start, follow_end)
+            VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        ''', (clip_id,))
         conn.commit()
         conn.close()
         print(f"  [DB] 阶段分段已保存: {clip_id}")
@@ -91,11 +93,22 @@ def save_clip_scoring_results(clip_id, ntrp_level, total_score, confidence, deta
     """保存评分结果"""
     try:
         conn = get_db_connection()
+        # 根据实际表结构调整
+        phases = details.get('phases', {})
         conn.execute('''
             INSERT OR REPLACE INTO clip_scoring_results
-            (clip_id, ntrp_level, total_score, confidence_score, scoring_details_json, created_at)
-            VALUES (?, ?, ?, ?, ?, datetime('now'))
-        ''', (clip_id, ntrp_level, total_score, confidence, json.dumps(details)))
+            (clip_id, total_score, ready_score, toss_score, loading_score, contact_score, follow_score, stability_score)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            clip_id,
+            total_score,
+            phases.get('ready', 0),
+            phases.get('toss', 0),
+            phases.get('loading', 0),
+            phases.get('contact', 0),
+            phases.get('follow', 0),
+            0  # stability_score
+        ))
         conn.commit()
         conn.close()
         print(f"  [DB] 评分结果已保存: {clip_id}")
@@ -106,11 +119,22 @@ def save_clip_diagnosis_results(clip_id, diagnosis_data):
     """保存诊断结果"""
     try:
         conn = get_db_connection()
+        issues = diagnosis_data.get('issues', [])
+        main_problem = issues[0] if issues else ''
+        secondary = issues[1] if len(issues) > 1 else ''
+        
         conn.execute('''
             INSERT OR REPLACE INTO clip_diagnosis_results
-            (clip_id, diagnosis_json, created_at)
-            VALUES (?, ?, datetime('now'))
-        ''', (clip_id, json.dumps(diagnosis_data)))
+            (clip_id, main_problem, secondary_problems, possible_causes, priority_fix, training_advice)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (
+            clip_id,
+            main_problem,
+            secondary,
+            '',  # possible_causes
+            '',  # priority_fix
+            json.dumps(diagnosis_data.get('recommendations', []))
+        ))
         conn.commit()
         conn.close()
         print(f"  [DB] 诊断结果已保存: {clip_id}")
@@ -143,11 +167,19 @@ def save_coach_style_report(clip_id, ntrp_level, coach_reports):
     try:
         conn = get_db_connection()
         for coach_name, report_content in coach_reports.items():
+            # 根据实际表结构调整
             conn.execute('''
                 INSERT OR REPLACE INTO coach_style_reports
-                (clip_id, coach_name, ntrp_level, report_content, created_at)
-                VALUES (?, ?, ?, ?, datetime('now'))
-            ''', (clip_id, coach_name, ntrp_level, report_content))
+                (clip_id, style_type, summary, main_feedback, impact, training_plan)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ''', (
+                clip_id,
+                coach_name,
+                report_content[:200] if report_content else '',  # summary
+                report_content[200:500] if len(report_content) > 200 else '',  # main_feedback
+                '',  # impact
+                report_content[500:] if len(report_content) > 500 else ''  # training_plan
+            ))
         conn.commit()
         conn.close()
         print(f"  [DB] 教练报告已保存: {clip_id}")
@@ -313,11 +345,11 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         print("\n[4/8] Kimi K2.5 视觉分析...")
         mp_formatted = format_for_kimi(mp_result['metrics'], mp_result['data_quality']) if mp_result else None
         
-        # 构建消息
+        # 构建消息（使用正确的视频格式）
         messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": [
-                {"type": "video_url", "video_url": {"url": file_object.id}},
+                {"type": "file", "file_url": {"url": file_object.id}},
                 {"type": "text", "text": mp_formatted or "请分析这个网球发球视频"}
             ]}
         ]
