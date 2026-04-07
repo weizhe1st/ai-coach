@@ -21,6 +21,12 @@ const WATCH_EXTENSIONS = ['.mp4', '.mov', '.avi', '.mkv'];
 let fileWatcher = null;
 let processedFiles = new Set(); // 内存中记录已处理的文件
 
+// Webhook 服务配置
+const WEBHOOK_URL = process.env.WEBHOOK_URL || 'http://127.0.0.1:5003/wechat/video';
+
+// HTTP 请求模块（用于调用 webhook）
+const http = require('http');
+
 // 导入微信发送模块
 let wechatSender;
 try {
@@ -81,6 +87,144 @@ function getQueuedAnalysisTasks() {
 
 function getQueuedDeliveryTasks() {
   return db.prepare('SELECT d.*, a.clip_id, a.file_name, a.video_url, a.source_user_id FROM delivery_tasks d JOIN analysis_tasks a ON d.task_id = a.task_id WHERE d.status = ? AND a.status = ? ORDER BY d.created_at ASC LIMIT 10').all('queued', 'completed');
+}
+
+// ---------------------------------------------------------------------------
+// video_analysis_tasks 表监控功能（新）
+// ---------------------------------------------------------------------------
+
+/**
+ * 获取待处理的 video_analysis_tasks 记录
+ * status = 'pending' 且未提交到 webhook 的任务
+ */
+function getPendingVideoAnalysisTasks() {
+  return db.prepare(`
+    SELECT t.id as task_id, t.video_id, t.analysis_status, 
+           v.user_id, v.cos_url, v.file_name, v.file_size_mb
+    FROM video_analysis_tasks t
+    JOIN videos v ON t.video_id = v.id
+    WHERE t.analysis_status = 'pending'
+    ORDER BY t.created_at ASC
+    LIMIT 10
+  `).all();
+}
+
+/**
+ * 更新 video_analysis_tasks 状态
+ * 注意: analysis_status 必须是 'pending', 'running', 'success', 'failed', 'low_quality' 之一
+ */
+function updateVideoAnalysisTaskStatus(taskId, status, failureReason = null) {
+  try {
+    if (status === 'running') {
+      db.prepare('UPDATE video_analysis_tasks SET analysis_status = ?, started_at = CURRENT_TIMESTAMP WHERE id = ?')
+        .run(status, taskId);
+    } else if (status === 'failed') {
+      db.prepare('UPDATE video_analysis_tasks SET analysis_status = ?, failure_reason = ?, finished_at = CURRENT_TIMESTAMP WHERE id = ?')
+        .run(status, failureReason, taskId);
+    } else {
+      db.prepare('UPDATE video_analysis_tasks SET analysis_status = ? WHERE id = ?')
+        .run(status, taskId);
+    }
+    return true;
+  } catch (error) {
+    console.error('❌ 更新任务状态失败:', error.message);
+    return false;
+  }
+}
+
+/**
+ * POST 数据到 Webhook 服务
+ */
+function postToWebhook(data) {
+  return new Promise((resolve, reject) => {
+    const postData = JSON.stringify(data);
+    const url = new URL(WEBHOOK_URL);
+    
+    const options = {
+      hostname: url.hostname,
+      port: url.port || 5003,
+      path: url.pathname,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+      }
+    };
+
+    const req = http.request(options, (res) => {
+      let responseData = '';
+      res.on('data', (chunk) => { responseData += chunk; });
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve({ success: true, statusCode: res.statusCode, data: responseData });
+        } else {
+          reject(new Error(`HTTP ${res.statusCode}: ${responseData}`));
+        }
+      });
+    });
+
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.write(postData);
+    req.end();
+  });
+}
+
+/**
+ * 处理单个 video_analysis_task
+ * 调用 webhook 并更新状态
+ */
+async function processVideoAnalysisTask(task) {
+  console.log('\n🎬 处理视频分析任务:', task.task_id);
+  console.log('   视频ID:', task.video_id);
+  console.log('   文件名:', task.file_name);
+  console.log('   用户ID:', task.user_id);
+  console.log('   调用 Webhook:', WEBHOOK_URL);
+
+  try {
+    // 更新状态为 running，防止重复处理
+    updateVideoAnalysisTaskStatus(task.task_id, 'running');
+    
+    // 准备 webhook 数据
+    const webhookData = {
+      VideoUrl: task.cos_url,
+      FromUserName: task.user_id || 'unknown',
+      FileName: task.file_name,
+      FileSizeMB: task.file_size_mb,
+      VideoId: task.video_id,
+      TaskId: task.task_id
+    };
+    
+    console.log('   POST 数据:', JSON.stringify(webhookData, null, 2));
+    
+    // 调用 webhook
+    const result = await postToWebhook(webhookData);
+    console.log('   ✅ Webhook 调用成功:', result.statusCode);
+    console.log('   响应:', result.data.substring(0, 200));
+    
+    return true;
+  } catch (error) {
+    console.error('   ❌ Webhook 调用失败:', error.message);
+    // 更新状态为 failed
+    updateVideoAnalysisTaskStatus(task.task_id, 'failed', error.message);
+    return false;
+  }
+}
+
+/**
+ * 处理所有待处理的 video_analysis_tasks
+ */
+async function processPendingVideoAnalysisTasks() {
+  const tasks = getPendingVideoAnalysisTasks();
+  if (tasks.length === 0) return;
+  
+  console.log('\n📹 发现', tasks.length, '个待处理视频分析任务');
+  
+  for (const task of tasks) {
+    await processVideoAnalysisTask(task);
+  }
 }
 
 function updateAnalysisTask(taskId, status, clipId, error) {
@@ -360,8 +504,16 @@ async function monitor() {
   console.log('🔍 监控检查', new Date().toISOString());
   console.log('   MediaPipe 0.10+ + 杨超教练知识点');
   console.log('   报告发送: 微信机器人');
+  console.log('   Webhook:', WEBHOOK_URL);
   console.log('='.repeat(60));
+  
+  // 1. 处理 video_uploads 表（原有逻辑，向后兼容）
   await processNewUploads();
+  
+  // 2. 处理 video_analysis_tasks 表（新增逻辑）
+  await processPendingVideoAnalysisTasks();
+  
+  // 3. 处理 analysis_tasks 表（原有逻辑）
   const analysisTasks = getQueuedAnalysisTasks();
   if (analysisTasks.length > 0) {
     console.log('\n📊 发现', analysisTasks.length, '个待分析任务');
@@ -369,6 +521,8 @@ async function monitor() {
       await processAnalysisTask(task);
     }
   }
+  
+  // 4. 处理投递任务（原有逻辑）
   const deliveryTasks = getQueuedDeliveryTasks();
   if (deliveryTasks.length > 0) {
     console.log('\n📤 发现', deliveryTasks.length, '个待投递任务');
@@ -387,6 +541,7 @@ function startMonitoring(intervalMs) {
   console.log('   应用杨超教练知识点评估');
   console.log('   报告发送: 微信机器人');
   console.log('   文件监控: 已启用');
+  console.log('   Webhook:', WEBHOOK_URL);
   initTables();
   
   // 启动文件系统监控
@@ -476,5 +631,10 @@ module.exports = {
   monitor,
   startFileWatcher,
   stopFileWatcher,
-  recordLocalVideo
+  recordLocalVideo,
+  processPendingVideoAnalysisTasks,
+  processVideoAnalysisTask,
+  getPendingVideoAnalysisTasks,
+  updateVideoAnalysisTaskStatus,
+  postToWebhook
 };
