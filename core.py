@@ -9,7 +9,8 @@ import numpy as np
 
 PROMPT_VERSION = 'v3.0_structured_observation'
 KNOWLEDGE_BASE_VERSION = 'v5.0_3coaches_169items'
-MODEL_NAME = 'kimi-k2.5'
+MODEL_NAME = 'qwen-vl-max'
+MODEL_PROVIDER = 'qwen'  # 'qwen' 或 'kimi'，用于切换逻辑
 
 SYSTEM_PROMPT = """你是一个专业的网球发球分析系统。你将收到一段网球发球视频，请严格按照"三步分析法"完成分析。
 

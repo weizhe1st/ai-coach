@@ -33,11 +33,20 @@ from mediapipe_helper import (
 
 # 配置
 MOONSHOT_API_KEY = os.environ.get('MOONSHOT_API_KEY', '')
+DASHSCOPE_API_KEY = os.environ.get('DASHSCOPE_API_KEY', '')
 DB_PATH = '/data/db/xiaolongxia_learning.db'
 COS_BUCKET = 'tennis-ai-1411340868'
 COS_REGION = 'ap-shanghai'
 
-client = OpenAI(api_key=MOONSHOT_API_KEY, base_url="https://api.moonshot.cn/v1")
+# 根据模型提供商初始化 client
+from core import MODEL_PROVIDER
+if MODEL_PROVIDER == 'qwen':
+    _api_key = DASHSCOPE_API_KEY
+    _base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+else:
+    _api_key = MOONSHOT_API_KEY
+    _base_url = "https://api.moonshot.cn/v1"
+client = OpenAI(api_key=_api_key, base_url=_base_url)
 
 # ═══════════════════════════════════════════════════════════════════
 # 数据库操作函数
@@ -209,6 +218,49 @@ def save_clip_pose_results(clip_id, pose_data, metrics):
         print(f"  [DB] 姿态结果已保存: {clip_id}")
     except Exception as e:
         print(f"  [DB] 姿态结果保存失败: {e}")
+
+def _get_cos_url_for_video(video_path: str, task_id: str = None) -> str:
+    """
+    根据 video_path 或 task_id 获取对应的 COS URL。
+    优先从数据库的 video_analysis_tasks + videos 表查询。
+    """
+    # 方式1：从数据库查询（task_id 已知时）
+    if task_id:
+        try:
+            conn = get_db_connection()
+            row = conn.execute('''
+                SELECT v.cos_url
+                FROM video_analysis_tasks t
+                JOIN videos v ON t.video_id = v.id
+                WHERE t.id = ?
+            ''', (task_id,)).fetchone()
+            conn.close()
+            if row and row['cos_url']:
+                return row['cos_url']
+        except Exception as e:
+            print(f"  ⚠ 数据库查询COS URL失败: {e}")
+    
+    # 方式2：从数据库按文件名查询
+    file_name = os.path.basename(video_path)
+    try:
+        conn = get_db_connection()
+        row = conn.execute('''
+            SELECT cos_url FROM videos
+            WHERE file_name = ?
+            ORDER BY created_at DESC
+            LIMIT 1
+        ''', (file_name,)).fetchone()
+        conn.close()
+        if row and row['cos_url']:
+            return row['cos_url']
+    except Exception as e:
+        print(f"  ⚠ 按文件名查询COS URL失败: {e}")
+    
+    # 方式3：构造COS URL（兜底）
+    file_name = os.path.basename(video_path)
+    cos_url = f"https://{COS_BUCKET}.cos.{COS_REGION}.myqcloud.com/private-ai-learning/raw_videos/{datetime.now().strftime('%Y-%m-%d')}/{file_name}"
+    print(f"  ⚠ 使用构造的COS URL: {cos_url[:60]}...")
+    return cos_url
 
 def save_clip_phase_segments(clip_id, phase_analysis):
     """保存阶段分段"""
@@ -533,25 +585,56 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
             except Exception as e:
                 print(f"  ⚠ MediaPipe 失败: {e}")
         
-        # 3. 上传视频到 Kimi
-        print("\n[3/8] 上传视频到 Moonshot...")
-        file_object = client.files.create(file=Path(video_path), purpose="video")
-        print(f"  ✓ 上传成功: {file_object.id}")
-        
-        # 4. Kimi 视觉分析
-        print("\n[4/8] Kimi K2.5 视觉分析...")
+        # 3+4. 视觉分析（Qwen-VL 直接用 COS URL，无需上传）
+        print("\n[3/8] 准备视频输入...")
         mp_formatted = format_for_kimi(mp_result['metrics'], mp_result['data_quality']) if mp_result else None
         
-        # 使用 _call_kimi_with_retry 调用Kimi API
-        analysis_result = _call_kimi_with_retry(
-            client, 
-            file_object.id, 
-            user_text=mp_formatted,
-            max_retries=3,
-            base_delay=5
+        # 构建 user message 文本（三步分析法指引 + MediaPipe 数据）
+        user_text = f"""请严格按照三步分析法分析这段网球发球视频：
+第一步（逐帧观察）：逐阶段描述你看到的具体动作，每个阶段覆盖系统提示中的所有锚点，看不清的写"不可见"。
+第二步（标准对照）：将观察结果与三位教练标准对照，明确每个锚点的达标/不达标情况。
+第三步（输出JSON）：基于前两步推导，填写最终JSON，不得跳过前两步直接给出结论。
+{mp_formatted or ''}
+只输出JSON，不含任何其他内容。"""
+        
+        # 根据提供商选择视频传入方式
+        if MODEL_PROVIDER == 'qwen':
+            # Qwen-VL：直接传 COS URL（视频已在 COS 上）
+            # 从 task_id 或 video_path 推断 COS URL
+            cos_url = _get_cos_url_for_video(video_path, task_id)
+            print(f"\n[4/8] Qwen-VL 视觉分析（COS URL）...")
+            print(f"  视频URL: {cos_url[:60]}...")
+            video_content = {"type": "video_url", "video_url": {"url": cos_url}}
+            file_object = None  # Qwen-VL 不需要上传
+        else:
+            # Kimi：先上传文件
+            print(f"\n[3/8] 上传视频到 Moonshot...")
+            file_object = client.files.create(file=Path(video_path), purpose="video")
+            print(f"  ✓ 上传成功: {file_object.id}")
+            print(f"\n[4/8] Kimi K2.5 视觉分析...")
+            video_content = {"type": "video_url", "video_url": {"url": f"ms://{file_object.id}"}}
+        
+        # 构建消息
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": [
+                video_content,
+                {"type": "text", "text": user_text}
+            ]}
+        ]
+        
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=messages,
+            temperature=1,
+            max_tokens=6000
         )
         
-        print("  ✓ Kimi 分析完成")
+        # 解析结果
+        result_text = response.choices[0].message.content
+        analysis_result = _parse_json_robust(result_text)
+        
+        print(f"  ✓ {MODEL_PROVIDER.upper()} 分析完成")
         
         # 5. 整合 MediaPipe 结果
         print("\n[5/8] 整合量化指标...")
