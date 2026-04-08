@@ -1,0 +1,61 @@
+{
+  "summary": {
+    "total_videos": 2,
+    "chain_success_rate": "2/2",
+    "delivery_success_rate": "2/2",
+    "average_subjective_score": 7.5,
+    "type_a_count": 1,
+    "type_b_count": 1,
+    "type_c_count": 0,
+    "type_d_count": 0
+  },
+  "recommendation": "系统表现良好，建议继续小范围真实试用",
+  "records": [
+    {
+      "video_name": "test_serve_01.mp4",
+      "video_type": "A",
+      "task_id": "task_20260408_001",
+      "upload_time": "2026-04-08 15:00:00",
+      "chain_success": true,
+      "delivery_success": true,
+      "overall_score": 78,
+      "subjective_score": 7,
+      "hit_gold_standard": true,
+      "hit_knowledge_base": true,
+      "key_issues": [
+        "抛球偏右约15cm",
+        "膝盖蓄力角度约140度"
+      ],
+      "training_suggestions": [
+        "对墙抛球练习",
+        "深蹲练习"
+      ],
+      "your_judgment": "抛球确实偏右，膝盖弯曲不足",
+      "system_judgment_summary": "指出抛球和膝盖问题，建议合理",
+      "notes": "结果基本符合预期",
+      "tested_at": "2026-04-08T15:10:03.305527"
+    },
+    {
+      "video_name": "test_serve_02.mp4",
+      "video_type": "B",
+      "task_id": "task_20260408_002",
+      "upload_time": "2026-04-08 15:05:00",
+      "chain_success": true,
+      "delivery_success": true,
+      "overall_score": 85,
+      "subjective_score": 8,
+      "hit_gold_standard": true,
+      "hit_knowledge_base": false,
+      "key_issues": [
+        "随挥可以更完整"
+      ],
+      "training_suggestions": [
+        "注意收拍动作"
+      ],
+      "your_judgment": "动作比较标准，小建议合理",
+      "system_judgment_summary": "评分合理，建议有针对性",
+      "notes": "标准视频处理得当",
+      "tested_at": "2026-04-08T15:10:03.305540"
+    }
+  ]
+}

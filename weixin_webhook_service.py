@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 """
-微信视频分析 Webhook 服务
-包装 weixin_handler.py 提供HTTP接口
+微信视频分析 Webhook 服务 - 异步版本
+只接收请求，创建任务，立即返回
 """
 
 import os
 import sys
 import json
 import logging
-import threading
 from datetime import datetime
 from flask import Flask, request, jsonify
-
-# 全局信号量，限制最大并发数为3
-semaphore = threading.Semaphore(3)
 
 # 设置日志
 logging.basicConfig(
@@ -28,40 +24,35 @@ from weixin_handler import handle_weixin_message
 
 app = Flask(__name__)
 
+
 @app.route('/health', methods=['GET'])
 def health():
     """健康检查"""
     return jsonify({
         'status': 'ok',
         'service': 'weixin-webhook-service',
-        'version': '1.0',
+        'version': '2.0-async',
         'timestamp': datetime.now().isoformat()
     })
 
+
 @app.route('/wechat/video', methods=['POST'])
 def handle_video():
-    """处理微信视频消息"""
-    # 检查并发限制
-    if not semaphore.acquire(blocking=False):
-        logger.warning("[Webhook] 分析队列已满，拒绝新请求")
-        return jsonify({
-            'status': 'busy',
-            'message': '分析队列已满，请稍后重试',
-            'timestamp': datetime.now().isoformat()
-        }), 429
-    
+    """
+    处理微信视频消息 - 异步版本
+    只创建任务，不执行分析
+    """
     try:
         # 获取请求数据
         data = request.get_json() or request.form.to_dict()
         
         logger.info("[Webhook] 收到视频消息: %s", data.get('FromUserName', 'unknown'))
         logger.info("[Webhook] VideoUrl: %s...", data.get('VideoUrl', 'N/A')[:60])
-        logger.info("[Webhook] 当前并发数: %d/3", 3 - semaphore._value)
         
-        # 调用处理器
+        # 调用处理器 - 只创建任务，不等待分析
         result = handle_weixin_message(data)
         
-        logger.info("[Webhook] 处理完成，返回结果长度: %d", len(result))
+        logger.info("[Webhook] 任务已创建，返回受理结果")
         
         return jsonify({
             'success': True,
@@ -78,10 +69,7 @@ def handle_video():
             'error': str(e),
             'timestamp': datetime.now().isoformat()
         }), 500
-    finally:
-        # 释放信号量
-        semaphore.release()
-        logger.info("[Webhook] 释放信号量，当前并发数: %d/3", 3 - semaphore._value)
+
 
 @app.route('/wechat/message', methods=['POST'])
 def handle_message():
@@ -110,6 +98,33 @@ def handle_message():
             'error': str(e)
         }), 500
 
+
+@app.route('/task/status/<task_id>', methods=['GET'])
+def get_task_status(task_id):
+    """查询任务状态"""
+    try:
+        from task_service import get_task_status
+        
+        status = get_task_status(task_id)
+        if status:
+            return jsonify({
+                'success': True,
+                'task': status
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': '任务不存在'
+            }), 404
+            
+    except Exception as e:
+        logger.error("[Webhook] 查询任务失败: %s", e)
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 if __name__ == '__main__':
     # 检查API密钥环境变量
     if not os.environ.get('MOONSHOT_API_KEY'):
@@ -120,11 +135,12 @@ if __name__ == '__main__':
     port = int(os.environ.get('WEBHOOK_PORT', 5003))
     
     print("="*60)
-    print("微信视频分析 Webhook 服务")
+    print("微信视频分析 Webhook 服务 (异步版本)")
     print("="*60)
     print("端口: %d" % port)
     print("接口: POST /wechat/video")
     print("健康: GET  /health")
+    print("状态: GET  /task/status/<task_id>")
     print("="*60)
     
     app.run(host='0.0.0.0', port=port, debug=False, threaded=True)

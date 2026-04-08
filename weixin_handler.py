@@ -1,88 +1,23 @@
 #!/usr/bin/env python3
 """
-微信消息处理器 - 接收用户上传的视频并返回分析报告
+微信消息处理器 - 异步版本
+只负责任务创建，不执行分析
 """
 
-import os
 import sys
-import json
-import tempfile
-from pathlib import Path
-
-# 导入分析服务
 sys.path.insert(0, '/data/apps/xiaolongxia')
-from complete_analysis_service import analyze_video_complete
 
-def download_video_streaming(video_url, output_path, max_size_mb=100):
-    """
-    流式下载视频，避免大文件占用内存
-    
-    Args:
-        video_url: 视频URL
-        output_path: 输出文件路径
-        max_size_mb: 最大文件大小(MB)
-    
-    Returns:
-        (bool, str): (是否成功, 消息)
-    """
-    import requests
-    
-    try:
-        print(f"[下载] 开始下载: {video_url[:60]}...")
-        
-        # 设置 headers
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.0'
-        }
-        
-        response = requests.get(video_url, headers=headers, stream=True, timeout=60)
-        print(f"[下载] HTTP状态码: {response.status_code}")
-        
-        if response.status_code != 200:
-            return False, f"HTTP错误: {response.status_code}"
-        
-        # 检查Content-Length
-        content_length = response.headers.get('Content-Length')
-        if content_length:
-            size_mb = int(content_length) / (1024 * 1024)
-            print(f"[下载] 文件大小: {size_mb:.2f} MB")
-            if size_mb > max_size_mb:
-                return False, f"视频过大 ({size_mb:.1f}MB)"
-        
-        # 流式写入文件
-        downloaded_size = 0
-        max_size_bytes = max_size_mb * 1024 * 1024
-        
-        with open(output_path, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk:
-                    downloaded_size += len(chunk)
-                    if downloaded_size > max_size_bytes:
-                        return False, f"视频过大，超过{max_size_mb}MB限制"
-                    f.write(chunk)
-        
-        # 验证文件
-        if os.path.exists(output_path):
-            file_size = os.path.getsize(output_path)
-            print(f"[下载] 成功: {output_path}, 大小: {file_size/1024:.2f}KB")
-            return True, "下载成功"
-        else:
-            return False, "文件未创建"
-        
-    except requests.exceptions.Timeout:
-        return False, "下载超时"
-    except requests.exceptions.ConnectionError:
-        return False, "连接失败"
-    except Exception as e:
-        print(f"[下载] 错误: {e}")
-        import traceback
-        traceback.print_exc()
-        return False, f"下载失败: {str(e)}"
+from task_status_service import TaskStatusService
+from task_repository import init_task_table
+
+# 初始化任务表
+init_task_table()
 
 
 def handle_weixin_message(message_data):
     """
-    处理微信消息
+    处理微信消息 - 异步版本
+    只创建任务，不执行分析
     
     Args:
         message_data: 微信消息数据
@@ -92,6 +27,7 @@ def handle_weixin_message(message_data):
     """
     msg_type = message_data.get('MsgType', '')
     user_id = message_data.get('FromUserName', '')
+    message_id = message_data.get('MsgId', '')
     
     # 处理视频消息
     if msg_type == 'video':
@@ -100,52 +36,33 @@ def handle_weixin_message(message_data):
         if not video_url:
             return "❌ 无法获取视频，请重新上传"
         
-        # 即时确认前缀（同步模式下拼在结果前面，让用户知道系统收到了）
-        WAITING_PREFIX = "🎾 收到！正在分析你的发球视频，请稍候…\n（通常需要30-60秒）\n\n"
-        
-        # 检查是否是本地文件路径（测试模式）
-        if video_url.startswith('file://'):
-            # 本地文件直接分析
-            video_path = video_url[7:]  # 去掉 file:// 前缀
-            if not os.path.exists(video_path):
-                return WAITING_PREFIX + "❌ 本地视频文件不存在"
-            
-            result = analyze_video_complete(video_path, user_id)
-            if result.get('success'):
-                return WAITING_PREFIX + "─" * 20 + "\n" + result.get('report', '分析完成，但报告生成失败')
-            else:
-                return WAITING_PREFIX + result.get('report', result.get('error', '分析失败'))
-        
-        # 下载视频（流式）
-        video_path = None
-        need_cleanup = False
         try:
-            with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as f:
-                video_path = f.name
-                need_cleanup = True
+            # 创建任务
+            payload = {
+                "channel": "wechat",
+                "user_id": user_id,
+                "message_id": message_id,
+                "source_type": "wechat_temp_url",
+                "source_url": video_url
+            }
             
-            success, msg = download_video_streaming(video_url, video_path)
-            if not success:
-                return WAITING_PREFIX + f"❌ {msg}"
+            result = TaskStatusService.create_video_analysis_task(payload)
+            task_id = result['task_id']
             
-            # 分析视频（完整版）
-            result = analyze_video_complete(video_path, user_id)
+            print(f"[WeixinHandler] 任务已创建: {task_id}, 用户: {user_id}")
             
-            if result['success']:
-                # 分析成功：在报告前加确认前缀
-                return WAITING_PREFIX + "─" * 20 + "\n" + result.get('report', '分析完成')
-            else:
-                return WAITING_PREFIX + result.get('report', result.get('error', '分析失败'))
-                
+            # 立即返回受理消息
+            return f"""🎾 视频已接收！
+
+任务ID：{task_id}
+状态：正在进入分析队列
+
+系统正在分析你的发球视频，请稍后查看结果。
+分析通常需要 1-3 分钟，完成后会推送报告。"""
+            
         except Exception as e:
-            return WAITING_PREFIX + f"❌ 分析过程出错，请稍后重新发送视频\n错误信息：{str(e)}"
-        finally:
-            # 清理临时文件
-            if need_cleanup and video_path and os.path.exists(video_path):
-                try:
-                    os.unlink(video_path)
-                except Exception:
-                    pass
+            print(f"[WeixinHandler] 创建任务失败: {e}")
+            return f"❌ 任务创建失败，请稍后重试"
     
     # 处理文本消息
     elif msg_type == 'text':
@@ -169,11 +86,30 @@ def handle_weixin_message(message_data):
 
 开始上传你的发球视频吧！"""
         
+        # 查询任务状态
+        if content.startswith('查询'):
+            task_id = content.replace('查询', '').strip()
+            if task_id:
+                status = TaskStatusService.get_task_status(task_id)
+                if status:
+                    return f"""📋 任务状态查询
+
+任务ID：{status['task_id']}
+状态：{status['status']}
+创建时间：{status['created_at']}
+开始时间：{status.get('started_at', '未开始')}
+完成时间：{status.get('finished_at', '未完成')}
+
+NTRP等级: {status.get('ntrp_level', '待评估')} | 总分: {status.get('overall_score', '待评分')}"""
+                else:
+                    return "❌ 任务不存在"
+        
         return "请上传你的网球发球视频，我将为你分析技术动作！"
     
     # 其他消息类型
     else:
         return "请上传视频文件，目前仅支持视频分析"
+
 
 # 命令行测试入口
 if __name__ == '__main__':
@@ -186,8 +122,15 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     if args.video:
-        # 直接分析本地视频
-        result = analyze_video_complete(args.video, args.user_id)
-        print(result['report'])
+        # 模拟微信消息
+        message_data = {
+            'MsgType': 'video',
+            'FromUserName': args.user_id,
+            'MsgId': 'test_msg_001',
+            'VideoUrl': f'file://{args.video}'
+        }
+        
+        result = handle_weixin_message(message_data)
+        print(result)
     else:
         print("用法: python3 weixin_handler.py --video <视频路径>")

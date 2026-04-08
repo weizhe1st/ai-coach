@@ -30,6 +30,8 @@ from mediapipe_helper import (
     format_for_kimi,
     MEDIAPIPE_ENABLED
 )
+from analysis_normalizer import normalize_analysis_result
+from analysis_repository import analysis_repository
 
 # 配置
 MOONSHOT_API_KEY = os.environ.get('MOONSHOT_API_KEY', '')
@@ -384,7 +386,7 @@ def save_coach_style_report(clip_id, ntrp_level, coach_reports):
         print(f"  [DB] 教练报告保存失败: {e}")
 
 def update_video_analysis_task(task_id, status, result_data=None, error_msg=None):
-    """更新视频分析任务状态"""
+    """更新视频分析任务状态（旧接口，保留兼容）"""
     try:
         conn = get_db_connection()
         if status == 'success':
@@ -413,6 +415,54 @@ def update_video_analysis_task(task_id, status, result_data=None, error_msg=None
         conn.commit()
         conn.close()
         print(f"  [DB] 任务状态已更新: {task_id} -> {status}")
+    except Exception as e:
+        print(f"  [DB] 任务状态更新失败: {e}")
+
+
+def update_video_analysis_task_with_normalized(task_id, status, raw_result=None, normalized_result=None, error_msg=None):
+    """更新视频分析任务状态（第四步标准接口）
+    
+    同时保存 raw_result 和 normalized_result，业务字段只从 normalized_result 读取
+    """
+    try:
+        conn = get_db_connection()
+        if status == 'success':
+            # 业务字段只从 normalized_result 读取
+            ntrp_level = normalized_result.get('ntrp_level') if normalized_result else None
+            overall_score = normalized_result.get('overall_score') if normalized_result else None
+            confidence = normalized_result.get('confidence') if normalized_result else None
+            analysis_status = normalized_result.get('analysis_status') if normalized_result else None
+            
+            conn.execute('''
+                UPDATE video_analysis_tasks
+                SET analysis_status = ?,
+                    raw_result_json = ?,
+                    normalized_result_json = ?,
+                    ntrp_level = ?,
+                    overall_score = ?,
+                    ntrp_confidence = ?,
+                    finished_at = datetime('now')
+                WHERE id = ?
+            ''', (
+                analysis_status or 'success',
+                json.dumps(raw_result) if raw_result else None,
+                json.dumps(normalized_result) if normalized_result else None,
+                ntrp_level,
+                overall_score,
+                confidence,
+                task_id
+            ))
+        elif status == 'failed':
+            conn.execute('''
+                UPDATE video_analysis_tasks
+                SET analysis_status = 'failed',
+                    failure_reason = ?,
+                    finished_at = datetime('now')
+                WHERE id = ?
+            ''', (error_msg, task_id))
+        conn.commit()
+        conn.close()
+        print(f"  [DB] 任务状态已更新(标准化): {task_id} -> {status}")
     except Exception as e:
         print(f"  [DB] 任务状态更新失败: {e}")
 
@@ -642,10 +692,27 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
             analysis_result = enhance_vision_result_with_mediapipe(analysis_result, mp_result)
             print("  ✓ 指标整合完成")
         
-        # 6. 查询知识库
+        # 5.5 标准化结果（第四步核心）
+        print("\n[5.5/8] 标准化分析结果...")
+        raw_result = analysis_result  # 保留原始结果
+        model_meta = {
+            "provider": MODEL_PROVIDER,
+            "model": MODEL_NAME,
+            "latency_ms": 0
+        }
+        normalize_output = normalize_analysis_result(raw_result, model_meta)
+        normalized_result = normalize_output["normalized_result"]
+        normalization_warnings = normalize_output.get("warnings", [])
+        mapping_trace = normalize_output.get("mapping_trace", {})
+        
+        if normalization_warnings:
+            print(f"  ⚠ 标准化警告: {len(normalization_warnings)} 条")
+        print("  ✓ 标准化完成")
+        
+        # 6. 查询知识库（使用标准化结果）
         print("\n[6/8] 查询教练知识库...")
-        ntrp_level = analysis_result.get('ntrp_level', '3.0')
-        phases = analysis_result.get('phase_analysis', {})
+        ntrp_level = normalized_result.get('ntrp_level', '3.0')
+        phases = normalized_result.get('phase_analysis', {})
         
         knowledge_results = {}
         total_knowledge = 0
@@ -657,32 +724,32 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
                 total_knowledge += len(knowledge_results[phase_name])
                 print(f"  [{phase_name}] 召回 {len(knowledge_results[phase_name])} 条知识点")
         
-        # 添加到结果
-        analysis_result['knowledge_recall'] = knowledge_results
-        analysis_result['knowledge_recall_count'] = total_knowledge
+        # 添加到标准化结果
+        normalized_result['knowledge_recall'] = knowledge_results
+        normalized_result['knowledge_recall_count'] = total_knowledge
         print(f"  ✓ 知识库查询完成，共 {total_knowledge} 条")
         
         # 7. 查询相似案例（黄金标准）
         print("\n[7/8] 查询黄金标准案例...")
         similar_cases = query_similar_cases_from_db(ntrp_level, limit=3)
-        analysis_result['similar_cases'] = similar_cases
+        normalized_result['similar_cases'] = similar_cases
         print(f"  ✓ 找到 {len(similar_cases)} 个相似案例")
         
         # 8. 生成报告并保存到数据库
         print("\n[8/8] 生成报告并保存...")
         
-        # 保存阶段分段
+        # 保存阶段分段（使用标准化结果）
         save_clip_phase_segments(clip_id, phases)
         
-        # 保存评分结果
-        total_score = analysis_result.get('total_score', 0)
-        confidence = analysis_result.get('confidence', 0.75)
-        save_clip_scoring_results(clip_id, ntrp_level, total_score, confidence, analysis_result.get('scoring_details', {}))
+        # 保存评分结果（使用标准化结果）
+        overall_score = normalized_result.get('overall_score', 0)
+        confidence = normalized_result.get('confidence', 0.75)
+        save_clip_scoring_results(clip_id, ntrp_level, overall_score, confidence, {})
         
-        # 保存诊断结果
+        # 保存诊断结果（使用标准化结果）
         diagnosis = {
-            'issues': analysis_result.get('critical_issues', []),
-            'recommendations': analysis_result.get('recommendations', [])
+            'issues': normalized_result.get('key_issues', []),
+            'recommendations': normalized_result.get('training_plan', [])
         }
         save_clip_diagnosis_results(clip_id, diagnosis)
         
@@ -702,7 +769,7 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         
         save_coach_style_report(clip_id, ntrp_level, coach_reports)
         
-        # 生成完整报告 - 转换知识库格式以兼容 generate_complete_report
+        # 生成完整报告 - 使用标准化结果
         # knowledge_results 是 {phase: [items]}，需要转换为 {phase: {coach: [items]}}
         formatted_knowledge = {}
         for phase, items in knowledge_results.items():
@@ -713,12 +780,31 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
                     formatted_knowledge[phase][coach] = []
                 formatted_knowledge[phase][coach].append(item)
         
-        report = generate_complete_report(analysis_result, quality_info, formatted_knowledge, similar_cases)
-        analysis_result['report'] = report
+        # 第五步：生成报告（带版本号）
+        report = generate_complete_report(
+            normalized_result, 
+            quality_info, 
+            formatted_knowledge, 
+            similar_cases,
+            report_version='v1'
+        )
+        normalized_result['report_text'] = report
         
-        # 更新任务状态
+        # 第五步：使用 Repository 保存三层数据（raw_result, normalized_result, report_text）
         if task_id:
-            update_video_analysis_task(task_id, 'success', analysis_result)
+            # 使用新的 Repository 接口（第五步核心）
+            saved = analysis_repository.save_analysis_artifacts(
+                task_id=task_id,
+                raw_result=raw_result,
+                normalized_result=normalized_result,
+                report_text=report,
+                report_version='v1'
+            )
+            if saved:
+                print(f"  ✓ 分析结果已保存到 Repository")
+            else:
+                print(f"  ⚠ Repository 保存失败，回退到旧接口")
+                update_video_analysis_task_with_normalized(task_id, 'success', raw_result, normalized_result)
         
         # 清理 Kimi 文件
         try:
@@ -730,19 +816,22 @@ def analyze_video_complete(video_path, user_id=None, task_id=None):
         print(f"\n{'='*60}")
         print(f"✅ 分析完成!")
         print(f"   NTRP等级: {ntrp_level}")
-        print(f"   总分: {total_score}")
+        print(f"   总分: {overall_score}")
         print(f"   置信度: {confidence}")
         print(f"   ClipID: {clip_id}")
         print(f"{'='*60}\n")
         
+        # 第五步：返回完整结果（包含 task_id 用于后续查询）
         return {
             'success': True,
+            'task_id': task_id,
             'clip_id': clip_id,
             'ntrp_level': ntrp_level,
-            'total_score': total_score,
+            'overall_score': overall_score,
             'confidence': confidence,
             'report': report,
-            'analysis_result': analysis_result
+            'raw_result': raw_result,
+            'normalized_result': normalized_result
         }
         
     except Exception as e:
